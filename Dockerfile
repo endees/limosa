@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk add php php-curl curl bash php-phar php-openssl php-iconv php-mbstring php-zip
+RUN apk add php php-curl curl bash php-phar php-openssl php-iconv php-mbstring php-zip php-session php-tokenizer
 
 WORKDIR "/var/www/html/limosa"
 

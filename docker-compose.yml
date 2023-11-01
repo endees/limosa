@@ -1,14 +1,23 @@
-# To execute this docker-compose yml file use `docker-compose -f docker-compose-v3-beta-channel.yml up`
-# Add the `-d` flag at the end for detached execution
-# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-v3-beta-channel.yml down`
 version: "3"
 services:
   limosa:
-    build: .
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+      args:
+          USER: $USER
+          UID: $USER_ID
+    ports:
+        - 80:80
+        - 443:443
+        - 9003:9003
     volumes:
-      - .:/var/www/html/limosa
+      - .:/var/www/html/
+    user: "${UID}"
     depends_on:
       - selenium-hub
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
     networks:
       hub:
   chrome:
