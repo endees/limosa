@@ -19,6 +19,6 @@ Route::get('/', function () {
 
 Route::get('/form', function () {
     return view('form');
-});
+})->name('form');
 
 Route::post('/form/register', 'App\Http\Controllers\LimosaController@register')->name('form.register');
