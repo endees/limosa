@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DataFormRequest;
 use App\Models\Registrar;
 use Illuminate\Routing\Controller as BaseController;
 
 class LimosaController extends BaseController
 {
-    public function __construct(private readonly Registrar $registrar)
-    {
+    protected array $parameters;
+
+    public function __construct(
+        private readonly Registrar $registrar
+    ) {
     }
 
-    public function register()
+    public function register(DataFormRequest $request)
     {
-        $data = $this->registrar->register();
+        $formData = $request->all();
+        $formData = array_merge($formData, [
+            'password' => 'm@tTorp3da'
+        ]);
+
+        $data = $this->registrar->register($formData);
         return view('success', $data);
     }
 }

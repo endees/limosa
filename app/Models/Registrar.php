@@ -10,65 +10,55 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class Registrar
 {
-    public function register(): array
+    public function register($formData): array
     {
         $data = [];
-        // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
-        $host = 'http://selenium-hub:4444/wd/hub';
+        $host = env('SELENIUM_HOST');
         $capabilities = DesiredCapabilities::firefox();
         $driver = RemoteWebDriver::create($host, $capabilities);
+        $driver->get('https://www.international.socialsecurity.be/working_in_belgium/en/home.html');
+        $driver->takeScreenshot('landing.png');
 
-        // navigate to Selenium page on Wikipedia
-        $driver->get('https://en.wikipedia.org/wiki/Selenium_(software)');
-
-        // write 'PHP' in the search box
-        $driver->findElement(WebDriverBy::id('searchInput')) // find search input element
-        ->sendKeys('PHP') // fill the search box
-        ->submit(); // submit the whole form
-
-        // wait until 'PHP' is shown in the page heading element
+        //todo does not find an element
         $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextContains(WebDriverBy::id('firstHeading'), 'PHP')
+            WebDriverExpectedCondition::elementTextContains(WebDriverBy::cssSelector('#intro h1 small'), 'Welcome to')
         );
 
-        // print title of the current page to output
-        $data['title'][] = $driver->getTitle();
-        // print URL of current page to output
-        $data['current_uri'][] = $driver->getCurrentURL();
+        $driver->findElement(WebDriverBy::linkText('Limosa - Mandatory declaration'))->click();
 
-        // find element of 'History' item in menu
-        $historyButton = $driver->findElement(
-            WebDriverBy::cssSelector('#ca-history a')
-        );
-
-        // read text of the element and print it to output
-        $data['text_of_element'] = $historyButton->getText() . "'\n";
-
-        // click the element to navigate to revision history page
-        $historyButton->click();
-
-        // wait until the target page is loaded
         $driver->wait()->until(
-            WebDriverExpectedCondition::titleContains('Revision history')
+            WebDriverExpectedCondition::elementTextContains(WebDriverBy::cssSelector('#main h1'), 'Limosa Authentication')
         );
 
-        // print the title of the current page
-        $data['title'][] =  $driver->getTitle() . "'\n";
+        $driver->takeScreenshot('login.png');
 
-        // print the URI of the current page
-        $data['current_uri'][] =  $driver->getCurrentURL() . "'\n";
+        $driver->findElement(WebDriverBy::id('notYetRegisteredLink'))->click();
 
-        // delete all cookies
-        $driver->manage()->deleteAllCookies();
+        $driver->wait()->until(
+            WebDriverExpectedCondition::elementTextContains(WebDriverBy::id('headerTitle'), 'Demand Access')
+        );
 
-        // add new cookie
-        $cookie = new Cookie('cookie_set_by_selenium', 'cookie_value');
-        $driver->manage()->addCookie($cookie);
+        $driver->takeScreenshot('register.png');
 
-        // dump current cookies to output
-        $data['cookies'] = $driver->manage()->getCookies();
 
-        // terminate the session and close the browser
+//        $data['title'][] = $driver->getTitle();
+//        $data['current_uri'][] = $driver->getCurrentURL();
+//        $historyButton = $driver->findElement(
+//            WebDriverBy::cssSelector('#ca-history a')
+//        );
+//        $data['text_of_element'] = $historyButton->getText() . "'\n";
+//        $historyButton->click();
+//        $driver->wait()->until(
+//            WebDriverExpectedCondition::titleContains('Revision history')
+//        );
+//        $driver->takeScreenshot('3.png');
+//        $data['title'][] =  $driver->getTitle() . "'\n";
+//        $data['current_uri'][] =  $driver->getCurrentURL() . "'\n";
+//        $driver->manage()->deleteAllCookies();
+//        $cookie = new Cookie('cookie_set_by_selenium', 'cookie_value');
+//        $driver->manage()->addCookie($cookie);
+//
+//        $data['cookies'] = $driver->manage()->getCookies();
         $driver->quit();
 
         return $data;
