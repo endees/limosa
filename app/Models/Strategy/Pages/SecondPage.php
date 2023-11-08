@@ -11,7 +11,7 @@ class SecondPage implements PageInterface
     public function resolve(RemoteWebDriver $driver): void
     {
         $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('#lang-en'), '@.*Log.*in.*@i')
+            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('lang-en'), '@.*Log.*in.*@i')
         );
 
         $driver->takeScreenshot('language.png');
