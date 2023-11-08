@@ -2,44 +2,28 @@
 
 namespace App\Models;
 
-use Facebook\WebDriver\Cookie;
+use App\Models\Strategy\RegistrationStrategy;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class Registrar
 {
-    public function register($formData): array
+    public function __construct(
+        private readonly RegistrationStrategy $strategy)
     {
-        $data = [];
         $host = env('SELENIUM_HOST');
         $capabilities = DesiredCapabilities::firefox();
-        $driver = RemoteWebDriver::create($host, $capabilities);
-        $driver->get('https://www.international.socialsecurity.be/working_in_belgium/en/home.html');
-        $driver->takeScreenshot('landing.png');
+        $this->driver = RemoteWebDriver::create($host, $capabilities,10000);
+    }
 
-        //todo does not find an element
-        $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextContains(WebDriverBy::cssSelector('#intro h1 small'), 'Welcome to')
-        );
-
-        $driver->findElement(WebDriverBy::linkText('Limosa - Mandatory declaration'))->click();
-
-        $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextContains(WebDriverBy::cssSelector('#main h1'), 'Limosa Authentication')
-        );
-
-        $driver->takeScreenshot('login.png');
-
-        $driver->findElement(WebDriverBy::id('notYetRegisteredLink'))->click();
-
-        $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextContains(WebDriverBy::id('headerTitle'), 'Demand Access')
-        );
-
-        $driver->takeScreenshot('register.png');
-
+    public function register($formData)
+    {
+        try {
+            $this->strategy->execute($this->driver);
+        } catch (\Exception $e) {
+            $this->driver->quit();
+            throw $e;
+        }
 
 //        $data['title'][] = $driver->getTitle();
 //        $data['current_uri'][] = $driver->getCurrentURL();
@@ -59,8 +43,7 @@ class Registrar
 //        $driver->manage()->addCookie($cookie);
 //
 //        $data['cookies'] = $driver->manage()->getCookies();
-        $driver->quit();
+        $this->driver->quit();
 
-        return $data;
     }
 }
