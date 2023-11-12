@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Strategy\Pages;
+namespace App\Models\Strategy\Pages\Interface;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 

@@ -22,7 +22,7 @@ class LimosaController extends BaseController
             'password' => 'm@tTorp3da'
         ]);
 
-        $data = $this->registrar->register($formData);
-        return view('success', $data);
+        $this->registrar->register($formData);
+        return view('success', []);
     }
 }

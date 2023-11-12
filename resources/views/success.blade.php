@@ -41,9 +41,6 @@
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                             The form has been registered
                         </p>
-                        @foreach ($cookies as $cookie)
-                            <p>{{ $cookie->getName() }} {{ $cookie->getValue() }}</p>
-                        @endforeach
                     </div>
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">

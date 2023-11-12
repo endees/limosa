@@ -9,18 +9,19 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 class Registrar
 {
     public function __construct(
-        private readonly RegistrationStrategy $strategy)
-    {
+        private readonly RegistrationStrategy $strategy
+    ) {
         $host = env('SELENIUM_HOST');
         $capabilities = DesiredCapabilities::firefox();
         $this->driver = RemoteWebDriver::create($host, $capabilities,10000);
     }
 
-    public function register($formData)
+    public function register()
     {
         try {
             $this->strategy->execute($this->driver);
         } catch (\Exception $e) {
+            $this->driver->takeScreenshot('end.png');
             $this->driver->quit();
             throw $e;
         }
@@ -43,7 +44,7 @@ class Registrar
 //        $driver->manage()->addCookie($cookie);
 //
 //        $data['cookies'] = $driver->manage()->getCookies();
+        $this->driver->takeScreenshot('end.png');
         $this->driver->quit();
-
     }
 }

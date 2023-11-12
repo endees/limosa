@@ -2,6 +2,7 @@
 
 namespace App\Models\Strategy\Pages;
 
+use App\Models\Strategy\Pages\Interface\PageInterface;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
