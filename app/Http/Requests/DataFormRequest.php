@@ -9,10 +9,15 @@ class DataFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'full_name' => 'string',
+            'firstname' => 'string',
+            'lastname' => 'string',
             'date_of_birth' => 'string',
             'nationality' => 'string',
-            'business_name' => 'string',
+            'pesel' => 'string',
+            'street' => 'string',
+            'city' => 'string',
+            'postcode' => 'string',
+            'contract_name' => 'string',
             'business_address' => 'string'
         ];
     }

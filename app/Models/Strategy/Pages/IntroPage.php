@@ -12,11 +12,14 @@ class IntroPage implements PageInterface
     public function resolve(RemoteWebDriver $driver): void
     {
         $driver->get('https://www.limosa.be/');
-        $driver->takeScreenshot('start.png');
+
         //todo does not find an element
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#logoUrl a'), '@.*International\.socialsecurity\.be*@i')
         );
+
+        $driver->takeScreenshot('start.png');
+
         $driver->findElement(WebDriverBy::linkText('English'))->click();
     }
 }

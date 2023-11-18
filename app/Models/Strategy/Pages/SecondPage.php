@@ -11,11 +11,11 @@ class SecondPage implements PageInterface
 {
     public function resolve(RemoteWebDriver $driver): void
     {
-        $driver->takeScreenshot('language.png');
-
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('lang-en'), '@.*Log.*in.*@i')
         );
+
+        $driver->takeScreenshot('language.png');
 
         $driver->findElement(WebDriverBy::linkText('Log in'))->click();
     }

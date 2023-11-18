@@ -62,6 +62,18 @@ services:
       - "4444:4444"
     networks:
       hub:
+  rabbitmq:
+      image: rabbitmq:management
+      depends_on:
+          - limosa
+      networks:
+          hub:
+  redis:
+      image: redis:latest
+      depends_on:
+          - limosa
+      networks:
+          hub:
 volumes:
   logvolume01: {}
 networks:

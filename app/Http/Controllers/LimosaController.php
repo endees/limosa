@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DataFormRequest;
-use App\Models\Registrar;
+use App\Jobs\ProcessLimosaCreation;
 use Illuminate\Routing\Controller as BaseController;
 
 class LimosaController extends BaseController
 {
     protected array $parameters;
-
-    public function __construct(
-        private readonly Registrar $registrar
-    ) {
-    }
 
     public function register(DataFormRequest $request)
     {
@@ -22,7 +17,7 @@ class LimosaController extends BaseController
             'password' => 'm@tTorp3da'
         ]);
 
-        $this->registrar->register($formData);
+        ProcessLimosaCreation::dispatch($formData);
         return view('success', []);
     }
 }

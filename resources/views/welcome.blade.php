@@ -21,9 +21,12 @@
             <form method="POST" action="{{ route('form.register') }}">
                 @csrf
                 <div class="flex justify-left">
-                    <!-- Personal Information -->
-                    <label for="full_name">Full Name</label>
-                    <input type="text" id="full_name" name="full_name" required>
+                    <label for="firstname">Full Name</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div class="flex justify-left">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" required>
                 </div>
                 <div class="flex justify-left">
                     <label for="date_of_birth">Date of Birth</label>
@@ -34,29 +37,45 @@
                     <input type="text" id="nationality" name="nationality" required>
                 </div>
                 <div class="flex justify-left">
-                    <!-- Business Information -->
-                    <label for="business_name">Business Name (if applicable)</label>
-                    <input type="text" id="business_name" name="business_name">
+                    <label for="pesel">PESEL</label>
+                    <input type="text" id="pesel" name="pesel" required>
                 </div>
                 <div class="flex justify-left">
-                    <label for="business_address">Business Address</label>
-                    <input type="text" id="business_address" name="business_address">
+                    <label for="street">Street</label>
+                    <input type="text" id="street" name="street">
+                </div>
+                <div class="flex justify-left">
+                    <label for="house_number">House Number</label>
+                    <input type="text" id="street" name="house_number">
+                </div>
+                <div class="flex justify-left">
+                    <label for="flat_number">Flat Number</label>
+                    <input type="text" id="street" name="flat_number">
+                </div>
+                <div class="flex justify-left">
+                    <label for="city">City</label>
+                    <input type="text" id="street" name="city">
+                </div>
+                <div class="flex justify-left">
+                    <label for="postcode">Postcode</label>
+                    <input type="text" id="postcode" name="postcode">
+                </div>
+                <div class="flex justify-left">
+                    <label for="business_name">Business Name (if applicable)</label>
+                    <input type="text" id="business_name" name="business_name">
                 </div>
                 <div class="flex justify-left">
                     <label for="business_contact">Business Contact Information</label>
                     <input type="text" id="business_contact" name="business_contact">
                 </div>
                 <div class="flex justify-left">
-                    <!-- Purpose of Stay -->
                     <label for="purpose_of_stay">Purpose of Stay</label>
                     <select id="purpose_of_stay" name="purpose_of_stay" required>
                         <option value="work">Work</option>
                         <option value="self-employment">Self-Employment</option>
-                        <!-- Add more options as needed -->
                     </select>
                 </div>
                 <div class="flex justify-left">
-                    <!-- Duration of Stay -->
                     <label for="start_date">Start Date</label>
                     <input type="date" id="start_date" name="start_date" required>
                 </div>
@@ -65,17 +84,14 @@
                     <input type="date" id="end_date" name="end_date" required>
                 </div>
                 <div class="flex justify-left">
-                    <!-- Social Security Information -->
                     <label for="social_security">Social Security Information</label>
                     <input type="text" id="social_security" name="social_security" required>
                 </div>
                 <div class="flex justify-left">
-                    <!-- Bank Account Details -->
                     <label for="bank_account">Bank Account Details</label>
                     <input type="text" id="bank_account" name="bank_account" required>
                 </div>
                 <div class="flex justify-left">
-                    <!-- Contract Information -->
                     <label for="contract_name">Contract Name</label>
                     <input type="text" id="contract_name" name="contract_name" required>
                 </div>
@@ -88,12 +104,9 @@
                     <input type="text" id="contract_duration" name="contract_duration" required>
                 </div>
                 <div class="flex justify-left">
-                    <!-- Submit Button -->
                     <button type="submit">Submit</button>
                 </div>
             </form>
-
-
 
             <form method="POST" action="{{ route('mail.create') }}">
                 @csrf

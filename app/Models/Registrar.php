@@ -11,40 +11,24 @@ class Registrar
     public function __construct(
         private readonly RegistrationStrategy $strategy
     ) {
-        $host = env('SELENIUM_HOST');
-        $capabilities = DesiredCapabilities::firefox();
-        $this->driver = RemoteWebDriver::create($host, $capabilities,10000);
     }
 
-    public function register()
+    public function register(array $data)
     {
+        $host = env('SELENIUM_HOST');
+        $capabilities = DesiredCapabilities::firefox();
+        $driver = RemoteWebDriver::create($host, $capabilities,30000, 30000);
+
         try {
-            $this->strategy->execute($this->driver);
+            $driver->takeScreenshot('start.png');
+            $this->strategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $this->driver->takeScreenshot('end.png');
-            $this->driver->quit();
+            $driver->takeScreenshot('end.png');
+            $driver->quit();
             throw $e;
         }
 
-//        $data['title'][] = $driver->getTitle();
-//        $data['current_uri'][] = $driver->getCurrentURL();
-//        $historyButton = $driver->findElement(
-//            WebDriverBy::cssSelector('#ca-history a')
-//        );
-//        $data['text_of_element'] = $historyButton->getText() . "'\n";
-//        $historyButton->click();
-//        $driver->wait()->until(
-//            WebDriverExpectedCondition::titleContains('Revision history')
-//        );
-//        $driver->takeScreenshot('3.png');
-//        $data['title'][] =  $driver->getTitle() . "'\n";
-//        $data['current_uri'][] =  $driver->getCurrentURL() . "'\n";
-//        $driver->manage()->deleteAllCookies();
-//        $cookie = new Cookie('cookie_set_by_selenium', 'cookie_value');
-//        $driver->manage()->addCookie($cookie);
-//
-//        $data['cookies'] = $driver->manage()->getCookies();
-        $this->driver->takeScreenshot('end.png');
-        $this->driver->quit();
+        $driver->takeScreenshot('end.png');
+        $driver->quit();
     }
 }

@@ -22,19 +22,25 @@ class TenMinuteMailApi
         );
     }
 
-    private function pickAddress($name, $domains) {
-        $name = Str::random();
-        $password = Str::random();
-        $domain = $domains->random();
-        $rawResponse = Http::post($this->baseUrl . 'accounts', [
-            'address' => $name . '@' . $domain,
-            'password' => $password
-        ]);
-        return $rawResponse;
+    private function pickAddress($name, $domains): array
+    {
+        $createdAddress = [
+            'address' => Str::random() . '@' . $domains->random(),
+            'password' => Str::random()
+        ];
+        $response = Http::post($this->baseUrl . 'accounts', $createdAddress)->collect();
+
+        if ($response->get('isDisabled') !== false && $response->get('isDeleted') !== false) {
+            throw new \Exception('Account disabled or deleted');
+        }
+
+        return $createdAddress;
     }
 
-    public function register($name) {
+    public function register($name): array
+    {
         $availableDomains = $this->getDomains();
-        return $this->pickAddress($name, $availableDomains);
+        $createdData = $this->pickAddress($name, $availableDomains);
+        return $createdData;
     }
 }
