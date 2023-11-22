@@ -13,10 +13,6 @@ class LimosaController extends BaseController
     public function register(DataFormRequest $request)
     {
         $formData = $request->all();
-        $formData = array_merge($formData, [
-            'password' => 'm@tTorp3da'
-        ]);
-
         ProcessLimosaCreation::dispatch($formData);
         return view('success', []);
     }

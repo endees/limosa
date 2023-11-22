@@ -11,8 +11,6 @@ class RegisterForm
 {
     public function resolve(RemoteWebDriver $driver, $data): void
     {
-
-
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#page h1'), '@.*Identify.*yourself.*@i')
         );

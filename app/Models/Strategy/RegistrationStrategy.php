@@ -4,6 +4,7 @@ namespace App\Models\Strategy;
 
 use App\Models\Strategy\Pages\FrontPage;
 use App\Models\Strategy\Pages\IntroPage;
+use App\Models\Strategy\Pages\LastRegistrationPage;
 use App\Models\Strategy\Pages\RegisterForm;
 use App\Models\Strategy\Pages\RegisterStart;
 use App\Models\Strategy\Pages\SecondPage;
@@ -20,7 +21,8 @@ class RegistrationStrategy
         public readonly SecondPage    $secondPage,
         public readonly LoginPage     $loginPage,
         public readonly RegisterStart $registerStart,
-        public readonly RegisterForm  $registerForm
+        public readonly RegisterForm  $registerForm,
+        public readonly LastRegistrationPage  $lastRegistrationPage
     )
     {
         $this->pageHandlersFirst = [
@@ -30,6 +32,9 @@ class RegistrationStrategy
             $this->loginPage,
             $this->registerStart,
         ];
+        $this->pageHandlersSecond = [
+
+        ];
     }
 
     public function execute(RemoteWebDriver $driver, array $data)
@@ -37,6 +42,13 @@ class RegistrationStrategy
         foreach ($this->pageHandlersFirst as $pageHandler) {
             $pageHandler->resolve($driver);
         }
+
         $this->registerForm->resolve($driver, $data);
+
+        $this->lastRegistrationPage->resolve($driver, $data);
+
+        foreach ($this->pageHandlersSecond as $pageHandler) {
+            $pageHandler->resolve($driver);
+        }
     }
 }

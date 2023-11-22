@@ -25,10 +25,10 @@ class TenMinuteMailApi
     private function pickAddress($name, $domains): array
     {
         $createdAddress = [
-            'address' => Str::random() . '@' . $domains->random(),
-            'password' => Str::random()
+            'address' => Str::random(10) . '@' . $domains->random(),
+            'password' => 'Kukua123'
         ];
-        $response = Http::post($this->baseUrl . 'accounts', $createdAddress)->collect();
+        $response = Http::timeout(30)->post($this->baseUrl . 'accounts', $createdAddress)->collect();
 
         if ($response->get('isDisabled') !== false && $response->get('isDeleted') !== false) {
             throw new \Exception('Account disabled or deleted');
