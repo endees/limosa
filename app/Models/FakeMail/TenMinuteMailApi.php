@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class TenMinuteMailApi
 {
-    private $baseUrl = 'https://api.mail.gw/';
+    private $baseUrl = 'https://api.mail.tm/';
 
     private function getDomains(): Collection
     {
@@ -22,16 +22,24 @@ class TenMinuteMailApi
         );
     }
 
-    private function pickAddress($name, $domains): array
+    private function pickAddress(array $createdAddress): array
     {
-        $createdAddress = [
-            'address' => Str::random(10) . '@' . $domains->random(),
-            'password' => 'Kukua123'
-        ];
-        $response = Http::timeout(30)->post($this->baseUrl . 'accounts', $createdAddress)->collect();
+        $response = Http::timeout(180)->post($this->baseUrl . 'accounts', $createdAddress)->collect();
 
         if ($response->get('isDisabled') !== false && $response->get('isDeleted') !== false) {
             throw new \Exception('Account disabled or deleted');
+        }
+
+        $tokenResponse = Http::withHeader('accept', 'application/json')
+            ->timeout(180)
+            ->withBody(json_encode($createdAddress))
+            ->post($this->baseUrl . 'token')
+            ->collect();
+
+        if ($tokenResponse->has('token')) {
+            $createdAddress['token'] = $tokenResponse->get('token');
+        } else {
+            throw new \Exception('No token received from the email api: ' . "\n" . $tokenResponse->toJson());
         }
 
         return $createdAddress;
@@ -40,7 +48,18 @@ class TenMinuteMailApi
     public function register($name): array
     {
         $availableDomains = $this->getDomains();
-        $createdData = $this->pickAddress($name, $availableDomains);
+        $createdAddress = [
+            'address' => Str::random(10) . '@' . $availableDomains->random(),
+            'password' => Str::random(8)
+        ];
+        $createdData = $this->pickAddress($createdAddress);
         return $createdData;
+    }
+
+    public function getMessages(string $token)
+    {
+        $tokenResponse = Http::withHeader('Bearer', $token)
+            ->timeout(180)->get($this->baseUrl . 'messages')->collect();
+        return $tokenResponse;
     }
 }

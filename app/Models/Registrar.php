@@ -27,7 +27,7 @@ class Registrar
             $driver->quit();
             throw $e;
         }
-
+        $driver->wait(10);
         $driver->takeScreenshot('end.png');
         $driver->quit();
     }

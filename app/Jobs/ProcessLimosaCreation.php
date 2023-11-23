@@ -34,6 +34,8 @@ class ProcessLimosaCreation implements ShouldQueue, ShouldBeUnique
         Log::info('Start registering a new client with email: ' . $emailData['address']);
         $allData = array_merge($emailData, $this->formData);
         $this->registrar->register($allData);
+        $messages = $this->mailApi->getMessages($allData['token']);
+        Log::info($messages);
         Log::info('End registering the new client with email: ' . $emailData['address']);
     }
 }
