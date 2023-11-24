@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-class TenMinuteMailApi
+class TenMinuteMailApi implements MailApiInterface
 {
     private $baseUrl = 'https://api.mail.tm/';
 
@@ -45,7 +45,7 @@ class TenMinuteMailApi
         return $createdAddress;
     }
 
-    public function register($name): array
+    public function register(): array
     {
         $availableDomains = $this->getDomains();
         $createdAddress = [
