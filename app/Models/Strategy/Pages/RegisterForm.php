@@ -50,7 +50,7 @@ class RegisterForm
 
         $driver->findElement(WebDriverBy::cssSelector('input[name="createId.qualityCodeTypeInt"][value="3"]'))->click();
 
-        $driver->takeScreenshot('registerForm.png');
+        $driver->takeScreenshot( 'RegisterForm.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

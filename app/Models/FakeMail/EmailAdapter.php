@@ -20,4 +20,8 @@ class EmailAdapter implements MailApiInterface
     public function getMessages($token): Collection {
         return $this->mailApi->getMessages($token);
     }
+
+    public function getMessage($token, $mailId): Collection {
+        return $this->mailApi->getMessage($token, $mailId);
+    }
 }

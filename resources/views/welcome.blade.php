@@ -60,49 +60,49 @@
                     <label for="postcode">Postcode</label>
                     <input type="text" id="postcode" name="postcode">
                 </div>
-                <div class="flex justify-left">
-                    <label for="business_name">Business Name (if applicable)</label>
-                    <input type="text" id="business_name" name="business_name">
-                </div>
-                <div class="flex justify-left">
-                    <label for="business_contact">Business Contact Information</label>
-                    <input type="text" id="business_contact" name="business_contact">
-                </div>
-                <div class="flex justify-left">
-                    <label for="purpose_of_stay">Purpose of Stay</label>
-                    <select id="purpose_of_stay" name="purpose_of_stay" required>
-                        <option value="work">Work</option>
-                        <option value="self-employment">Self-Employment</option>
-                    </select>
-                </div>
-                <div class="flex justify-left">
-                    <label for="start_date">Start Date</label>
-                    <input type="date" id="start_date" name="start_date" required>
-                </div>
-                <div class="flex justify-left">
-                    <label for="end_date">End Date</label>
-                    <input type="date" id="end_date" name="end_date" required>
-                </div>
-                <div class="flex justify-left">
-                    <label for="social_security">Social Security Information</label>
-                    <input type="text" id="social_security" name="social_security" required>
-                </div>
-                <div class="flex justify-left">
-                    <label for="bank_account">Bank Account Details</label>
-                    <input type="text" id="bank_account" name="bank_account" required>
-                </div>
-                <div class="flex justify-left">
-                    <label for="contract_name">Contract Name</label>
-                    <input type="text" id="contract_name" name="contract_name" required>
-                </div>
-                <div class="flex justify-left">
-                    <label for="work_description">Work Description</label>
-                    <textarea id="work_description" name="work_description" required></textarea>
-                </div>
-                <div class="flex justify-left">
-                    <label for="contract_duration">Contract Duration</label>
-                    <input type="text" id="contract_duration" name="contract_duration" required>
-                </div>
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="business_name">Business Name (if applicable)</label>--}}
+{{--                    <input type="text" id="business_name" name="business_name">--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="business_contact">Business Contact Information</label>--}}
+{{--                    <input type="text" id="business_contact" name="business_contact">--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="purpose_of_stay">Purpose of Stay</label>--}}
+{{--                    <select id="purpose_of_stay" name="purpose_of_stay" required>--}}
+{{--                        <option value="work">Work</option>--}}
+{{--                        <option value="self-employment">Self-Employment</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="start_date">Start Date</label>--}}
+{{--                    <input type="date" id="start_date" name="start_date" required>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="end_date">End Date</label>--}}
+{{--                    <input type="date" id="end_date" name="end_date" required>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="social_security">Social Security Information</label>--}}
+{{--                    <input type="text" id="social_security" name="social_security" required>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="bank_account">Bank Account Details</label>--}}
+{{--                    <input type="text" id="bank_account" name="bank_account" required>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="contract_name">Contract Name</label>--}}
+{{--                    <input type="text" id="contract_name" name="contract_name" required>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="work_description">Work Description</label>--}}
+{{--                    <textarea id="work_description" name="work_description" required></textarea>--}}
+{{--                </div>--}}
+{{--                <div class="flex justify-left">--}}
+{{--                    <label for="contract_duration">Contract Duration</label>--}}
+{{--                    <input type="text" id="contract_duration" name="contract_duration" required>--}}
+{{--                </div>--}}
                 <div class="flex justify-left">
                     <button type="submit">Submit</button>
                 </div>

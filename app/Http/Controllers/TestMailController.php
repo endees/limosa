@@ -18,14 +18,38 @@ class TestMailController extends BaseController
 
     public function create(DataFormRequest $request)
     {
-        $formData = $request->all();
-        $formData = array_merge($formData, [
-            'password' => 'm@tTorp3da'
-        ]);
 
-        $mailData = $this->mailApi->register('testowy');
-//        $mailData = array ( '@context' => '/contexts/Domain', '@id' => '/domains', '@type' => 'hydra:Collection', 'hydra:member' => array ( 0 => array ( '@id' => '/domains/651fc1f48650e155719906de', '@type' => 'Domain', 'id' => '651fc1f48650e155719906de', 'domain' => 'hexv.com', 'isActive' => true, 'createdAt' => '2023-10-06T00:00:00+00:00', 'updatedAt' => '2023-10-06T00:00:00+00:00', ), 1 => array ( '@id' => '/domains/651fc2088650e155719906e0', '@type' => 'Domain', 'id' => '651fc2088650e155719906e0', 'domain' => 'hoanghainam.com', 'isActive' => true, 'createdAt' => '2023-10-06T00:00:00+00:00', 'updatedAt' => '2023-10-06T00:00:00+00:00', ), 2 => array ( '@id' => '/domains/651fc2218650e155719906e2', '@type' => 'Domain', 'id' => '651fc2218650e155719906e2', 'domain' => 'inlith.com', 'isActive' => true, 'createdAt' => '2023-10-06T00:00:00+00:00', 'updatedAt' => '2023-10-06T00:00:00+00:00', ), 3 => array ( '@id' => '/domains/651fc25e8650e155719906e4', '@type' => 'Domain', 'id' => '651fc25e8650e155719906e4', 'domain' => 'kataskopoi.com', 'isActive' => true, 'createdAt' => '2023-10-06T00:00:00+00:00', 'updatedAt' => '2023-10-06T00:00:00+00:00', ), ), 'hydra:totalItems' => 4);
-        var_dump($mailData);
-        return view('mailResult', ['domains' => $mailData]);
+        $json = '{
+            "list": [
+        {
+            "mail_id": "127318291",
+            "mail_from": "limosa-usermanagement@smals-mvm.be",
+            "mail_subject": "Belgian Social Security Portal | Limosa account registration",
+            "mail_excerpt": "Dear Dagda Tead,Thank you for creating an account. Your username is orpnlwxg.Please click on the link below to activate your account: ",
+            "mail_timestamp": "1700871435",
+            "mail_read": "0",
+            "mail_date": "00:17:15",
+            "att": "0",
+            "mail_size": "2785"
+        },
+        {
+            "mail_from": "no-reply@guerrillamail.com",
+            "mail_timestamp": 0,
+            "mail_read": 0,
+            "mail_date": "00:16:41",
+            "reply_to": "",
+            "mail_subject": "Welcome to Guerrilla Mail",
+            "mail_excerpt": "Dear Random User,"
+        }
+    ]
+}';
+        $dec = json_decode($json);
+        $test = collect(collect($dec)->get('list'))->filter(function($value) {
+            if ($value->mail_from == "limosa-usermanagement@smals-mvm.be") {
+                return true;
+            }
+        })->isEmpty();
+        var_dump($test);
+        exit();
     }
 }

@@ -32,6 +32,14 @@ class GuerillaMailApi implements MailApiInterface
         return $rawResponse;
     }
 
+    public function getMessage(string $token, $mailId): Collection
+    {
+        $response = Http::withCookies(['PHPSESSID' => $token], '.guerrillamail.com')
+            ->get($this->baseUrl , 'f=fetch_email&email_id='. $mailId)
+            ->collect();
+        return $response;
+    }
+
     public function forgetEmail(string $email)
     {
         $rawResponse = Http::get($this->baseUrl , 'f=forget_me&email='. $email)->collect();

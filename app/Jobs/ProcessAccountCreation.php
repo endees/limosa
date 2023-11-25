@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
-class ProcessLimosaCreation implements ShouldQueue, ShouldBeUnique
+class ProcessAccountCreation implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -35,8 +35,7 @@ class ProcessLimosaCreation implements ShouldQueue, ShouldBeUnique
         $allData = array_merge($emailData, $this->formData);
 
         $this->registrar->register($allData);
-        $messages = $this->mailApi->getMessages($allData['token']);
-        Log::info($messages->toJson());
-        Log::info('End registering the new client with email: ' . $emailData['address']);
+
+        ActivateAccount::dispatch($allData);
     }
 }

@@ -56,7 +56,7 @@ class TenMinuteMailApi implements MailApiInterface
         return $createdData;
     }
 
-    public function getMessages(string $token)
+    public function getMessages(string $token): Collection
     {
         $tokenResponse = Http::withHeader('Bearer', $token)
             ->timeout(180)->get($this->baseUrl . 'messages')->collect();

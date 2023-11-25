@@ -10,7 +10,7 @@ class LoginPage implements PageInterface
 {
     public function resolve($driver): void
     {
-        $driver->takeScreenshot('login.png');
+        $driver->takeScreenshot( 'LoginPage.png');
 
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#main h1'), '@.*Limosa.*Authentication.*@')

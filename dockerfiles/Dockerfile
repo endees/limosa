@@ -7,6 +7,7 @@ ARG DEPLOYMENT_MODE
 
 RUN apt-get update && apt-get install -y \
         zip \
+        libzip-dev \
         unzip \
         curl \
         git \
@@ -14,11 +15,13 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev  \
         libxml2-dev  \
-        npm \
-    && docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql soap \
-    && docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
-    && docker-php-ext-configure soap \
-    && docker-php-ext-install -j$(nproc) gd
+        npm
+RUN docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql soap
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
+RUN docker-php-ext-configure soap
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install -j$(nproc) gd
+
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/bin --filename=composer
 RUN php -r "unlink('composer-setup.php');"

@@ -74,6 +74,19 @@ services:
           - limosa
       networks:
           hub:
+  mysql:
+      image: mysql:8
+      environment:
+          MYSQL_USER: homestead
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: limosa
+      ports:
+          - 3306:3306
+      depends_on:
+          - limosa
+      networks:
+          hub:
 volumes:
   logvolume01: {}
 networks:

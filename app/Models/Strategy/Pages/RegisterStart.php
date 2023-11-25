@@ -10,13 +10,11 @@ class RegisterStart implements PageInterface
 {
     public function resolve($driver): void
     {
-
-
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('headerTitle'), '@.*Demand.*access.*@i')
         );
 
-        $driver->takeScreenshot('register.png');
+        $driver->takeScreenshot( 'RegisterStart.png');
 
         $driver->findElement(WebDriverBy::id('selectRegistrationByPersonalDataButton'))->click();
     }

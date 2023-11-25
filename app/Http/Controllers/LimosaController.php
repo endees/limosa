@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DataFormRequest;
-use App\Jobs\ProcessLimosaCreation;
+use App\Jobs\ProcessAccountCreation;
 use Illuminate\Routing\Controller as BaseController;
 
 class LimosaController extends BaseController
@@ -12,8 +12,9 @@ class LimosaController extends BaseController
 
     public function register(DataFormRequest $request)
     {
+
         $formData = $request->all();
-        ProcessLimosaCreation::dispatch($formData);
+        ProcessAccountCreation::dispatch($formData);
         return view('success', []);
     }
 }
