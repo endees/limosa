@@ -48,8 +48,10 @@ class TestMailController extends BaseController
             if ($value->mail_from == "limosa-usermanagement@smals-mvm.be") {
                 return true;
             }
-        })->isEmpty();
-        var_dump($test);
+            return false;
+
+        });
+        var_dump($test->first());
         exit();
     }
 }

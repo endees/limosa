@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Strategy\Pages;
+namespace App\Models\Strategy\Pages\Registration;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;

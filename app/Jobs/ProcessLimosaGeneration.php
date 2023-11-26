@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
-class ProcessAccountCreation implements ShouldQueue, ShouldBeUnique
+class ProcessLimosaGeneration implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -30,13 +30,9 @@ class ProcessAccountCreation implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        $emailData = $this->mailApi->register();
-        Log::info('Start registering a new client with data: ' . json_encode($emailData));
-        Log::info('Start registering ip address ' . $_REQUEST['SERVER_ADDR']);
-        $allData = array_merge($emailData, $this->formData);
-
-        $this->driverHandler->register($allData);
-
-        ActivateAccount::dispatch($allData);
+        Log::info('Start generating a new limosa for: ' . json_encode($this->formData));
+        Log::info('Ip address ' . $_REQUEST['SERVER_ADDR']);
+        $this->driverHandler->generateLimosa($this->formData);
+        Log::info('End limosa generation');
     }
 }

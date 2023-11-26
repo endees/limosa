@@ -2,14 +2,14 @@
 
 namespace App\Models\Strategy;
 
-use App\Models\Strategy\Pages\ConfirmRegistration;
-use App\Models\Strategy\Pages\FrontPage;
-use App\Models\Strategy\Pages\IntroPage;
-use App\Models\Strategy\Pages\LastRegistrationPage;
-use App\Models\Strategy\Pages\RegisterForm;
-use App\Models\Strategy\Pages\RegisterStart;
-use App\Models\Strategy\Pages\Languages;
-use App\Models\Strategy\Pages\LoginPage;
+use App\Models\Strategy\Pages\Registration\ConfirmRegistration;
+use App\Models\Strategy\Pages\Registration\FrontPage;
+use App\Models\Strategy\Pages\Registration\IntroPage;
+use App\Models\Strategy\Pages\Registration\Languages;
+use App\Models\Strategy\Pages\Registration\LastRegistrationPage;
+use App\Models\Strategy\Pages\Registration\LoginPage;
+use App\Models\Strategy\Pages\Registration\RegisterForm;
+use App\Models\Strategy\Pages\Registration\RegisterStart;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 class RegistrationStrategy

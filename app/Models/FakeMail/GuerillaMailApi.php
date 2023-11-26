@@ -16,7 +16,7 @@ class GuerillaMailApi implements MailApiInterface
         $rawResponseData = $response->collect();
         $createdAddress = [
             'address' => $rawResponseData->get('email_addr'),
-            'password' => Str::random(8),
+            'password' => Str::random(6) . 'A1@',
             'token' => $rawResponseData->get('sid_token'),
             'email_timestamp' => $rawResponseData->get('email_timestamp'),
             'alias' => $rawResponseData->get('alias')

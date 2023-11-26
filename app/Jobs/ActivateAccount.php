@@ -17,40 +17,50 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private EmailAdapter $mailApi;
     private Log $logger;
-    public $tries = 20;
-    public $maxExceptions = 10;
+    public $tries = 5;
 
     public function __construct(
-        private readonly array $formData
+        private array $formData
     ) {
-        //todo launches every second
-        $this->delay = 60;
         $this->mailApi = App::make(EmailAdapter::class);
     }
 
     public function handle(): void
     {
         Log::info('Check for new messages client with email: ' . $this->formData['address']);
-        $messages = $this->mailApi->getMessages($this->formData['token']);
-        Log::info($messages->toJson());
 
+        $messages = $this->mailApi->getMessages($this->formData['token']);
         $filteredMessages = collect($messages->get('list'))->filter(function($value) {
-            if ($value->mail_from == "limosa-usermanagement@smals-mvm.be") {
+            if ($value['mail_from'] == "limosa-usermanagement@smals-mvm.be") {
                 return true;
             }
+            return false;
         });
 
-        Log::info('Filtered messages: ' . $filteredMessages);
+        Log::info($filteredMessages);
+
         if ($filteredMessages->isEmpty()) {
-          $this->release(60);
+            Log::info('No message received from limosa-usermanagement');
+            $this->release(now()->addMinutes(2));
         }
 
-        $mailId = $filteredMessages->first()->mail_id;
+        $email = $filteredMessages->first();
 
-        $message = $this->mailApi->getMessage($this->formData['token'], $mailId);
+        $message = $this->mailApi->getMessage($this->formData['token'], $email['mail_id']);
+        $messageBody = $message->get('mail_body');
+        Log::info('First email: ' . $messageBody);
 
-        Log::info('MailId: ' . $mailId);
-        Log::info($message);
-        Log::info('End registering the new client with email: ' . $this->formData['address']);
+        if ($messageBody) {
+            Log::info('First email body: ' . $messageBody);
+            $matches = preg_match( '@href="(.*)"@', $messageBody);
+            if (isset($matches[1])) {
+                $this->formData['activation_link'] = $matches[1];
+                Log::info('End registering the new client with email: ' . $this->formData['address']);
+
+                ProcessLimosaGeneration::dispatch($this->formData);
+            }
+        } else {
+            $this->fail('There is no email body');
+        }
     }
 }
