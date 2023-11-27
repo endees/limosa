@@ -12,7 +12,6 @@ class LimosaController extends BaseController
 
     public function register(DataFormRequest $request)
     {
-
         $formData = $request->all();
         ProcessAccountCreation::dispatch($formData);
         return view('success', []);

@@ -10,11 +10,11 @@ class LoginPage implements PageInterface
 {
     public function resolve($driver): void
     {
-        $driver->takeScreenshot( 'LoginPage.png');
-
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#main h1'), '@.*Limosa.*Authentication.*@')
         );
+
+        $driver->takeScreenshot( 'LoginPage.png');
 
         // Get current window handles first:
         $windowHandlesBefore = $driver->getWindowHandles();
@@ -27,7 +27,7 @@ class LoginPage implements PageInterface
         $newWindowHandle = reset($newWindowHandle);
 
         $driver->switchTo()->window($newWindowHandle);
-        $driver->takeScreenshot('switched tab2.png');
+        $driver->takeScreenshot('LoginPage2.png');
 
     }
 }

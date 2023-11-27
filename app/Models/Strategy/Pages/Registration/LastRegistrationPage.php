@@ -16,13 +16,12 @@ class LastRegistrationPage
             )
         );
 
-        $username = explode('@', $data['address'])[0];
-        $driver->findElement(WebDriverBy::name('createId.userId'))->sendKeys($username);
+        $driver->findElement(WebDriverBy::name('createId.userId'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('createId.password'))->sendKeys($data['password']);
         $driver->findElement(WebDriverBy::name('createId.passwordConf'))->sendKeys($data['password']);
         $driver->findElement(WebDriverBy::name('createId.email'))->sendKeys($data['address']);
 
-        $driver->findElement(WebDriverBy::name('createId.secretQuestion'))->sendKeys($username);
+        $driver->findElement(WebDriverBy::name('createId.secretQuestion'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('createId.answer'))->sendKeys($data['password']);
 
         $driver->takeScreenshot( 'LastRegistrationPage.png');

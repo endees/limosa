@@ -31,7 +31,6 @@ class ProcessLimosaGeneration implements ShouldQueue, ShouldBeUnique
     public function handle(): void
     {
         Log::info('Start generating a new limosa for: ' . json_encode($this->formData));
-        Log::info('Ip address ' . $_REQUEST['SERVER_ADDR']);
         $this->driverHandler->generateLimosa($this->formData);
         Log::info('End limosa generation');
     }

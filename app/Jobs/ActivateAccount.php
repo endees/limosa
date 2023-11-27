@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\DriverHandler;
 use App\Models\FakeMail\EmailAdapter;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Log;
 class ActivateAccount implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    private DriverHandler $driverHandler;
     private EmailAdapter $mailApi;
     private Log $logger;
     public $tries = 5;
@@ -22,6 +25,7 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
     public function __construct(
         private array $formData
     ) {
+        $this->driverHandler = App::make(DriverHandler::class);
         $this->mailApi = App::make(EmailAdapter::class);
     }
 
@@ -57,6 +61,7 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
                 $this->formData['activation_link'] = $matches[1];
                 Log::info('End registering the new client with email: ' . $this->formData['address']);
 
+                $this->driverHandler->activateAccount($this->formData);
                 ProcessLimosaGeneration::dispatch($this->formData);
             }
         } else {

@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 Route::post('/form/register', 'App\Http\Controllers\LimosaController@register')->name('form.register');
 
-Route::post('/mail/create/', 'App\Http\Controllers\TestMailController@create')->name('mail.create');
+Route::post('/mail/create/', 'App\Http\Controllers\TestController@create')->name('mail.create');
