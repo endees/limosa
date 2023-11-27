@@ -16,7 +16,7 @@ class RegisterForm
         );
         $driver->findElement(WebDriverBy::name('register.lastname'))->sendKeys($data['lastname']);
         $driver->findElement(WebDriverBy::name('register.firstname'))->sendKeys($data['firstname']);
-
+        // todo
         if ('male' === 'male') {
             $driver->findElement(WebDriverBy::id('opt1'))->click();
         }
