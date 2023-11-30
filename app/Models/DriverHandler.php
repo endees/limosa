@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Strategy\AccountActivationStrategy;
 use App\Models\Strategy\GenerationStrategy;
 use App\Models\Strategy\RegistrationStrategy;
+use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
@@ -58,6 +59,11 @@ class DriverHandler
     {
         $host = env('SELENIUM_HOST');
         $capabilities = DesiredCapabilities::firefox();
+
+        $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->addArguments(['-headless']);
+        $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
+
         $driver = RemoteWebDriver::create($host, $capabilities,30000, 30000);
 
         try {

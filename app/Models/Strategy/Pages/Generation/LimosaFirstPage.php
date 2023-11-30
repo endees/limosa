@@ -19,19 +19,28 @@ class LimosaFirstPage
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
-            $driver->wait()->until( WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#j_idt155_header')));
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('div#j_idt155_header')));
             $driver->findElement(WebDriverBy::cssSelector('div#j_idt155_header'))->click();
 
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('email')));
+
             //        contact information
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('email')));
             $driver->findElement(WebDriverBy::id('email'))->sendKeys($data['address']);
+
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('phoneNumber')));
             $driver->findElement(WebDriverBy::id('phoneNumber'))->sendKeys('+48792651641');
 
             //        personal details
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('lastName')));
             $driver->findElement(WebDriverBy::id('lastName'))->sendKeys($data['lastname']);
+
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('firstName')));
             $driver->findElement(WebDriverBy::id('firstName'))->sendKeys($data['firstname']);
 
             // todo
             if ('male' === 'male') {
+                $driver->findElement(WebDriverBy::name('genderString'))->getLocationOnScreenOnceScrolledIntoView();
                 $driver->findElement(WebDriverBy::name('genderString'))->click();
             }
             $dateObject = Carbon::parse($data['date_of_birth']);
@@ -39,15 +48,21 @@ class LimosaFirstPage
             $month = $dateObject->month;
             $year = $dateObject->year;
 
+            $driver->findElement(WebDriverBy::id('birthDateDay'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('birthDateDay'))->sendKeys($day);
+
             $driver->findElement(WebDriverBy::id('birthDateMonth'))->sendKeys($month);
             $driver->findElement(WebDriverBy::id('birthDateYear'))->sendKeys($year);
+
+            $driver->findElement(WebDriverBy::id('nationalities'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('nationalities'))->click();
             $driver->findElement(WebDriverBy::cssSelector('#nationalities option[value="122"]'))->click();
 
 //        address
+            $driver->findElement(WebDriverBy::id('phoneticAddressaddressCountry'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('phoneticAddressaddressCountry'))->click();
             $driver->findElement(WebDriverBy::cssSelector('#phoneticAddressaddressCountry option[value="122"]'))->click();
+
             $driver->findElement(WebDriverBy::id('phoneticAddressstreet'))->sendKeys($data['street']);
             $driver->findElement(WebDriverBy::name('phoneticAddressstreetNumber'))->sendKeys($data['house_number']);
             $driver->findElement(WebDriverBy::name('phoneticAddressbox'))->sendKeys($data['flat_number']);

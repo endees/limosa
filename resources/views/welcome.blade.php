@@ -200,7 +200,11 @@
                             </form>
                             <form method="POST" action="{{ route('mail.create') }}">
                                 @csrf
-                                <button type="submit">Fake mail create</button>
+                                <div class="submit">
+                                    <button type="submit" id="sub">
+                                        Test limosa create<span><i class="fa-solid fa-thumbs-up"></i></span>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
