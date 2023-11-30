@@ -34,7 +34,6 @@ class ProcessAccountCreation implements ShouldQueue, ShouldBeUnique
         $username = explode('@', $emailData['address'])[0];
         $emailData['username'] = $username;
         Log::info('Start registering a new client with data: ' . json_encode($emailData));
-        Log::info('Start registering ip address ' . $_REQUEST['SERVER_ADDR']);
         $allData = array_merge($emailData, $this->formData);
 
         $this->driverHandler->register($allData);

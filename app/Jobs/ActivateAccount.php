@@ -56,7 +56,7 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
 
         if ($messageBody) {
             Log::info('First email body: ' . $messageBody);
-            $matches = preg_match( '@href="(.*)"@', $messageBody);
+            preg_match( '@href="(.*)"@', $messageBody, $matches);
             if (isset($matches[1])) {
                 $this->formData['activation_link'] = $matches[1];
                 Log::info('End registering the new client with email: ' . $this->formData['address']);
