@@ -19,28 +19,28 @@ class LimosaFirstPage
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('div#j_idt155_header')));
+            $driver->takeScreenshot('beforeScroll.png');
+            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('email')));
+
+            $snippet = "var elem = document.getElementById('j_idt155_header');
+            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
+            $driver->executeScript($snippet);
+
+//            $this->navigateToHtmlIdElement($driver, 'j_idt155_header');
+
             $driver->findElement(WebDriverBy::cssSelector('div#j_idt155_header'))->click();
+            sleep(5);
+            $driver->takeScreenshot('afterScroll.png');
 
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('email')));
-
-            //        contact information
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('email')));
-            $driver->findElement(WebDriverBy::id('email'))->sendKeys($data['address']);
-
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('phoneNumber')));
-            $driver->findElement(WebDriverBy::id('phoneNumber'))->sendKeys('+48792651641');
+//            $snippet = "var elem = document.getElementById('lastName');
+//            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
+//            $driver->executeScript($snippet);
 
             //        personal details
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('lastName')));
             $driver->findElement(WebDriverBy::id('lastName'))->sendKeys($data['lastname']);
-
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('firstName')));
             $driver->findElement(WebDriverBy::id('firstName'))->sendKeys($data['firstname']);
 
-            // todo
             if ('male' === 'male') {
-                $driver->findElement(WebDriverBy::name('genderString'))->getLocationOnScreenOnceScrolledIntoView();
                 $driver->findElement(WebDriverBy::name('genderString'))->click();
             }
             $dateObject = Carbon::parse($data['date_of_birth']);
@@ -48,11 +48,14 @@ class LimosaFirstPage
             $month = $dateObject->month;
             $year = $dateObject->year;
 
-            $driver->findElement(WebDriverBy::id('birthDateDay'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('birthDateDay'))->sendKeys($day);
 
             $driver->findElement(WebDriverBy::id('birthDateMonth'))->sendKeys($month);
             $driver->findElement(WebDriverBy::id('birthDateYear'))->sendKeys($year);
+
+            $snippet = "var elem = document.getElementById('nationalities');
+            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
+            $driver->executeScript($snippet);
 
             $driver->findElement(WebDriverBy::id('nationalities'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('nationalities'))->click();
@@ -62,6 +65,7 @@ class LimosaFirstPage
             $driver->findElement(WebDriverBy::id('phoneticAddressaddressCountry'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('phoneticAddressaddressCountry'))->click();
             $driver->findElement(WebDriverBy::cssSelector('#phoneticAddressaddressCountry option[value="122"]'))->click();
+            sleep(5);
 
             $driver->findElement(WebDriverBy::id('phoneticAddressstreet'))->sendKeys($data['street']);
             $driver->findElement(WebDriverBy::name('phoneticAddressstreetNumber'))->sendKeys($data['house_number']);
@@ -83,5 +87,11 @@ class LimosaFirstPage
             // @todo manual encoding
         }
         $driver->takeScreenshot('LimosaFirstPage.png');
+    }
+
+    private function navigateToHtmlIdElement($driver, string $id) {
+        $snippet = "var elem = document.getElementById('$id');
+            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
+        $driver->executeScript($snippet);
     }
 }
