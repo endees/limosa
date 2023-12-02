@@ -12,29 +12,18 @@ class LimosaFirstPage
     public function resolve(RemoteWebDriver $driver, $data): void
     {
         $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h1'),
-                '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
+            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
+                '@.*Details.*of.*the.*employer.*@')
         );
-
+        sleep(3);
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
             $driver->takeScreenshot('beforeScroll.png');
-            $driver->wait()->until(WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('email')));
-
-            $snippet = "var elem = document.getElementById('j_idt155_header');
-            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
-            $driver->executeScript($snippet);
-
-//            $this->navigateToHtmlIdElement($driver, 'j_idt155_header');
-
-            $driver->findElement(WebDriverBy::cssSelector('div#j_idt155_header'))->click();
-            sleep(5);
+            $driver->findElement(WebDriverBy::xpath("//*[contains(text(),'Personal details')]"))->click();
             $driver->takeScreenshot('afterScroll.png');
 
-//            $snippet = "var elem = document.getElementById('lastName');
-//            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
-//            $driver->executeScript($snippet);
+            $driver->findElement($goNextElement)->getLocationOnScreenOnceScrolledIntoView();
 
             //        personal details
             $driver->findElement(WebDriverBy::id('lastName'))->sendKeys($data['lastname']);
@@ -52,10 +41,6 @@ class LimosaFirstPage
 
             $driver->findElement(WebDriverBy::id('birthDateMonth'))->sendKeys($month);
             $driver->findElement(WebDriverBy::id('birthDateYear'))->sendKeys($year);
-
-            $snippet = "var elem = document.getElementById('nationalities');
-            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
-            $driver->executeScript($snippet);
 
             $driver->findElement(WebDriverBy::id('nationalities'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('nationalities'))->click();
@@ -81,12 +66,11 @@ class LimosaFirstPage
 
             $driver->findElement(WebDriverBy::id('phoneticForeignNumberCountryString'))->click();
             $driver->findElement(WebDriverBy::cssSelector('#phoneticForeignNumberCountryString option[value="122"]'))->click();
-
-            $driver->findElement($goNextElement)->click();
         } else {
             // @todo manual encoding
         }
         $driver->takeScreenshot('LimosaFirstPage.png');
+        $driver->findElement($goNextElement)->click();
     }
 
     private function navigateToHtmlIdElement($driver, string $id) {

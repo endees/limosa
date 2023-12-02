@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models\Strategy\Pages\Generation;
+
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverExpectedCondition;
+class PlaceOfWorkCompanySearch
+{
+    public function resolve(RemoteWebDriver $driver, $data): void
+    {
+        $driver->wait()->until(
+            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
+                '@.*Declare.*a.*company.*as.*a.*place.*of.*employment.*@')
+        );
+
+        $driver->findElement(WebDriverBy::id('tradingName'))->sendKeys('Knauf Montaj SPRL');
+
+        $driver->findElement(WebDriverBy::id('belgianPostalCode_label'))->click();
+        $driver->findElement(WebDriverBy::id('belgianPostalCode_29'))->click();
+
+
+        $driver->takeScreenshot('PlaceOfWorkCompanySearch.png');
+        $driver->findElement(WebDriverBy::id('searchCompanyButton'))->click();
+    }
+}
