@@ -20,5 +20,7 @@ class OverviewPrint
         $driver->takeScreenshot('OverviewPrint.png');
         $driver->findElement(WebDriverBy::id('j_idt33:declarationCertificatesDatatable:0:downloadPdfEnLink'))
             ->click();
+
+        sleep(10);
     }
 }

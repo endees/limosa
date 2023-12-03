@@ -61,6 +61,12 @@ class DriverHandler
         $capabilities = DesiredCapabilities::firefox();
 
         $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->setPreference("pdfjs.disabled", "True");
+        $firefoxOptions->setPreference("browser.download.folderList", 2);
+        $firefoxOptions->setPreference("browser.download.manager.useWindow", False);
+        $firefoxOptions->setPreference("browser.download.dir", '/home/seluser/Downloads');
+        $firefoxOptions->setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf, application/force-download");
+
         $firefoxOptions->addArguments(['-headless']);
         $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
 
