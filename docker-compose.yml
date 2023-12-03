@@ -13,6 +13,7 @@ services:
         - 9003:9003
     volumes:
       - .:/var/www/html/
+      - limosaGenerated:/var/www/html/storage/limosas
     user: "${UID}"
     depends_on:
       - selenium-hub
@@ -52,7 +53,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     volumes:
-        - /var/www/html/limosa/storage/limosas:/home/seluser/Downloads
+        - limosaGenerated:/home/seluser/Downloads:rw,z
     networks:
       hub:
   selenium-hub:
@@ -84,7 +85,6 @@ services:
       networks:
           hub:
 volumes:
-  logvolume01: {}
   limosaGenerated: {}
 networks:
    hub:

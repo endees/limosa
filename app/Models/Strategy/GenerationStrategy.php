@@ -3,7 +3,9 @@
 namespace App\Models\Strategy;
 
 use App\Models\Strategy\Pages\Generation\LimosaFirstPage;
+use App\Models\Strategy\Pages\Generation\LimosaGenerated;
 use App\Models\Strategy\Pages\Generation\LimosaTypesPage;
+use App\Models\Strategy\Pages\Generation\OverviewPrint;
 use App\Models\Strategy\Pages\Generation\PlaceOfEmployment;
 use App\Models\Strategy\Pages\Generation\PlaceOfEmployment2;
 use App\Models\Strategy\Pages\Generation\PlaceOfWorkCompanyDetail;
@@ -27,16 +29,17 @@ class GenerationStrategy
         public readonly FrontPage $frontPage,
         public readonly Languages $languages,
         public readonly LoginPage $loginPage,
-        public readonly LimosaTypesPage $limosaTypesPage,
-        public readonly LimosaFirstPage $limosaFirstPage,
-        public readonly StepEmployer $stepEmployer,
-        public readonly PlaceOfEmployment $placeOfEmployment,
+        public readonly LimosaTypesPage          $limosaTypesPage,
+        public readonly LimosaFirstPage          $limosaFirstPage,
+        public readonly StepEmployer             $stepEmployer,
+        public readonly PlaceOfEmployment        $placeOfEmployment,
         public readonly PlaceOfWorkCompanySearch $placeOfWorkCompanySearch,
         public readonly PlaceOfWorkCompanyDetail $placeOfWorkCompanyDetail,
-        public readonly PlaceOfEmployment2 $placeOfEmployment2,
-        public readonly StepBelgianClient $stepBelgianClient,
-        public readonly StepAssignmentData $stepAssignmentData,
-        public readonly StepOverview $stepOverview,
+        public readonly PlaceOfEmployment2       $placeOfEmployment2,
+        public readonly StepBelgianClient        $stepBelgianClient,
+        public readonly StepAssignmentData       $stepAssignmentData,
+        public readonly StepOverview             $stepOverview,
+        public readonly OverviewPrint            $overviewPrint,
     ) {
         $this->pageHandlersFirst = [
             $this->introPage,
@@ -62,5 +65,6 @@ class GenerationStrategy
         $this->stepBelgianClient->resolve($driver, $data);
         $this->stepAssignmentData->resolve($driver, $data);
         $this->stepOverview->resolve($driver, $data);
+        $this->overviewPrint->resolve($driver, $data);
     }
 }
