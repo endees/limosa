@@ -14,7 +14,7 @@ class ActivateAccount
 
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(
-                WebDriverBy::cssSelector('p.helpBox'), '@.*Your.*account.*has.*been.*activated.*A.*confirmation.*e-mail.*has.*been.*sent.*to.*'.$data['address'].'.*@i'
+                WebDriverBy::cssSelector('p.helpBox'), '@.*Your.*account.*has.*been.*activated.*@i'
             )
         );
 

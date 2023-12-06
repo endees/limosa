@@ -32,6 +32,7 @@ class LimosaFirstPage
             if ('male' === 'male') {
                 $driver->findElement(WebDriverBy::name('genderString'))->click();
             }
+
             $dateObject = Carbon::parse($data['date_of_birth']);
             $day = $dateObject->day;
             $month = $dateObject->month;

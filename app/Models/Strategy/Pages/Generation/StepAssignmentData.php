@@ -14,8 +14,8 @@ class StepAssignmentData
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*a.*period.*and.*a.*sector.*@')
         );
-        $driver->findElement(WebDriverBy::id('startDate_input'))->sendKeys('16/12/2023');
-        $driver->findElement(WebDriverBy::id('endDate_input'))->sendKeys('23/12/2024');
+        $driver->findElement(WebDriverBy::id('startDate_input'))->sendKeys($data['start_date']);
+        $driver->findElement(WebDriverBy::id('endDate_input'))->sendKeys($data['end_date']);
 
         $driver->findElement(WebDriverBy::id('activityForSelfEmployed'))->click();
         $driver->findElement(WebDriverBy::cssSelector('#activityForSelfEmployed option[value="NEW.CONSTRUCTION"]'))->click();

@@ -14,7 +14,7 @@ class PlaceOfWorkCompanySearch
                 '@.*Declare.*a.*company.*as.*a.*place.*of.*employment.*@')
         );
 
-        $driver->findElement(WebDriverBy::id('tradingName'))->sendKeys('Knauf Montaj SPRL');
+        $driver->findElement(WebDriverBy::id('tradingName'))->sendKeys($data['business_name']);
 
         $driver->findElement(WebDriverBy::id('belgianPostalCode_label'))->click();
         sleep(2);

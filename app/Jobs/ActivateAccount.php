@@ -45,12 +45,17 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
 
         if ($filteredMessages->isEmpty()) {
             Log::info('No message received from limosa-usermanagement');
-            $this->release(now()->addMinutes(2));
+            $this->release(now()->addMinutes(5));
+            return;
         }
 
         $email = $filteredMessages->first();
 
-        $message = $this->mailApi->getMessage($this->formData['token'], $email['mail_id']);
+        $message = $this->mailApi->getMessage(
+            $this->formData['token'],
+            $email['mail_id']
+        );
+
         $messageBody = $message->get('mail_body');
         Log::info('First email: ' . $messageBody);
 

@@ -36,6 +36,9 @@ class TestController extends BaseController
                   "token":"q2sep7rmdja8jdmiv8ol651hi3",
                   "email_timestamp":1700952647,
                   "alias":"te0gwl+33jndmhuw3t2w"
+                  "business_name":"Knauf Montaj SPRL"
+                  "date_start":"05/27/2023"
+                  "date_end":"12/27/2023"
                   }';
         $data = json_decode($json, true);
 

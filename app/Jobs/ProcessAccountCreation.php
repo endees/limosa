@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\FakeMail\EmailAdapter;
 use App\Models\DriverHandler;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,6 +39,6 @@ class ProcessAccountCreation implements ShouldQueue, ShouldBeUnique
 
         $this->driverHandler->register($allData);
 
-        ActivateAccount::dispatch($allData);
+        ActivateAccount::dispatch($allData)->delay(Carbon::now()->addMinutes(5));
     }
 }

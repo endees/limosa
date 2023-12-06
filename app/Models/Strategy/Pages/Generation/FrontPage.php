@@ -13,12 +13,10 @@ class FrontPage implements PageInterface
     {
         $driver->get('https://www.international.socialsecurity.be/working_in_belgium/en/home.html');
 
-        //todo does not find an element
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#intro h1 small'), '@.*welcome.*@i')
         );
 
-        // Get current window handles first:
         $windowHandlesBefore = $driver->getWindowHandles();
 
         $driver->takeScreenshot('FrontPage.png');
