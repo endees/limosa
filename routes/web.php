@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/form/init/', 'App\Http\Controllers\LimosaController@init')->name('form.init');
 Route::post('/form/register', 'App\Http\Controllers\LimosaController@register')->name('form.register');
 
 Route::post('/mail/create/', 'App\Http\Controllers\TestController@create')->name('mail.create');

@@ -1,5 +1,4 @@
 import $ from 'jquery';
-
 window.$ = $;
 window.jQuery = $;
 
@@ -22,7 +21,6 @@ $(function () {
             if (this.value.length > 0) {
                 $(this).removeClass('invalid');
                 return true;
-
             } else {
                 if ($(this).prop('required')) {
                     $(this).addClass('invalid');
@@ -30,11 +28,10 @@ $(function () {
                 } else {
                     return true;
                 }
-
             }
         }).get();
 
-        inputschecked = inputvalue.every(Boolean);
+        return inputschecked = inputvalue.every(Boolean);
     }
 
     $(document).ready(function () {
@@ -57,12 +54,45 @@ $(function () {
             $(".step-container[data-step-number=" + previousStepNumber + "]").show();
         });
 
-        $('.next-step-btn').on('click', function () {
+        $('.next-step-btn').on('click', function (ev) {
             var stepNumber = sessionStorage.getItem('currentStep');
-            var nextStepNumber = (parseInt(stepNumber) + 1);
-            sessionStorage.setItem('currentStep', nextStepNumber);
-            $('.step-container').hide();
-            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+
+            if (formvalidate(stepNumber)) {
+                var nextStepNumber = (parseInt(stepNumber) + 1);
+                // $("#sub").html("<img src='assets/images/loading.gif'>");
+                if (stepNumber === "1") {
+                    var dataString = new FormData();
+                    var token = $('input[name="_token"]').attr('value');
+                    dataString.append('_token', token);
+
+                    $('#steps #step1 input').each(
+                        function(key,element) {
+                            dataString.append(element.name, element.value);
+                        }
+                    );
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/form/init",
+                        cache:false,
+                        dataType: false,
+                        processData: false,
+                        contentType: false,
+                        async: false,
+                        data: dataString,
+                        success: function () {
+                            sessionStorage.setItem('currentStep', nextStepNumber);
+                            $('.step-container').hide();
+                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                            alert('General error');
+                        }
+                    });
+                } else {
+                    sessionStorage.setItem('currentStep', nextStepNumber);
+                    $('.step-container').hide();
+                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                }
+            }
         });
 
         $("#sub").on('click', function () {
@@ -76,12 +106,7 @@ $(function () {
             //number validiation
             var numbers = /^[0-9]+$/;
 
-            formvalidate(1);
-
-            if (inputschecked == false) {
-                formvalidate(1);
-            } else if (emailFormat == false) {
-                // console.log("enter valid email address");
+            if (emailFormat == false) {
                 (function (el) {
                     setTimeout(function () {
                         el.children().remove('.reveal');
@@ -92,30 +117,7 @@ $(function () {
                 } else {
                     $("#mail-email").addClass('invalid');
                 }
-            } else {
-                $("#sub").html("<img src='assets/images/loading.gif'>");
-                // var attachment = {cv: $("#step3 input[type=file]").val()};
-                // var dataString = $("#step1, #step2, #step3").serialize() + '&' + $.param(attachment);
-
-                var dataString = new FormData(document.getElementById("steps"));
-
-                // send form to send.php
-                $.ajax({
-                    type: "POST",
-                    url: "form handling/send.php",
-                    data: dataString,
-                    processData: false,
-                    contentType: false,
-                    success: function (data, status) {
-                        $("#sub").html("Success!");
-                        window.location = "thankyou.html";
-                    },
-                    error: function (data, status) {
-                        $("#sub").html("failed!");
-                    }
-                });
             }
-
         });
     });
 });
