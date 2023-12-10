@@ -12,7 +12,7 @@ class NipValidateRequest extends FormRequest
         return [
             'firstname' => 'string',
             'lastname' => 'string',
-            'nip' => ['numeric', new ceidgNip]
+            'nip' => ['numeric', new ceidgNip()]
         ];
     }
 }

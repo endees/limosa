@@ -88,6 +88,9 @@ $(function () {
                             }
                         }
                     });
+                    sessionStorage.setItem('currentStep', nextStepNumber);
+                    $('.step-container').hide();
+                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                 }
 
                 if (stepNumber === "2") {
@@ -111,23 +114,17 @@ $(function () {
                         contentType: false,
                         async: false,
                         data: dataString,
-                        done: function (response) {
-                            if (response.code === 422) {
-                                var toast = new bootstrap.Toast('.toast');
-                                toast.show();
-                            }
-                            if (response.code === 204) {
-                                var toast = new bootstrap.Toast('.toast');
-                                toast.show();
-                            }
+                        error: function (response) {
+                            var toast = new bootstrap.Toast('.toast');
+                            toast.show();
+                        },
+                        success: function() {
+                            sessionStorage.setItem('currentStep', nextStepNumber);
+                            $('.step-container').hide();
+                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                         }
                     });
-
                 }
-
-                sessionStorage.setItem('currentStep', nextStepNumber);
-                $('.step-container').hide();
-                $(".step-container[data-step-number=" + nextStepNumber + "]").show();
             }
         });
 

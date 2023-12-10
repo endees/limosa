@@ -33,11 +33,6 @@ class FormController extends BaseController
 
     public function company(NipValidateRequest $request)
     {
-        $nip = $request->nip();
-
-        $nipValidator = App::make(NipValidator::class);
-        $nipValidator->validate($nip);
-
         return response()->json([
             "message" => "Success"
         ]);
