@@ -28,7 +28,6 @@ RUN php -r "unlink('composer-setup.php');"
 
 ADD ./dockerfiles/laravel.ini /usr/local/etc/php/conf.d
 ADD ./dockerfiles/000-default.conf /etc/apache2/sites-enabled
-
 ADD ./dockerfiles/xdebug.ini /usr/local/etc/php/conf.d/99-xdebug.ini
 
 RUN \ | if [ "$DEPLOYMENT_MODE" = "dev" ] ; then \

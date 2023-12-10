@@ -5,15 +5,13 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link href="{{ Vite::asset('resources/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ Vite::asset('node_modules/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ Vite::asset('resources/css/style.css') }}" rel="stylesheet">
     <link href="{{ Vite::asset('resources/css/responsive.css') }}" rel="stylesheet">
-    <script type="module" src="{{ Vite::asset('resources/js/custom.js') }}"></script>
+    @vite(['resources/js/app.js'])
 </head>
 <body class="antialiased">
 <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-
-
     <main>
         <div class="logo">
             <div class="logo-icon">
@@ -23,11 +21,22 @@
                 Trimba
             </div>
         </div>
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast">
+            <div class="toast-header">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Error sending form
+            </div>
+        </div>
         <div class="container">
             <div class="wrapper">
                 <div class="row">
                     <div class="c-order tab-sm-100 col-md-6">
-
                         <!-- side -->
                         <div class="left">
                             <article class="side-text">
@@ -53,17 +62,14 @@
                                     <div class="input-field">
                                         <label for="firstname"><i class="fa-regular fa-user"></i>Full Name <span>*</span></label>
                                         <input required type="text" name="firstname" id="firstname" placeholder="Type Name">
-                                        <span></span>
                                     </div>
                                     <div class="input-field">
                                         <label for="lastname"><i class="fa-regular fa-user"></i>Last Name <span>*</span></label>
                                         <input required type="text" name="lastname" id="lastname" placeholder="Type Name">
-                                        <span></span>
                                     </div>
                                     <div class="input-field">
                                         <label for="customer_email"><i class="fa-regular fa-envelope"></i>Email Address <span>*</span></label>
                                         <input required type="text" name="customer_email" id="customer_email" placeholder="Type email address">
-                                        <span></span>
                                     </div>
                                     <!-- step Button -->
                                     <div class="submit">
@@ -74,40 +80,35 @@
                                     <div class="input-field">
                                         <label for="company"><i class="fa-regular fa-paper-plane"></i>Date of Birth<span>*</span></label>
                                         <input required type="text" name="date_of_birth" id="date_of_birth" placeholder="Type company name">
-                                        <span></span>
                                     </div>
                                     <div class="input-field">
                                         <label for="nip"><i class="fa-regular fa-envelope"></i>NIP <span>*</span></label>
                                         <input required type="text" name="nip" id="nip" placeholder="Type nip">
-                                        <span></span>
                                     </div>
                                     <div class="input-field">
                                         <label for="pesel"><i class="fa-regular fa-envelope"></i>PESEL <span>*</span></label>
                                         <input required type="text" name="pesel" id="pesel" placeholder="Type pesel">
-                                        <span></span>
                                     </div>
                                     <div class="input-field">
                                         <label><i class="fa-regular fa-envelope"></i>Street <span>*</span></label>
                                         <input required type="text" name="street" id="street" placeholder="Type street">
-                                        <span></span>
                                     </div>
                                     <div class="input-field">
-                                        <label for="house_number">House Number</label>
-                                        <input type="text" id="street" name="house_number">
+                                        <label for="house_number">House Number <span>*</span></label>
+                                        <input required type="text" id="street" name="house_number">
                                     </div>
                                     <div class="input-field">
                                         <label for="flat_number">Flat Number</label>
                                         <input type="text" id="flat_number" name="flat_number">
                                     </div>
                                     <div class="input-field">
-                                        <label for="city">City</label>
-                                        <input type="text" id="city" name="city">
+                                        <label for="city">City <span>*</span></label>
+                                        <input required type="text" id="city" name="city">
                                     </div>
                                     <div class="input-field">
-                                        <label for="postcode">Postcode</label>
-                                        <input type="text" id="postcode" name="postcode">
+                                        <label for="postcode">Postcode <span>*</span></label>
+                                        <input required type="text" id="postcode" name="postcode">
                                     </div>
-
                                     <!-- step Button -->
                                     <div class="submit">
                                         <button class="previous-step-btn">Go back<span><i class="fa-solid fa-thumbs-up"></i></span></button>

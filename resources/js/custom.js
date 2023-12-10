@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import * as bootstrap from 'bootstrap'
 window.$ = $;
 window.jQuery = $;
 
@@ -80,22 +81,59 @@ $(function () {
                         contentType: false,
                         async: false,
                         data: dataString,
-                        success: function () {
-                            sessionStorage.setItem('currentStep', nextStepNumber);
-                            $('.step-container').hide();
-                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
-                            alert('General error');
+                        error: function (response) {
+                            if (response.code === 422) {
+                                var toast = new bootstrap.Toast('.toast');
+                                toast.show();
+                            }
                         }
                     });
-                } else {
-                    sessionStorage.setItem('currentStep', nextStepNumber);
-                    $('.step-container').hide();
-                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                 }
+
+                if (stepNumber === "2") {
+                    var dataString = new FormData();
+                    var token = $('input[name="_token"]').attr('value');
+                    dataString.append('_token', token);
+                    var firstname = $('#steps #step1 input[name=firstname]').val();
+                    var lastname = $('#steps #step1 input[name=lastname]').val();
+                    var nip = $('#steps #step2 input[name=nip]').val();
+
+                    dataString.append('firstname', firstname);
+                    dataString.append('firstname', lastname);
+                    dataString.append('nip', nip);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/form/company",
+                        cache:false,
+                        dataType: false,
+                        processData: false,
+                        contentType: false,
+                        async: false,
+                        data: dataString,
+                        done: function (response) {
+                            if (response.code === 422) {
+                                var toast = new bootstrap.Toast('.toast');
+                                toast.show();
+                            }
+                            if (response.code === 204) {
+                                var toast = new bootstrap.Toast('.toast');
+                                toast.show();
+                            }
+                        }
+                    });
+
+                }
+
+                sessionStorage.setItem('currentStep', nextStepNumber);
+                $('.step-container').hide();
+                $(".step-container[data-step-number=" + nextStepNumber + "]").show();
             }
         });
 
         $("#sub").on('click', function () {
+            sessionStorage.setItem('currentStep', 1);
+
             // get input value
             var email = $("#mail-email").val();
 
