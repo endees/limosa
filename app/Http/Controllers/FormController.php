@@ -6,7 +6,7 @@ use App\Http\Requests\DataFormRequest;
 use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
 use App\Jobs\ProcessAccountCreation;
-use App\Validation\NipValidator;
+use App\Models\Form\DataHandler;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -19,13 +19,15 @@ class FormController extends BaseController
     {
         $formData = $request->all();
         Log::info('Start registering ip address ' . $request->ip());
+
+        /** @var DataHandler $dataHandler */
+        $dataHandler = App::make(DataHandler::class);
+        $formData['date_of_birth'] = $dataHandler->getBirthDateFromPesel($formData['pesel']);
         ProcessAccountCreation::dispatch($formData);
         return view('success', []);
     }
 
     public function init(DataInitRequest $request) {
-        $formData = $request->all();
-        // mail data
         return response()->json([
             "message" => "Success"
         ]);

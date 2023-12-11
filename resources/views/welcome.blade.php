@@ -23,14 +23,13 @@
         </div>
         <div role="alert" aria-live="assertive" aria-atomic="true" class="toast">
             <div class="toast-header">
-                <strong class="mr-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
+                <strong class="mr-auto">Form error</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="toast-body">
-                Error sending form
+                The validation of the form failed
             </div>
         </div>
         <div class="container">
@@ -55,7 +54,7 @@
                     </div>
                     <div class="tab-sm-100 offset-md-1 col-md-5">
                         <div class="right">
-                            <form id="steps" method="post" enctype="multipart/form-data" action="{{ route('form.register') }}">
+                            <form id="steps" method="POST" enctype="multipart/form-data" action="{{ route('form.register') }}">
                                 <!-- step 1 -->
                                 @csrf
                                 <div id="step1" class="form-inner lightSpeedIn step-container" data-step-number="1">
@@ -77,10 +76,6 @@
                                     </div>
                                 </div>
                                 <div id="step2" class="form-inner lightSpeedIn step-container" data-step-number="2">
-                                    <div class="input-field">
-                                        <label for="company"><i class="fa-regular fa-paper-plane"></i>Date of Birth<span>*</span></label>
-                                        <input required type="text" name="date_of_birth" id="date_of_birth" placeholder="Type company name">
-                                    </div>
                                     <div class="input-field">
                                         <label for="nip"><i class="fa-regular fa-envelope"></i>NIP <span>*</span></label>
                                         <input required type="text" name="nip" id="nip" placeholder="Type nip">

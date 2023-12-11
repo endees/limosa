@@ -82,28 +82,31 @@ $(function () {
                         async: false,
                         data: dataString,
                         error: function (response) {
-                            if (response.code === 422) {
                                 var toast = new bootstrap.Toast('.toast');
                                 toast.show();
-                            }
+                        },
+                        success: function() {
+                            sessionStorage.setItem('currentStep', nextStepNumber);
+                            $('.step-container').hide();
+                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                         }
                     });
-                    sessionStorage.setItem('currentStep', nextStepNumber);
-                    $('.step-container').hide();
-                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                 }
 
                 if (stepNumber === "2") {
                     var dataString = new FormData();
+
                     var token = $('input[name="_token"]').attr('value');
-                    dataString.append('_token', token);
                     var firstname = $('#steps #step1 input[name=firstname]').val();
                     var lastname = $('#steps #step1 input[name=lastname]').val();
                     var nip = $('#steps #step2 input[name=nip]').val();
+                    var pesel = $('#steps #step2 input[name=pesel]').val();
 
+                    dataString.append('_token', token);
                     dataString.append('firstname', firstname);
-                    dataString.append('firstname', lastname);
+                    dataString.append('lastname', lastname);
                     dataString.append('nip', nip);
+                    dataString.append('pesel', pesel);
 
                     $.ajax({
                         type: "POST",
@@ -130,29 +133,30 @@ $(function () {
 
         $("#sub").on('click', function () {
             sessionStorage.setItem('currentStep', 1);
-
-            // get input value
-            var email = $("#mail-email").val();
-
-            //email validiation
-            var re = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            var emailFormat = re.test(email);
-
-            //number validiation
-            var numbers = /^[0-9]+$/;
-
-            if (emailFormat == false) {
-                (function (el) {
-                    setTimeout(function () {
-                        el.children().remove('.reveal');
-                    }, 3000);
-                }($('#error').append('<div class="reveal alert alert-danger">Enter Valid email address!</div>')));
-                if (emailFormat == true) {
-                    $("#mail-email").removeClass('invalid');
-                } else {
-                    $("#mail-email").addClass('invalid');
-                }
-            }
         });
+        // $("#sub").on('click', function () {
+        //     // get input value
+        //     var email = $("#mail-email").val();
+        //
+        //     //email validiation
+        //     var re = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        //     var emailFormat = re.test(email);
+        //
+        //     //number validiation
+        //     var numbers = /^[0-9]+$/;
+        //
+        //     if (emailFormat == false) {
+        //         (function (el) {
+        //             setTimeout(function () {
+        //                 el.children().remove('.reveal');
+        //             }, 3000);
+        //         }($('#error').append('<div class="reveal alert alert-danger">Enter Valid email address!</div>')));
+        //         if (emailFormat == true) {
+        //             $("#mail-email").removeClass('invalid');
+        //         } else {
+        //             $("#mail-email").addClass('invalid');
+        //         }
+        //     }
+        // });
     });
 });

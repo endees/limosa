@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Http;
 
-class ceidgNip implements ValidationRule
+class CeidgNip implements ValidationRule
 {
     /**
      * Run the validation rule.

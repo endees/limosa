@@ -20,9 +20,7 @@ class DriverHandler
 
     public function register(array $data)
     {
-        $host = env('SELENIUM_HOST');
-        $capabilities = DesiredCapabilities::firefox();
-        $driver = RemoteWebDriver::create($host, $capabilities,30000, 30000);
+        $driver = $this->prepareDriver();
 
         try {
             $driver->takeScreenshot('startRegistration.png');
@@ -38,9 +36,7 @@ class DriverHandler
     }
 
     public function activateAccount(array $data) {
-        $host = env('SELENIUM_HOST');
-        $capabilities = DesiredCapabilities::firefox();
-        $driver = RemoteWebDriver::create($host, $capabilities,30000, 30000);
+        $driver = $this->prepareDriver();
 
         try {
             $driver->takeScreenshot('startActivatin.png');
@@ -57,6 +53,22 @@ class DriverHandler
 
     public function generateLimosa(array $data)
     {
+        $driver = $this->prepareDriver();
+        try {
+            $driver->takeScreenshot('startLimosaGeneration.png');
+            $this->generationStrategy->execute($driver, $data);
+        } catch (\Exception $e) {
+            $driver->takeScreenshot('endLimosaGeneration.png');
+            $driver->quit();
+            throw $e;
+        }
+        $driver->wait(10);
+        $driver->takeScreenshot('end.png');
+        $driver->quit();
+    }
+
+    private function prepareDriver(): RemoteWebDriver
+    {
         $host = env('SELENIUM_HOST');
         $capabilities = DesiredCapabilities::firefox();
 
@@ -70,18 +82,6 @@ class DriverHandler
         $firefoxOptions->addArguments(['-headless']);
         $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
 
-        $driver = RemoteWebDriver::create($host, $capabilities,30000, 30000);
-
-        try {
-            $driver->takeScreenshot('startLimosaGeneration.png');
-            $this->generationStrategy->execute($driver, $data);
-        } catch (\Exception $e) {
-            $driver->takeScreenshot('endLimosaGeneration.png');
-            $driver->quit();
-            throw $e;
-        }
-        $driver->wait(10);
-        $driver->takeScreenshot('end.png');
-        $driver->quit();
+        return RemoteWebDriver::create($host, $capabilities,30000, 30000);
     }
 }

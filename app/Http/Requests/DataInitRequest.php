@@ -9,9 +9,9 @@ class DataInitRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => 'string',
-            'lastname' => 'string',
-            'email' => 'string',
+            'firstname' => 'required|string|max:24',
+            'lastname' => 'required|string|max:24',
+            'customer_email' => 'email|required',
         ];
     }
 }
