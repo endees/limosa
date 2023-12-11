@@ -16,7 +16,7 @@ class StepEmployer
                 '@.*Self-employed.*person.*selected.*@')
         );
         sleep(5);
-        $driver->takeScreenshot('StepEmployer.png');
+        $driver->takeScreenshot('storage/screenshots/StepEmployer.png');
         $driver->findElement(WebDriverBy::id('nextStepFromEmployerButton'))->click();
     }
 }

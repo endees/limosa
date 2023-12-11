@@ -27,7 +27,7 @@ class LoginPage implements PageInterface
         $newWindowHandle = reset($newWindowHandle);
 
         $driver->switchTo()->window($newWindowHandle);
-        $driver->takeScreenshot('LoginPage2.png');
+        $driver->takeScreenshot('storage/screenshots/LoginPage2.png');
 
     }
 }

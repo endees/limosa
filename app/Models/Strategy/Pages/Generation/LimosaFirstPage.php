@@ -19,9 +19,9 @@ class LimosaFirstPage
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
-            $driver->takeScreenshot('beforeScroll.png');
+            $driver->takeScreenshot('storage/screenshots/beforeScroll.png');
             $driver->findElement(WebDriverBy::xpath("//*[contains(text(),'Personal details')]"))->click();
-            $driver->takeScreenshot('afterScroll.png');
+            $driver->takeScreenshot('storage/screenshots/afterScroll.png');
 
             $driver->findElement($goNextElement)->getLocationOnScreenOnceScrolledIntoView();
 
@@ -70,7 +70,7 @@ class LimosaFirstPage
         } else {
             // @todo manual encoding
         }
-        $driver->takeScreenshot('LimosaFirstPage.png');
+        $driver->takeScreenshot('storage/screenshots/LimosaFirstPage.png');
         $driver->findElement($goNextElement)->click();
     }
 

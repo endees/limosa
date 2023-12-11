@@ -19,7 +19,7 @@ class IntroPage implements PageInterface
             )
         );
 
-        $driver->takeScreenshot('IntroPage.png');
+        $driver->takeScreenshot('storage/screenshots/IntroPage.png');
 
         $driver->findElement(WebDriverBy::linkText('English'))->click();
     }

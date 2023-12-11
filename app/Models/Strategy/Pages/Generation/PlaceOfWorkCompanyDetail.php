@@ -14,7 +14,7 @@ class PlaceOfWorkCompanyDetail
                 '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
         );
 
-        $driver->takeScreenshot('PlaceOfWorkCompanyDetail.png');
+        $driver->takeScreenshot('storage/screenshots/PlaceOfWorkCompanyDetail.png');
         $driver->findElement(WebDriverBy::id('createUpdateCompany'))->click();
     }
 }

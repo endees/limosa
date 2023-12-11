@@ -21,7 +21,7 @@ class PlaceOfWorkCompanySearch
         $driver->findElement(WebDriverBy::id('belgianPostalCode_29'))->click();
         sleep(2);
 
-        $driver->takeScreenshot('PlaceOfWorkCompanySearch.png');
+        $driver->takeScreenshot('storage/screenshots/PlaceOfWorkCompanySearch.png');
         $driver->findElement(WebDriverBy::id('searchCompanyButton'))->click();
     }
 }

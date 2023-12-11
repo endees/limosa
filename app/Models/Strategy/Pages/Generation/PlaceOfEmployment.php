@@ -14,7 +14,7 @@ class PlaceOfEmployment
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*place.*of.*employment.*@')
         );
-        $driver->takeScreenshot('PlaceOfEmployment.png');
+        $driver->takeScreenshot('storage/screenshots/PlaceOfEmployment.png');
         $driver->findElement(WebDriverBy::id('addCompanyLink'))->click();
     }
 }

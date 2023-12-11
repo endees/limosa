@@ -14,7 +14,7 @@ class PlaceOfEmployment2
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Place.*of.*employment.*selected.*@')
         );
-        $driver->takeScreenshot('PlaceOfEmployment2.png');
+        $driver->takeScreenshot('storage/screenshots/PlaceOfEmployment2.png');
         $driver->findElement(WebDriverBy::id('nextStepFromPOWButton'))->click();
     }
 }

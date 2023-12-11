@@ -21,6 +21,8 @@ class TestController extends BaseController
     {
         $json = '{
                   "address":"ydroqtwd@guerrillamailblock.com",
+                  "customer_address": "materazzi5@gmail.com",
+                  "telephone": "792651641",
                   "username":"ydroqtwd",
                   "password":"UmRXBgA1@",
                   "lastname": "Klepuszewski",

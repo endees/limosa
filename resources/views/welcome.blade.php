@@ -104,10 +104,6 @@
                                         <label for="postcode">Postcode <span>*</span></label>
                                         <input required type="text" id="postcode" name="postcode">
                                     </div>
-                                    <!-- step Button -->
-                                    <div class="submit">
-                                        <button class="previous-step-btn">Go back<span><i class="fa-solid fa-thumbs-up"></i></span></button>
-                                    </div>
                                     <div class="submit">
                                         <button class="next-step-btn">Go next<span><i class="fa-solid fa-thumbs-up"></i></span></button>
                                     </div>
@@ -126,9 +122,6 @@
                                         <input type="date" id="end_date" name="end_date" required>
                                     </div>
                                     <!-- step Button -->
-                                    <div class="submit">
-                                        <button class="previous-step-btn">Go back<span><i class="fa-solid fa-thumbs-up"></i></span></button>
-                                    </div>
                                     <div class="submit">
                                         <button type="submit" id="sub">Send Message<span><i class="fa-solid fa-thumbs-up"></i></span></button>
                                     </div>

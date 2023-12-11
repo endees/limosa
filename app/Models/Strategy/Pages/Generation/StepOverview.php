@@ -16,7 +16,7 @@ class StepOverview
                 '@.*Preview.*of.*the.*declaration.*@')
         );
 
-        $driver->takeScreenshot('StepOverview.png');
+        $driver->takeScreenshot('storage/screenshots/StepOverview.png');
         $driver->findElement(WebDriverBy::id('nextStepButton'))->click();
     }
 }

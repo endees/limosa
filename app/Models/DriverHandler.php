@@ -23,15 +23,15 @@ class DriverHandler
         $driver = $this->prepareDriver();
 
         try {
-            $driver->takeScreenshot('startRegistration.png');
+            $driver->takeScreenshot('storage/screenshots/startRegistration.png');
             $this->registrationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('endRegistration.png');
+            $driver->takeScreenshot('storage/screenshots/endRegistration.png');
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('endRegistration.png');
+        $driver->takeScreenshot('storage/screenshots/endRegistration.png');
         $driver->quit();
     }
 
@@ -39,15 +39,15 @@ class DriverHandler
         $driver = $this->prepareDriver();
 
         try {
-            $driver->takeScreenshot('startActivatin.png');
+            $driver->takeScreenshot('storage/screenshots/startActivatin.png');
             $this->accountActivationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('endActivation.png');
+            $driver->takeScreenshot('storage/screenshots/endActivation.png');
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('end.png');
+        $driver->takeScreenshot('storage/screenshots/end.png');
         $driver->quit();
     }
 
@@ -55,15 +55,15 @@ class DriverHandler
     {
         $driver = $this->prepareDriver();
         try {
-            $driver->takeScreenshot('startLimosaGeneration.png');
+            $driver->takeScreenshot('storage/screenshots/startLimosaGeneration.png');
             $this->generationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('endLimosaGeneration.png');
+            $driver->takeScreenshot('storage/screenshots/endLimosaGeneration.png');
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('end.png');
+        $driver->takeScreenshot('storage/screenshots/end.png');
         $driver->quit();
     }
 

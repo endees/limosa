@@ -18,7 +18,7 @@ class LoginPage
         $driver->findElement(WebDriverBy::name('j_username'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('j_password'))->sendKeys($data['password']);
 
-        $driver->takeScreenshot('LoginPageGeneration.png');
+        $driver->takeScreenshot('storage/screenshots/LoginPageGeneration.png');
 
         $driver->findElement(WebDriverBy::cssSelector('button[type="submit"]'))->click();
     }

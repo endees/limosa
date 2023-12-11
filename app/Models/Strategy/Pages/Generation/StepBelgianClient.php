@@ -14,7 +14,7 @@ class StepBelgianClient
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*a.*Belgian.*client.*@')
         );
-        $driver->takeScreenshot('StepBelgianClient.png');
+        $driver->takeScreenshot('storage/screenshots/StepBelgianClient.png');
         $driver->findElement(WebDriverBy::id('stepBelgianClientForm:nextStepFromBelgianClientButton'))->click();
     }
 }

@@ -19,7 +19,7 @@ class LimosaTypesPage
         $driver->findElement(WebDriverBy::cssSelector('#employerCountrySelfEmployed option[value="122"]'))->click();
         $driver->findElement(WebDriverBy::id('vatNumberSelfEmployed'))->sendKeys('PL' . $data['nip']);
 
-        $driver->takeScreenshot('LimosaTypes.png');
+        $driver->takeScreenshot('storage/screenshots/LimosaTypes.png');
 
         $driver->findElement(WebDriverBy::id('createSelfEmployerDeclarationButton'))->click();
     }
