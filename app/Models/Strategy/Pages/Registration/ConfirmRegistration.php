@@ -16,7 +16,7 @@ class ConfirmRegistration
             )
         );
 
-        $driver->takeScreenshot( 'ConfirmRegistration.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/ConfirmRegistration.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <title>Limosa Registration</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-{{--    <link href="{{ Vite::asset('node_modules/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet">--}}
-{{--    <link href="{{ Vite::asset('resources/css/style.css') }}" rel="stylesheet">--}}
     <link href="{{ Vite::asset('resources/css/responsive.css') }}" rel="stylesheet">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
@@ -60,15 +58,19 @@
                                 <div id="step1" class="form-inner lightSpeedIn step-container" data-step-number="1">
                                     <div class="input-field">
                                         <label for="firstname"><i class="fa-regular fa-user"></i>Full Name <span>*</span></label>
-                                        <input required type="text" name="firstname" id="firstname" placeholder="Type Name">
+                                        <input required type="text" name="firstname" id="firstname" placeholder="Type Firstname" value="{{ old('firstname') }}">
                                     </div>
                                     <div class="input-field">
                                         <label for="lastname"><i class="fa-regular fa-user"></i>Last Name <span>*</span></label>
-                                        <input required type="text" name="lastname" id="lastname" placeholder="Type Name">
+                                        <input required type="text" name="lastname" id="lastname" placeholder="Type Lastname" value="{{ old('lastname') }}">
                                     </div>
                                     <div class="input-field">
                                         <label for="customer_email"><i class="fa-regular fa-envelope"></i>Email Address <span>*</span></label>
-                                        <input required type="text" name="customer_email" id="customer_email" placeholder="Type email address">
+                                        <input required type="text" name="customer_email" id="customer_email" placeholder="Type email address" value="{{ old('customer_email') }}">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="customer_telephone"><i class="fa-regular fa-envelope"></i>Telephone <span>*</span></label>
+                                        <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Type telephone" value="{{ old('customer_telephone') }}">
                                     </div>
                                     <!-- step Button -->
                                     <div class="submit">

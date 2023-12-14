@@ -14,7 +14,7 @@ class LoginPage implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#main h1'), '@.*Limosa.*Authentication.*@')
         );
 
-        $driver->takeScreenshot( 'LoginPage.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/LoginPage.png');
 
         // Get current window handles first:
         $windowHandlesBefore = $driver->getWindowHandles();
@@ -27,7 +27,7 @@ class LoginPage implements PageInterface
         $newWindowHandle = reset($newWindowHandle);
 
         $driver->switchTo()->window($newWindowHandle);
-        $driver->takeScreenshot('storage/screenshots/LoginPage2.png');
+        $driver->takeScreenshot('storage/screenshots/registration/LoginPage2.png');
 
     }
 }

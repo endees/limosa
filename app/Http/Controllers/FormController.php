@@ -18,11 +18,19 @@ class FormController extends BaseController
     public function register(DataFormRequest $request)
     {
         $formData = $request->all();
-        Log::info('Start registering ip address ' . $request->ip());
+        Log::channel('registration')->info('Start registering ip address: ' . request()->server('SERVER_ADDR'));
 
         /** @var DataHandler $dataHandler */
         $dataHandler = App::make(DataHandler::class);
         $formData['date_of_birth'] = $dataHandler->getBirthDateFromPesel($formData['pesel']);
+        $formData['gender'] = $dataHandler->getGenderFromPesel($formData['pesel']);
+
+        $translitRules = 'Latin-ASCII';
+        $formData['firstname'] = transliterator_transliterate($translitRules, $formData['firstname']);
+        $formData['lastname'] = transliterator_transliterate($translitRules, $formData['lastname']);
+        $formData['street'] = transliterator_transliterate($translitRules, $formData['street']);
+        $formData['city'] = transliterator_transliterate($translitRules, $formData['city']);
+
         ProcessAccountCreation::dispatch($formData);
         return view('success', []);
     }

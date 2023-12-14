@@ -20,7 +20,7 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
     private DriverHandler $driverHandler;
     private EmailAdapter $mailApi;
     private Log $logger;
-    public $tries = 5;
+    public $tries = 6;
 
     public function __construct(
         private array $formData
@@ -31,7 +31,7 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        Log::info('Check for new messages client with email: ' . $this->formData['address']);
+        Log::channel('activation')->info('Check for new messages client with email: ' . $this->formData['address']);
 
         $messages = $this->mailApi->getMessages($this->formData['token']);
         $filteredMessages = collect($messages->get('list'))->filter(function($value) {
@@ -44,8 +44,8 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
         Log::info($filteredMessages);
 
         if ($filteredMessages->isEmpty()) {
-            Log::info('No message received from limosa-usermanagement');
-            $this->release(now()->addMinutes(5));
+            Log::channel('activation')->info('No message received from limosa-usermanagement');
+            $this->release(360);
             return;
         }
 
@@ -57,15 +57,14 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
         );
 
         $messageBody = $message->get('mail_body');
-        Log::info('First email: ' . $messageBody);
+        Log::channel('activation')->info('First email: ' . $messageBody);
 
         if ($messageBody) {
-            Log::info('First email body: ' . $messageBody);
+            Log::channel('activation')->info('First email body: ' . $messageBody);
             preg_match( '@href="(.*)"@', $messageBody, $matches);
             if (isset($matches[1])) {
                 $this->formData['activation_link'] = $matches[1];
-                Log::info('End registering the new client with email: ' . $this->formData['address']);
-
+                Log::channel('activation')->info('End registering the new client with email: ' . $this->formData['address']);
                 $this->driverHandler->activateAccount($this->formData);
                 ProcessLimosaGeneration::dispatch($this->formData);
             }

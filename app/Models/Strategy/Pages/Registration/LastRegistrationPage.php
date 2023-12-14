@@ -24,7 +24,7 @@ class LastRegistrationPage
         $driver->findElement(WebDriverBy::name('createId.secretQuestion'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('createId.answer'))->sendKeys($data['password']);
 
-        $driver->takeScreenshot( 'LastRegistrationPage.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/LastRegistrationPage.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

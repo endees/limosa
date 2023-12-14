@@ -16,11 +16,12 @@ class RegisterForm
         );
         $driver->findElement(WebDriverBy::name('register.lastname'))->sendKeys($data['lastname']);
         $driver->findElement(WebDriverBy::name('register.firstname'))->sendKeys($data['firstname']);
-        // todo
-        if ('male' === 'male') {
+        if ($data['gender'] === 'female') {
+            $driver->findElement(WebDriverBy::id('opt2'))->click();
+        } else {
             $driver->findElement(WebDriverBy::id('opt1'))->click();
         }
-        $dateObject = Carbon::parse($data['date_of_birth']);
+        $dateObject = Carbon::createFromFormat('d/m/Y', $data['date_of_birth']);
         $day = $dateObject->day;
         $month = $dateObject->month;
         $year = $dateObject->year;
@@ -50,7 +51,7 @@ class RegisterForm
 
         $driver->findElement(WebDriverBy::cssSelector('input[name="createId.qualityCodeTypeInt"][value="3"]'))->click();
 
-        $driver->takeScreenshot( 'RegisterForm.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/RegisterForm.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

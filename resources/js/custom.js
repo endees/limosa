@@ -13,7 +13,7 @@ $(function () {
         }
     });
 
-// form validiation
+    // form validiation
     var inputschecked = false;
 
     function formvalidate(stepnumber) {
@@ -82,7 +82,8 @@ $(function () {
                         async: false,
                         data: dataString,
                         error: function (response) {
-                                var toast = new bootstrap.Toast('.toast');
+                                var toast = new bootstrap.Toast('#error');
+                                $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
                                 toast.show();
                         },
                         success: function() {
@@ -118,7 +119,8 @@ $(function () {
                         async: false,
                         data: dataString,
                         error: function (response) {
-                            var toast = new bootstrap.Toast('.toast');
+                            var toast = new bootstrap.Toast('#error');
+                            $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
                             toast.show();
                         },
                         success: function() {

@@ -18,6 +18,6 @@ class ActivateAccount
             )
         );
 
-        $driver->takeScreenshot('storage/screenshots/ActivateAccount.png');
+        $driver->takeScreenshot('storage/screenshots/registration/ActivateAccount.png');
     }
 }

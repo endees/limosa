@@ -29,8 +29,8 @@ class LimosaFirstPage
             $driver->findElement(WebDriverBy::id('lastName'))->sendKeys($data['lastname']);
             $driver->findElement(WebDriverBy::id('firstName'))->sendKeys($data['firstname']);
 
-            if ('male' === 'male') {
-                $driver->findElement(WebDriverBy::name('genderString'))->click();
+            if ($data['gender'] === 'female') {
+                $driver->findElement(WebDriverBy::cssSelector('input[name=genderString][value=1]'))->click();
             }
 
             $dateObject = Carbon::parse($data['date_of_birth']);
@@ -47,7 +47,7 @@ class LimosaFirstPage
             $driver->findElement(WebDriverBy::id('nationalities'))->click();
             $driver->findElement(WebDriverBy::cssSelector('#nationalities option[value="122"]'))->click();
 
-//        address
+            // address
             $driver->findElement(WebDriverBy::id('phoneticAddressaddressCountry'))->getLocationOnScreenOnceScrolledIntoView();
             $driver->findElement(WebDriverBy::id('phoneticAddressaddressCountry'))->click();
             $driver->findElement(WebDriverBy::cssSelector('#phoneticAddressaddressCountry option[value="122"]'))->click();

@@ -13,6 +13,7 @@ class DataFormRequest extends FormRequest
             'lastname' => 'required|string',
             'street' => 'required|string',
             'customer_email' => 'required|email',
+            'customer_telephone' => 'numeric|required',
             'city' => 'required|string',
             'postcode' => 'required|string',
             'business_name' => 'required|string',

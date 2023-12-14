@@ -14,7 +14,7 @@ class RegisterStart implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('headerTitle'), '@.*Demand.*access.*@i')
         );
 
-        $driver->takeScreenshot( 'RegisterStart.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/RegisterStart.png');
 
         $driver->findElement(WebDriverBy::id('selectRegistrationByPersonalDataButton'))->click();
     }

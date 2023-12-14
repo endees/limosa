@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev  \
         libxml2-dev  \
         npm
-RUN docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql soap
+RUN docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql soap intl
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 RUN docker-php-ext-configure soap
 RUN docker-php-ext-install zip
