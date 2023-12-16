@@ -8,7 +8,7 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class ActivateAccount
 {
-    public function resolve(RemoteWebDriver $driver, $data): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->get($data['activation_link']);
 
@@ -18,6 +18,6 @@ class ActivateAccount
             )
         );
 
-        $driver->takeScreenshot('storage/screenshots/registration/ActivateAccount.png');
+        $driver->takeScreenshot('storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_ActivateAccount.png');
     }
 }

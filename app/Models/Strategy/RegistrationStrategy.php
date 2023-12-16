@@ -33,24 +33,17 @@ class RegistrationStrategy
             $this->languages,
             $this->loginPage,
             $this->registerStart,
-        ];
-        $this->pageHandlersSecond = [
-            $this->confirmRegistration
+            $this->registerForm,
+            $this->lastRegistrationPage,
+            $this->confirmRegistration,
         ];
     }
 
     public function execute(RemoteWebDriver $driver, array $data)
     {
-        foreach ($this->pageHandlersFirst as $pageHandler) {
-            $pageHandler->resolve($driver);
-        }
-
-        $this->registerForm->resolve($driver, $data);
-
-        $this->lastRegistrationPage->resolve($driver, $data);
-
-        foreach ($this->pageHandlersSecond as $pageHandler) {
-            $pageHandler->resolve($driver);
+        foreach ($this->pageHandlersFirst as $key => $pageHandler) {
+            $data['sequence'] = $key;
+            $pageHandler->resolve($driver, $data);
         }
     }
 }

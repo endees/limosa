@@ -8,13 +8,13 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class RegisterStart implements PageInterface
 {
-    public function resolve($driver): void
+    public function resolve($driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('headerTitle'), '@.*Demand.*access.*@i')
         );
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/RegisterStart.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_RegisterStart.png');
 
         $driver->findElement(WebDriverBy::id('selectRegistrationByPersonalDataButton'))->click();
     }

@@ -3,7 +3,6 @@
 namespace App\Models\Strategy;
 
 use App\Models\Strategy\Pages\Generation\LimosaFirstPage;
-use App\Models\Strategy\Pages\Generation\LimosaGenerated;
 use App\Models\Strategy\Pages\Generation\LimosaTypesPage;
 use App\Models\Strategy\Pages\Generation\OverviewPrint;
 use App\Models\Strategy\Pages\Generation\PlaceOfEmployment;
@@ -44,27 +43,27 @@ class GenerationStrategy
         $this->pageHandlersFirst = [
             $this->introPage,
             $this->frontPage,
-            $this->languages
+            $this->languages,
+            $this->loginPage,
+            $this->limosaTypesPage,
+            $this->limosaFirstPage,
+            $this->stepEmployer,
+            $this->placeOfEmployment,
+            $this->placeOfWorkCompanySearch,
+            $this->placeOfWorkCompanyDetail,
+            $this->placeOfEmployment2,
+            $this->stepBelgianClient,
+            $this->stepAssignmentData,
+            $this->stepOverview,
+            $this->overviewPrint
         ];
     }
 
     public function execute(RemoteWebDriver $driver, array $data)
     {
-        foreach ($this->pageHandlersFirst as $pageHandler) {
-            $pageHandler->resolve($driver);
+        foreach ($this->pageHandlersFirst as $key => $pageHandler) {
+            $data['sequence'] = $key;
+            $pageHandler->resolve($driver, $data);
         }
-        $this->loginPage->resolve($driver, $data);
-        $this->limosaTypesPage->resolve($driver, $data);
-        $this->limosaFirstPage->resolve($driver, $data);
-
-        $this->stepEmployer->resolve($driver, $data);
-        $this->placeOfEmployment->resolve($driver, $data);
-        $this->placeOfWorkCompanySearch->resolve($driver, $data);
-        $this->placeOfWorkCompanyDetail->resolve($driver, $data);
-        $this->placeOfEmployment2->resolve($driver, $data);
-        $this->stepBelgianClient->resolve($driver, $data);
-        $this->stepAssignmentData->resolve($driver, $data);
-        $this->stepOverview->resolve($driver, $data);
-        $this->overviewPrint->resolve($driver, $data);
     }
 }

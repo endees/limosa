@@ -34,34 +34,26 @@ $(function () {
 
         return inputschecked = inputvalue.every(Boolean);
     }
-
     $(document).ready(function () {
-        var currentStep = sessionStorage.getItem('currentStep');
-
-        if (currentStep === null) {
-            sessionStorage.setItem('currentStep', 1);
+        if (window.step === undefined) {
+            window.step = 1;
             $('.step-container').hide();
             $(".step-container[data-step-number=1]").show();
         } else {
             $('.step-container').hide();
-            $(".step-container[data-step-number=" + currentStep + "]").show();
+            $(".step-container[data-step-number=" + stwindow.stepep + "]").show();
         }
 
         $('.previous-step-btn').on('click', function () {
-            var stepNumber = sessionStorage.getItem('currentStep');
-            var previousStepNumber = (parseInt(stepNumber) - 1);
-            sessionStorage.setItem('currentStep', previousStepNumber);
+            var previousStepNumber = (parseInt(window.step) - 1);
             $('.step-container').hide();
             $(".step-container[data-step-number=" + previousStepNumber + "]").show();
         });
-
         $('.next-step-btn').on('click', function (ev) {
-            var stepNumber = sessionStorage.getItem('currentStep');
-
-            if (formvalidate(stepNumber)) {
-                var nextStepNumber = (parseInt(stepNumber) + 1);
+            if (formvalidate(window.step)) {
+                var nextStepNumber = (parseInt(window.step) + 1);
                 // $("#sub").html("<img src='assets/images/loading.gif'>");
-                if (stepNumber === "1") {
+                if (window.step === 1) {
                     var dataString = new FormData();
                     var token = $('input[name="_token"]').attr('value');
                     dataString.append('_token', token);
@@ -87,14 +79,15 @@ $(function () {
                                 toast.show();
                         },
                         success: function() {
-                            sessionStorage.setItem('currentStep', nextStepNumber);
                             $('.step-container').hide();
                             $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                            window.step = nextStepNumber;
                         }
                     });
+                    return;
                 }
 
-                if (stepNumber === "2") {
+                if (window.step === 2) {
                     var dataString = new FormData();
 
                     var token = $('input[name="_token"]').attr('value');
@@ -124,17 +117,23 @@ $(function () {
                             toast.show();
                         },
                         success: function() {
-                            sessionStorage.setItem('currentStep', nextStepNumber);
                             $('.step-container').hide();
                             $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                            window.step = nextStepNumber;
                         }
                     });
+                    return;
+                }
+                if (window.step === 3) {
+                    $('.step-container').hide();
+                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                    window.step = nextStepNumber;
                 }
             }
         });
 
         $("#sub").on('click', function () {
-            sessionStorage.setItem('currentStep', 1);
+            window.step = 1;
         });
         // $("#sub").on('click', function () {
         //     // get input value

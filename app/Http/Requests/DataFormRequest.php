@@ -19,6 +19,8 @@ class DataFormRequest extends FormRequest
             'business_name' => 'required|string',
             'nip' => 'required|numeric',
             'pesel' => 'required|numeric|digits:11',
+            'username' => 'max:36',
+            'password' => 'max:36',
         ];
     }
 }

@@ -41,13 +41,11 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
             return false;
         });
 
-        Log::info($filteredMessages);
-
         if ($filteredMessages->isEmpty()) {
             Log::channel('activation')->info('No message received from limosa-usermanagement');
             $this->release(360);
-            return;
         }
+        Log::channel('activation')->info($filteredMessages);
 
         $email = $filteredMessages->first();
 
@@ -61,9 +59,15 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
 
         if ($messageBody) {
             Log::channel('activation')->info('First email body: ' . $messageBody);
-            preg_match( '@href="(.*)"@', $messageBody, $matches);
-            if (isset($matches[1])) {
-                $this->formData['activation_link'] = $matches[1];
+            if (preg_match( '@.*could not be registered since you already have a registered account.*"@', $messageBody)) {
+                // todo inform the customer that the account cannot be created
+                $this->fail('The account is already created on limosa.be');
+                $this->delete();
+            }
+
+            preg_match( '@.*Thank you for creating an account.*href="(.*)".*@', $messageBody, $url);
+            if (isset($url[1])) {
+                $this->formData['activation_link'] = $url[1];
                 Log::channel('activation')->info('End registering the new client with email: ' . $this->formData['address']);
                 $this->driverHandler->activateAccount($this->formData);
                 ProcessLimosaGeneration::dispatch($this->formData);
@@ -71,5 +75,9 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
         } else {
             $this->fail('There is no email body');
         }
+    }
+    public function backoff()
+    {
+        return [300, 300, 300, 600, 600];
     }
 }

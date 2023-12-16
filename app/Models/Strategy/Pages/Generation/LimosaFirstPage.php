@@ -2,14 +2,15 @@
 
 namespace App\Models\Strategy\Pages\Generation;
 
+use App\Models\Strategy\Pages\Interface\PageInterface;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Illuminate\Support\Carbon;
 
-class LimosaFirstPage
+class LimosaFirstPage implements PageInterface
 {
-    public function resolve(RemoteWebDriver $driver, $data): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
@@ -19,9 +20,9 @@ class LimosaFirstPage
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
-            $driver->takeScreenshot('storage/screenshots/beforeScroll.png');
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_beforeScroll.png');
             $driver->findElement(WebDriverBy::xpath("//*[contains(text(),'Personal details')]"))->click();
-            $driver->takeScreenshot('storage/screenshots/afterScroll.png');
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_afterScroll.png');
 
             $driver->findElement($goNextElement)->getLocationOnScreenOnceScrolledIntoView();
 
@@ -31,9 +32,11 @@ class LimosaFirstPage
 
             if ($data['gender'] === 'female') {
                 $driver->findElement(WebDriverBy::cssSelector('input[name=genderString][value=1]'))->click();
+            } else {
+                $driver->findElement(WebDriverBy::cssSelector('input[name=genderString][value=0]'))->click();
             }
 
-            $dateObject = Carbon::parse($data['date_of_birth']);
+            $dateObject = Carbon::createFromFormat('d/m/Y', $data['date_of_birth']);
             $day = $dateObject->day;
             $month = $dateObject->month;
             $year = $dateObject->year;
@@ -70,7 +73,7 @@ class LimosaFirstPage
         } else {
             // @todo manual encoding
         }
-        $driver->takeScreenshot('storage/screenshots/LimosaFirstPage.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
         $driver->findElement($goNextElement)->click();
     }
 

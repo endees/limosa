@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 class RegisterForm
 {
-    public function resolve(RemoteWebDriver $driver, $data): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#page h1'), '@.*Identify.*yourself.*@i')
@@ -51,7 +51,7 @@ class RegisterForm
 
         $driver->findElement(WebDriverBy::cssSelector('input[name="createId.qualityCodeTypeInt"][value="3"]'))->click();
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/RegisterForm.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_RegisterForm.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

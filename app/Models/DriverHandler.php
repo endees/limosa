@@ -8,6 +8,7 @@ use App\Models\Strategy\RegistrationStrategy;
 use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\WebDriverDimension;
 
 class DriverHandler
 {
@@ -55,10 +56,10 @@ class DriverHandler
     {
         $driver = $this->prepareDriver();
         try {
-            $driver->takeScreenshot('storage/screenshots/startLimosaGeneration.png');
+            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startLimosaGeneration.png');
             $this->generationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('storage/screenshots/endLimosaGeneration.png');
+            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endLimosaGeneration.png');
             $driver->quit();
             throw $e;
         }
@@ -80,8 +81,13 @@ class DriverHandler
         $firefoxOptions->setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf, application/force-download");
 
         $firefoxOptions->addArguments(['-headless']);
+        $firefoxOptions->addArguments(['window-size=2560,1440']);
         $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
-
-        return RemoteWebDriver::create($host, $capabilities,30000, 30000);
+        /** @var RemoteWebDriver $driver */
+        $driver = RemoteWebDriver::create($host, $capabilities,30000, 30000);
+        $driver->manage()->window()->maximize();
+        $dimension = new WebDriverDimension('2560', '1440');
+        $driver->manage()->window()->setSize($dimension);
+        return $driver;
     }
 }

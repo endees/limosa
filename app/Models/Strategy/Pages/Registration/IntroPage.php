@@ -9,7 +9,7 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class IntroPage implements PageInterface
 {
-    public function resolve(RemoteWebDriver $driver): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->get('https://www.limosa.be/');
 
@@ -19,7 +19,7 @@ class IntroPage implements PageInterface
             )
         );
 
-        $driver->takeScreenshot('storage/screenshots/registration/IntroPage.png');
+        $driver->takeScreenshot('storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_IntroPage.png');
 
         $driver->findElement(WebDriverBy::linkText('English'))->click();
     }

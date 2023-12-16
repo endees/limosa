@@ -8,7 +8,7 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class ConfirmRegistration
 {
-    public function resolve(RemoteWebDriver $driver): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(
@@ -16,7 +16,7 @@ class ConfirmRegistration
             )
         );
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/ConfirmRegistration.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_ConfirmRegistration.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

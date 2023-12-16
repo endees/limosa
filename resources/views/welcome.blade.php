@@ -125,16 +125,22 @@
                                     </div>
                                     <!-- step Button -->
                                     <div class="submit">
-                                        <button type="submit" id="sub">Send Message<span><i class="fa-solid fa-thumbs-up"></i></span></button>
+                                        <button class="next-step-btn">Go next<span><i class="fa-solid fa-thumbs-up"></i></span></button>
                                     </div>
                                 </div>
-                            </form>
-                            <form method="POST" action="{{ route('mail.create') }}">
-                                @csrf
-                                <div class="submit">
-                                    <button type="submit">
-                                        Test limosa create<span><i class="fa-solid fa-thumbs-up"></i></span>
-                                    </button>
+                                <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
+                                    <div class="input-field">
+                                        <label for="username"><i class="fa-regular fa-envelope"></i>Username<span></span></label>
+                                        <input required type="text" name="username" id="username" placeholder="Type username" value="{{ old('username') }}">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="password"><i class="fa-regular fa-envelope"></i>Pasword<span></span></label>
+                                        <input required type="text" name="password" id="password" placeholder="Type password" value="{{ old('password') }}">
+                                    </div>
+                                    <!-- step Button -->
+                                    <div class="submit">
+                                        <button type="submit" id="sub">Send Message<span><i class="fa-solid fa-thumbs-up"></i></span></button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

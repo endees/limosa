@@ -7,9 +7,9 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 
-class LimosaTypesPage
+class LimosaTypesPage implements PageInterface
 {
-    public function resolve(RemoteWebDriver $driver, $data): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id('actionChoiceForm'))
@@ -19,7 +19,7 @@ class LimosaTypesPage
         $driver->findElement(WebDriverBy::cssSelector('#employerCountrySelfEmployed option[value="122"]'))->click();
         $driver->findElement(WebDriverBy::id('vatNumberSelfEmployed'))->sendKeys('PL' . $data['nip']);
 
-        $driver->takeScreenshot('storage/screenshots/LimosaTypes.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaTypes.png');
 
         $driver->findElement(WebDriverBy::id('createSelfEmployerDeclarationButton'))->click();
     }

@@ -6,5 +6,5 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 interface PageInterface
 {
-    public function resolve(RemoteWebDriver $driver): void;
+    public function resolve(RemoteWebDriver $driver, array $data): void;
 }

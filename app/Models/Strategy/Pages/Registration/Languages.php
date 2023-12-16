@@ -9,13 +9,13 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class Languages implements PageInterface
 {
-    public function resolve(RemoteWebDriver $driver): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('lang-en'), '@.*Log.*in.*@i')
         );
 
-        $driver->takeScreenshot('storage/screenshots/registration/Languages.png');
+        $driver->takeScreenshot('storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_Languages.png');
 
         $driver->findElement(WebDriverBy::linkText('Log in'))->click();
     }

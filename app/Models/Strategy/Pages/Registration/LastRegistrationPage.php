@@ -8,7 +8,7 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class LastRegistrationPage
 {
-    public function resolve(RemoteWebDriver $driver, $data): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(
@@ -24,7 +24,7 @@ class LastRegistrationPage
         $driver->findElement(WebDriverBy::name('createId.secretQuestion'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('createId.answer'))->sendKeys($data['password']);
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/LastRegistrationPage.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LastRegistrationPage.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

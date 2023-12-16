@@ -9,7 +9,7 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class FrontPage implements PageInterface
 {
-    public function resolve(RemoteWebDriver $driver): void
+    public function resolve(RemoteWebDriver $driver, array $data): void
     {
 //        $driver->get('https://www.international.socialsecurity.be/working_in_belgium/en/home.html');
 
@@ -21,7 +21,7 @@ class FrontPage implements PageInterface
         // Get current window handles first:
         $windowHandlesBefore = $driver->getWindowHandles();
 
-        $driver->takeScreenshot('storage/screenshots/registration/FrontPage.png');
+        $driver->takeScreenshot('storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_FrontPage.png');
         $driver->findElement(WebDriverBy::linkText('Limosa - Mandatory declaration'))->click();
 
         sleep(5);

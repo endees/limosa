@@ -8,13 +8,13 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class LoginPage implements PageInterface
 {
-    public function resolve($driver): void
+    public function resolve($driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('#main h1'), '@.*Limosa.*Authentication.*@')
         );
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/LoginPage.png');
+        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LoginPage.png');
 
         // Get current window handles first:
         $windowHandlesBefore = $driver->getWindowHandles();
@@ -27,7 +27,5 @@ class LoginPage implements PageInterface
         $newWindowHandle = reset($newWindowHandle);
 
         $driver->switchTo()->window($newWindowHandle);
-        $driver->takeScreenshot('storage/screenshots/registration/LoginPage2.png');
-
     }
 }
