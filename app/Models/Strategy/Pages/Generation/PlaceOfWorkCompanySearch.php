@@ -22,7 +22,7 @@ class PlaceOfWorkCompanySearch implements PageInterface
         $driver->findElement(WebDriverBy::id('belgianPostalCode_29'))->click();
         sleep(2);
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanySearch.png');
+        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanySearch.png');
         $driver->findElement(WebDriverBy::id('searchCompanyButton'))->click();
     }
 }

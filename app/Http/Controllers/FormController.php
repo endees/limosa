@@ -7,6 +7,7 @@ use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
 use App\Jobs\ProcessAccountCreation;
 use App\Models\Form\DataHandler;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -30,6 +31,9 @@ class FormController extends BaseController
         $formData['lastname'] = transliterator_transliterate($translitRules, $formData['lastname']);
         $formData['street'] = transliterator_transliterate($translitRules, $formData['street']);
         $formData['city'] = transliterator_transliterate($translitRules, $formData['city']);
+
+        $formData['start_date'] = Carbon::createFromFormat('Y-m-d', $formData['start_date'])->format('d/m/Y');
+        $formData['end_date'] = Carbon::createFromFormat('Y-m-d', $formData['end_date'])->format('d/m/Y');
 
         ProcessAccountCreation::dispatch($formData);
         return view('success', []);

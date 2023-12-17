@@ -19,7 +19,7 @@ class FrontPage implements PageInterface
 
         $windowHandlesBefore = $driver->getWindowHandles();
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_FrontPage.png');
+        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_FrontPage.png');
         $driver->findElement(WebDriverBy::linkText('Limosa - Mandatory declaration'))->click();
 
         sleep(5);

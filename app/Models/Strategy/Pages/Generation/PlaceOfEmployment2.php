@@ -15,7 +15,7 @@ class PlaceOfEmployment2 implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Place.*of.*employment.*selected.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfEmployment2.png');
+        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfEmployment2.png');
         $driver->findElement(WebDriverBy::id('nextStepFromPOWButton'))->click();
     }
 }

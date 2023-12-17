@@ -20,9 +20,9 @@ class LimosaFirstPage implements PageInterface
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
-            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_beforeScroll.png');
+            $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_beforeScroll.png');
             $driver->findElement(WebDriverBy::xpath("//*[contains(text(),'Personal details')]"))->click();
-            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_afterScroll.png');
+            $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_afterScroll.png');
 
             $driver->findElement($goNextElement)->getLocationOnScreenOnceScrolledIntoView();
 
@@ -31,9 +31,9 @@ class LimosaFirstPage implements PageInterface
             $driver->findElement(WebDriverBy::id('firstName'))->sendKeys($data['firstname']);
 
             if ($data['gender'] === 'female') {
-                $driver->findElement(WebDriverBy::cssSelector('input[name=genderString][value=1]'))->click();
+                $driver->findElement(WebDriverBy::cssSelector('input[name="genderString"][value="1"]'))->click();
             } else {
-                $driver->findElement(WebDriverBy::cssSelector('input[name=genderString][value=0]'))->click();
+                $driver->findElement(WebDriverBy::cssSelector('input[name="genderString"][value="0"]'))->click();
             }
 
             $dateObject = Carbon::createFromFormat('d/m/Y', $data['date_of_birth']);
@@ -73,7 +73,7 @@ class LimosaFirstPage implements PageInterface
         } else {
             // @todo manual encoding
         }
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
+        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
         $driver->findElement($goNextElement)->click();
     }
 

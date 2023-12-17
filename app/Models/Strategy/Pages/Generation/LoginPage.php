@@ -18,7 +18,7 @@ class LoginPage implements PageInterface
         $driver->findElement(WebDriverBy::name('j_username'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('j_password'))->sendKeys($data['password']);
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LoginPageGeneration.png');
+        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LoginPageGeneration.png');
 
         $driver->findElement(WebDriverBy::cssSelector('button[type="submit"]'))->click();
     }
