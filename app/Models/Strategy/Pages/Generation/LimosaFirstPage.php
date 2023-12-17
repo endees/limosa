@@ -76,10 +76,4 @@ class LimosaFirstPage implements PageInterface
         $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
         $driver->findElement($goNextElement)->click();
     }
-
-    private function navigateToHtmlIdElement($driver, string $id) {
-        $snippet = "var elem = document.getElementById('$id');
-            scrollTo(elem.getBoundingClientRect().x, elem.getBoundingClientRect().y)";
-        $driver->executeScript($snippet);
-    }
 }

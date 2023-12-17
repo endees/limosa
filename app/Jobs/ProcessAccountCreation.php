@@ -33,7 +33,7 @@ class ProcessAccountCreation implements ShouldQueue, ShouldBeUnique
     {
         $this->formData['jobUUID'] = $this->job->getJobId();
         if (!empty($this->formData['username']) && !empty($this->formData['password'])) {
-            Log::channel('registration')->info('The user already exist: ' . json_encode($this->formData['customer_email']));
+            Log::channel('registration')->info('Generating limosa with the credentials: ' . json_encode($this->formData['customer_email']));
             ProcessLimosaGeneration::dispatch($this->formData);
         } else {
             $emailData = $this->mailApi->register();

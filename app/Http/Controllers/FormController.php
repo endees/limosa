@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BelgianCompanyValidateRequest;
 use App\Http\Requests\DataFormRequest;
 use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
 use App\Jobs\ProcessAccountCreation;
+use App\Models\Form\BelgianCompany;
 use App\Models\Form\DataHandler;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
@@ -50,5 +52,19 @@ class FormController extends BaseController
         return response()->json([
             "message" => "Success"
         ]);
+    }
+
+    public function belgianCompany(BelgianCompanyValidateRequest $request)
+    {
+        /** @var BelgianCompany $belgianCompany */
+        $belgianCompany = App::make(BelgianCompany::class);
+        $belgianCompanyDetails = $belgianCompany->getBelgianCompanyData($request->get('belgian_nip'));
+        if ($belgianCompanyDetails) {
+            return response()->json([
+                "message" => "Success"
+            ]);
+        } else {
+            return response()->setStatusCode('401');
+        }
     }
 }
