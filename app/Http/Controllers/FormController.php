@@ -7,14 +7,13 @@ use App\Http\Requests\DataFormRequest;
 use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
 use App\Jobs\ProcessAccountCreation;
-use App\Models\BelgianCompany as BelgianCompanyModel;
+use App\Mail\LimosaGenerated;
 use App\Models\Form\DataHandler;
-use App\Rules\BelgianCompany;
 use Carbon\Carbon;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class FormController extends BaseController
 {
@@ -44,6 +43,7 @@ class FormController extends BaseController
     }
 
     public function init(DataInitRequest $request) {
+        Mail::to('daniel.materka@gmail.com')->send(new LimosaGenerated());
         return response()->json([
             "message" => "Success"
         ]);
