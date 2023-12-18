@@ -19,7 +19,22 @@ class StepAssignmentData implements PageInterface
         $driver->findElement(WebDriverBy::id('endDate_input'))->sendKeys($data['end_date']);
 
         $driver->findElement(WebDriverBy::id('activityForSelfEmployed'))->click();
-        $driver->findElement(WebDriverBy::cssSelector('#activityForSelfEmployed option[value="NEW.CONSTRUCTION"]'))->click();
+
+        switch ($data['sector']) {
+            case 'construction':
+                $driver->findElement(WebDriverBy::cssSelector('#activityForSelfEmployed option[value="NEW.CONSTRUCTION"]'))->click();
+                break;
+            case 'meat':
+                $driver->findElement(WebDriverBy::cssSelector('#activityForSelfEmployed option[value="NEW.MEAT"]'))->click();
+                break;
+            case 'cleaning':
+                $driver->findElement(WebDriverBy::cssSelector('#activityForSelfEmployed option[value="NEW.CLEANING"]'))->click();
+                break;
+            case 'other':
+            default:
+                $driver->findElement(WebDriverBy::cssSelector('#activityForSelfEmployed option[value="NEW.OTHER"]'))->click();
+                break;
+        }
 
         $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepAssignmentData.png');
         $driver->findElement(WebDriverBy::id('nextStepButton'))->click();

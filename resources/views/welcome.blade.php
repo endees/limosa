@@ -116,6 +116,15 @@
                                         <input type="text" id="belgian_nip" name="belgian_nip">
                                     </div>
                                     <div class="input-field">
+                                        <label for="sector">Sector</label>
+                                        <select type="text" id="sector" name="sector">
+                                            <option value="meat">Mięso</option>
+                                            <option value="construction">Budownictwo</option>
+                                            <option value="cleaning">Sprzątanie</option>
+                                            <option value="other">Inny</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field">
                                         <label for="start_date">Start Date</label>
                                         <input type="date" id="start_date" name="start_date" required>
                                     </div>
