@@ -16,6 +16,8 @@ class BelgianCompany extends Model
      */
     protected $primaryKey = 'id';
 
+    protected $dateFormat = 'U';
+
     protected $fillable = [
         'identifier',
         'payload'

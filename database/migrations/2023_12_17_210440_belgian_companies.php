@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('belgian_company', function (Blueprint $table) {
+        Schema::create('belgian_companies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('identifier')->index();
             $table->json('payload');

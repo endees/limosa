@@ -125,9 +125,34 @@ $(function () {
                     return;
                 }
                 if (window.step === 3) {
-                    $('.step-container').hide();
-                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
-                    window.step = nextStepNumber;
+                    var dataString = new FormData();
+                    var token = $('input[name="_token"]').attr('value');
+                    var belgianNip = $('#steps #step3 input[name=belgian_nip]').val();
+
+                    dataString.append('_token', token);
+                    dataString.append('belgian_nip', belgianNip);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/form/belgianCompany",
+                        cache:false,
+                        dataType: false,
+                        processData: false,
+                        contentType: false,
+                        async: false,
+                        data: dataString,
+                        error: function (response) {
+                            var toast = new bootstrap.Toast('#error');
+                            $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
+                            toast.show();
+                        },
+                        success: function() {
+                            $('.step-container').hide();
+                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                            window.step = nextStepNumber;
+                        }
+                    });
+                    return;
                 }
             }
         });

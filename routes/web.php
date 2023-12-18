@@ -20,4 +20,5 @@ Route::get('/', function () {
 Route::post('/form/init/', 'App\Http\Controllers\FormController@init')->name('form.init');
 Route::post('/form/company/', 'App\Http\Controllers\FormController@company')->name('form.company');
 Route::post('/form/register/', 'App\Http\Controllers\FormController@register')->name('form.register');
+Route::post('/form/belgianCompany/', 'App\Http\Controllers\FormController@belgianCompany')->name('form.belgian_company');
 Route::post('/mail/create/', 'App\Http\Controllers\TestController@create')->name('mail.create');

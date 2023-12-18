@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\CeidgNip;
-use App\Rules\Pesel;
+use App\Rules\BelgianCompany;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BelgianCompanyValidateRequest extends FormRequest
@@ -11,7 +10,7 @@ class BelgianCompanyValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'belgian_nip' => 'required|numeric'
+            'belgian_nip' => ['numeric', 'required', new BelgianCompany()],
         ];
     }
 }

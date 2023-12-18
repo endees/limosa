@@ -112,8 +112,8 @@
                                 </div>
                                 <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
                                     <div class="input-field">
-                                        <label for="business_name">Business Name</label>
-                                        <input type="text" id="business_name" name="business_name">
+                                        <label for="belgian_nip">Belgian NIP</label>
+                                        <input type="text" id="belgian_nip" name="belgian_nip">
                                     </div>
                                     <div class="input-field">
                                         <label for="start_date">Start Date</label>

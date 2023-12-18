@@ -135,6 +135,10 @@ return [
             'driver' => 'single',
             'path' => storage_path('logs/activation.log'),
         ],
+        'generation' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/generation.log'),
+        ],
     ],
 
 ];
