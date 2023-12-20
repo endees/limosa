@@ -7,7 +7,8 @@ use App\Http\Requests\DataFormRequest;
 use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
 use App\Jobs\ProcessAccountCreation;
-use App\Mail\LimosaGenerated;
+use App\Mail\Lead;
+use App\Models\BelgianCompany;
 use App\Models\Form\DataHandler;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
@@ -38,12 +39,35 @@ class FormController extends BaseController
         $formData['start_date'] = Carbon::createFromFormat('Y-m-d', $formData['start_date'])->format('d/m/Y');
         $formData['end_date'] = Carbon::createFromFormat('Y-m-d', $formData['end_date'])->format('d/m/Y');
 
+        /** @var BelgianCompany $existingCompany */
+        $existingCompany = BelgianCompany::firstWhere('identifier' ,'=' , 'BE' . $formData['belgian_nip']);
+        $payload = json_decode($existingCompany->payload, 1);
+        $formData['business_name'] = $payload['company_name'];
+
+        /** @var \App\Models\Lead $leadModel */
+        $leadModel = $existingCompany->lead()->create([
+            'firstname' => $formData['firstname'],
+            'lastname' => $formData['lastname'],
+            'email' => $formData['customer_email'],
+            'telephone' => $formData['customer_telephone'],
+        ]);
+
+        if(empty($formData['username'])) {
+            unset($formData['username']);
+        }
+        if(empty($formData['password'])) {
+            unset($formData['password']);
+        }
+
+        $recipients = config('limosa.registration_data_recipients');
+        $lead = new Lead($leadModel);
+        Mail::to($recipients)->send($lead);
+
         ProcessAccountCreation::dispatch($formData);
         return view('success', []);
     }
 
     public function init(DataInitRequest $request) {
-        Mail::to('daniel.materka@gmail.com')->send(new LimosaGenerated());
         return response()->json([
             "message" => "Success"
         ]);

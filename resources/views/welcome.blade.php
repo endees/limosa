@@ -138,13 +138,17 @@
                                     </div>
                                 </div>
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
-                                    <div class="input-field">
-                                        <label for="username"><i class="fa-regular fa-envelope"></i>Username<span></span></label>
-                                        <input required type="text" name="username" id="username" placeholder="Type username" value="{{ old('username') }}">
+                                    <div class="check-single">
+                                        <input type="checkbox" name="existing_limosa_user" value="false">
+                                        <label>Mam istniejące konto na limosa.be</label>
                                     </div>
-                                    <div class="input-field">
+                                    <div class="input-field" style="display:none">
+                                        <label for="username"><i class="fa-regular fa-envelope"></i>Username<span></span></label>
+                                        <input type="text" name="username" id="username" placeholder="Type username" value="{{ old('username') }}">
+                                    </div>
+                                    <div class="input-field" style="display:none">
                                         <label for="password"><i class="fa-regular fa-envelope"></i>Pasword<span></span></label>
-                                        <input required type="text" name="password" id="password" placeholder="Type password" value="{{ old('password') }}">
+                                        <input type="text" name="password" id="password" placeholder="Type password" value="{{ old('password') }}">
                                     </div>
                                     <!-- step Button -->
                                     <div class="submit">

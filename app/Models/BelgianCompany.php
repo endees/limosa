@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class BelgianCompany extends Model
 {
@@ -26,4 +27,9 @@ class BelgianCompany extends Model
     protected $casts = [
         'payload' => 'array'
     ];
+
+    public function lead(): HasOne
+    {
+        return $this->hasOne(Lead::class, 'belgian_company_id', 'id');
+    }
 }

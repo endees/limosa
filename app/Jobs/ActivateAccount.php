@@ -2,16 +2,20 @@
 
 namespace App\Jobs;
 
+use App\Mail\JobFailed;
 use App\Models\DriverHandler;
 use App\Models\FakeMail\EmailAdapter;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\ManuallyFailedException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ActivateAccount implements ShouldQueue, ShouldBeUnique
 {
@@ -79,5 +83,21 @@ class ActivateAccount implements ShouldQueue, ShouldBeUnique
     public function backoff()
     {
         return [300, 300, 300, 600, 600];
+    }
+    public function fail($exception = null)
+    {
+        $jobFailedMail = new JobFailed($exception, $this->job->getJobId());
+        Mail::to(config('limosa.admin_recipients'))->send($jobFailedMail);
+        if (is_string($exception)) {
+            $exception = new ManuallyFailedException($exception);
+        }
+
+        if ($exception instanceof Throwable || is_null($exception)) {
+            if ($this->job) {
+                return $this->job->fail($exception);
+            }
+        } else {
+            throw new InvalidArgumentException('The fail method requires a string or an instance of Throwable.');
+        }
     }
 }

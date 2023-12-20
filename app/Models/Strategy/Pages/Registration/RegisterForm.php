@@ -2,12 +2,13 @@
 
 namespace App\Models\Strategy\Pages\Registration;
 
+use App\Models\Strategy\Pages\Interface\PageInterface;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Illuminate\Support\Carbon;
 
-class RegisterForm
+class RegisterForm implements PageInterface
 {
     public function resolve(RemoteWebDriver $driver, array $data): void
     {
