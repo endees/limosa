@@ -44,18 +44,16 @@ $(function () {
             $(".step-container[data-step-number=" + stwindow.stepep + "]").show();
         }
 
-        $('.previous-step-btn').on('click', function () {
-            var previousStepNumber = (parseInt(window.step) - 1);
-            $('.step-container').hide();
-            $(".step-container[data-step-number=" + previousStepNumber + "]").show();
-        });
         $('.next-step-btn').on('click', function (ev) {
+            ev.stopPropagation();
+            ev.preventDefault();
             if (formvalidate(window.step)) {
                 var nextStepNumber = (parseInt(window.step) + 1);
                 // $("#sub").html("<img src='assets/images/loading.gif'>");
+                var dataString = new FormData();
+                var token = $('input[name="_token"]').attr('value');
+
                 if (window.step === 1) {
-                    var dataString = new FormData();
-                    var token = $('input[name="_token"]').attr('value');
                     dataString.append('_token', token);
 
                     $('#steps #step1 input').each(
@@ -88,9 +86,6 @@ $(function () {
                 }
 
                 if (window.step === 2) {
-                    var dataString = new FormData();
-
-                    var token = $('input[name="_token"]').attr('value');
                     var firstname = $('#steps #step1 input[name=firstname]').val();
                     var lastname = $('#steps #step1 input[name=lastname]').val();
                     var nip = $('#steps #step2 input[name=nip]').val();
@@ -125,8 +120,6 @@ $(function () {
                     return;
                 }
                 if (window.step === 3) {
-                    var dataString = new FormData();
-                    var token = $('input[name="_token"]').attr('value');
                     var belgianNip = $('#steps #step3 input[name=belgian_nip]').val();
 
                     dataString.append('_token', token);
@@ -152,12 +145,12 @@ $(function () {
                             window.step = nextStepNumber;
                         }
                     });
-                    return;
                 }
             }
         });
 
         $("#sub").on('click', function () {
+            $("#steps").submit();
             window.step = 1;
         });
         // $("#sub").on('click', function () {

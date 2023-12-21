@@ -138,18 +138,40 @@
                                     </div>
                                 </div>
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
-                                    <div class="check-single">
-                                        <input type="checkbox" name="existing_limosa_user" value="false">
-                                        <label>Mam istniejące konto na limosa.be</label>
+                                    <div class="check-field">
+                                        <label><i class="fa-regular fa-user"></i>Services <span>*</span></label>
+                                        <div class="row">
+                                            <div class="tab-100 col-md-6">
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="service" value="paid media" checked>
+                                                    <label>Paid Media</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="service" value="Digital experience">
+                                                    <label>Digital experience</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="service" value="Email">
+                                                    <label>Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="tab-100 col-md-6">
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="service" value="Content Creation">
+                                                    <label>Content Creation</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="service" value="Strategy & Consulting">
+                                                    <label>Strategy & Consulting</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="service" value="Other">
+                                                    <label>Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="input-field" style="display:none">
-                                        <label for="username"><i class="fa-regular fa-envelope"></i>Username<span></span></label>
-                                        <input type="text" name="username" id="username" placeholder="Type username" value="{{ old('username') }}">
-                                    </div>
-                                    <div class="input-field" style="display:none">
-                                        <label for="password"><i class="fa-regular fa-envelope"></i>Pasword<span></span></label>
-                                        <input type="text" name="password" id="password" placeholder="Type password" value="{{ old('password') }}">
-                                    </div>
+
                                     <!-- step Button -->
                                     <div class="submit">
                                         <button type="submit" id="sub">Send Message<span><i class="fa-solid fa-thumbs-up"></i></span></button>

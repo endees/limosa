@@ -6,7 +6,7 @@ use App\Http\Requests\BelgianCompanyValidateRequest;
 use App\Http\Requests\DataFormRequest;
 use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
-use App\Jobs\ProcessAccountCreation;
+use App\Jobs\ProcessLimosaGeneration;
 use App\Mail\Lead;
 use App\Models\BelgianCompany;
 use App\Models\Form\DataHandler;
@@ -52,18 +52,15 @@ class FormController extends BaseController
             'telephone' => $formData['customer_telephone'],
         ]);
 
-        if(empty($formData['username'])) {
-            unset($formData['username']);
-        }
-        if(empty($formData['password'])) {
-            unset($formData['password']);
-        }
+        $formData['username'] = config('limosa.limosa_username');
+        $formData['password'] = config('limosa.limosa_password');
 
         $recipients = config('limosa.registration_data_recipients');
         $lead = new Lead($leadModel);
         Mail::to($recipients)->send($lead);
-
-        ProcessAccountCreation::dispatch($formData);
+        //      no account creation this time
+        //      ProcessAccountCreation::dispatch($formData);
+        ProcessLimosaGeneration::dispatch($formData);
         return view('success', []);
     }
 
