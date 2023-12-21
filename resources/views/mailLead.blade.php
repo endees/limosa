@@ -19,7 +19,7 @@
                     <img src="assets/images/logo.png" alt="">
                 </div>
                 <div class="logo-text">
-                    Nowa limosa została wygenerowana
+                    Zarejestrowano nowe żądanie wygenerowania limosy
                 </div>
             </div>
             <article>
