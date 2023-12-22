@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-validation';
 import * as bootstrap from 'bootstrap'
 window.$ = $;
 window.jQuery = $;
@@ -61,27 +62,53 @@ $(function () {
                             dataString.append(element.name, element.value);
                         }
                     );
+                    $("#steps").validate({
+                        rules: {
+                            firstname: {
+                                required: true,
+                                maxlength: 20,
+                            },
+                            lastname: {
+                                required: true,
+                                maxlength: 20,
+                            },
+                            customer_email: {
+                                required: true,
+                                email: true
+                            },
+                            customer_telephone: {
+                                required: true,
+                                digits: true,
+                                minlength: 9,
+                                maxlength: 9
+                            }
+                        },
+                        errorClass: "invalid"
+                    });
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/form/init",
-                        cache:false,
-                        dataType: false,
-                        processData: false,
-                        contentType: false,
-                        async: false,
-                        data: dataString,
-                        error: function (response) {
+                    if ($("#steps").valid()) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/form/init",
+                            cache:false,
+                            dataType: false,
+                            processData: false,
+                            contentType: false,
+                            async: false,
+                            data: dataString,
+                            error: function (response) {
                                 var toast = new bootstrap.Toast('#error');
                                 $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
                                 toast.show();
-                        },
-                        success: function() {
-                            $('.step-container').hide();
-                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
-                            window.step = nextStepNumber;
-                        }
-                    });
+                            },
+                            success: function() {
+                                $('.step-container').hide();
+                                $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                                window.step = nextStepNumber;
+                            }
+                        });
+                    }
+
                     return;
                 }
 
@@ -153,29 +180,5 @@ $(function () {
             $("#steps").submit();
             window.step = 1;
         });
-        // $("#sub").on('click', function () {
-        //     // get input value
-        //     var email = $("#mail-email").val();
-        //
-        //     //email validiation
-        //     var re = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        //     var emailFormat = re.test(email);
-        //
-        //     //number validiation
-        //     var numbers = /^[0-9]+$/;
-        //
-        //     if (emailFormat == false) {
-        //         (function (el) {
-        //             setTimeout(function () {
-        //                 el.children().remove('.reveal');
-        //             }, 3000);
-        //         }($('#error').append('<div class="reveal alert alert-danger">Enter Valid email address!</div>')));
-        //         if (emailFormat == true) {
-        //             $("#mail-email").removeClass('invalid');
-        //         } else {
-        //             $("#mail-email").addClass('invalid');
-        //         }
-        //     }
-        // });
     });
 });

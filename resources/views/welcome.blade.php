@@ -57,20 +57,20 @@
                                 @csrf
                                 <div id="step1" class="form-inner lightSpeedIn step-container" data-step-number="1">
                                     <div class="input-field">
-                                        <label for="firstname"><i class="fa-regular fa-user"></i>Full Name <span>*</span></label>
-                                        <input required type="text" name="firstname" id="firstname" placeholder="Type Firstname" value="{{ old('firstname') }}">
+                                        <label for="firstname"><i class="fa-regular fa-user"></i>First Name <span>*</span></label>
+                                        <input required type="text" name="firstname" id="firstname" placeholder="Imię" value="{{ old('firstname') }}">
                                     </div>
                                     <div class="input-field">
                                         <label for="lastname"><i class="fa-regular fa-user"></i>Last Name <span>*</span></label>
-                                        <input required type="text" name="lastname" id="lastname" placeholder="Type Lastname" value="{{ old('lastname') }}">
+                                        <input required type="text" name="lastname" id="lastname" placeholder="Nazwisko" value="{{ old('lastname') }}">
                                     </div>
                                     <div class="input-field">
                                         <label for="customer_email"><i class="fa-regular fa-envelope"></i>Email Address <span>*</span></label>
-                                        <input required type="text" name="customer_email" id="customer_email" placeholder="Type email address" value="{{ old('customer_email') }}">
+                                        <input required type="text" name="customer_email" id="customer_email" placeholder="Podaj adres email" value="{{ old('customer_email') }}">
                                     </div>
                                     <div class="input-field">
                                         <label for="customer_telephone"><i class="fa-regular fa-envelope"></i>Telephone <span>*</span></label>
-                                        <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Type telephone" value="{{ old('customer_telephone') }}">
+                                        <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Podaj telefon komórkowy (bez kierunkowego)" value="{{ old('customer_telephone') }}">
                                     </div>
                                     <!-- step Button -->
                                     <div class="submit">
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="input-field">
                                         <label for="postcode">Postcode <span>*</span></label>
-                                        <input required type="text" id="postcode" name="postcode">
+                                        <input required type="text" id="postcode" name="postcode" placeholder="00-000">
                                     </div>
                                     <div class="submit">
                                         <button class="next-step-btn">Go next<span><i class="fa-solid fa-thumbs-up"></i></span></button>
