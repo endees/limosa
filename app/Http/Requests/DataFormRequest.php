@@ -22,7 +22,8 @@ class DataFormRequest extends FormRequest
             'username' => 'max:36',
             'password' => 'max:36',
             'start_date' => 'required|date|after:today',
-            'end_date' => 'required|date|after:tomorrow'
+            'end_date' => 'required|date|after:tomorrow',
+            'dataprocessing' => 'required',
         ];
     }
 }

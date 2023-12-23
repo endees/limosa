@@ -57,67 +57,61 @@
                                 @csrf
                                 <div id="step1" class="form-inner lightSpeedIn step-container" data-step-number="1">
                                     <div class="input-field">
-                                        <label for="firstname"><i class="fa-regular fa-user"></i>First Name <span>*</span></label>
+                                        <label for="firstname"><i class="fa-regular fa-user"></i>Imię<span>*</span></label>
                                         <input required type="text" name="firstname" id="firstname" placeholder="Imię" value="{{ old('firstname') }}">
                                     </div>
                                     <div class="input-field">
-                                        <label for="lastname"><i class="fa-regular fa-user"></i>Last Name <span>*</span></label>
+                                        <label for="lastname"><i class="fa-regular fa-user"></i>Nazwisko<span>*</span></label>
                                         <input required type="text" name="lastname" id="lastname" placeholder="Nazwisko" value="{{ old('lastname') }}">
                                     </div>
                                     <div class="input-field">
-                                        <label for="customer_email"><i class="fa-regular fa-envelope"></i>Email Address <span>*</span></label>
+                                        <label for="customer_email"><i class="fa-regular fa-envelope"></i>Email<span>*</span></label>
                                         <input required type="text" name="customer_email" id="customer_email" placeholder="Podaj adres email" value="{{ old('customer_email') }}">
                                     </div>
                                     <div class="input-field">
-                                        <label for="customer_telephone"><i class="fa-regular fa-envelope"></i>Telephone <span>*</span></label>
+                                        <label for="customer_telephone"><i class="fa-regular fa-envelope"></i>Telefon <span>*</span></label>
                                         <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Podaj telefon komórkowy (bez kierunkowego)" value="{{ old('customer_telephone') }}">
-                                    </div>
-                                    <!-- step Button -->
-                                    <div class="submit">
-                                        <button class="next-step-btn">Go next<span><i class="fa-solid fa-thumbs-up"></i></span></button>
                                     </div>
                                 </div>
                                 <div id="step2" class="form-inner lightSpeedIn step-container" data-step-number="2">
                                     <div class="input-field">
                                         <label for="nip"><i class="fa-regular fa-envelope"></i>NIP <span>*</span></label>
-                                        <input required type="text" name="nip" id="nip" placeholder="Type nip">
+                                        <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr">
                                     </div>
                                     <div class="input-field">
                                         <label for="pesel"><i class="fa-regular fa-envelope"></i>PESEL <span>*</span></label>
-                                        <input required type="text" name="pesel" id="pesel" placeholder="Type pesel">
+                                        <input required type="text" name="pesel" id="pesel" placeholder="Wpisz PESEL składający się z 11 cyfr">
                                     </div>
                                     <div class="input-field">
                                         <label><i class="fa-regular fa-envelope"></i>Street <span>*</span></label>
-                                        <input required type="text" name="street" id="street" placeholder="Type street">
+                                        <input required type="text" name="street" id="street" placeholder="Wpisz ulicę">
                                     </div>
                                     <div class="input-field">
-                                        <label for="house_number">House Number <span>*</span></label>
-                                        <input required type="text" id="street" name="house_number">
+                                        <label for="house_number">Nr domu <span>*</span></label>
+                                        <input required type="text" id="house_number" name="house_number" placeholder="Wpisz nr domu">
                                     </div>
                                     <div class="input-field">
-                                        <label for="flat_number">Flat Number</label>
-                                        <input type="text" id="flat_number" name="flat_number">
+                                        <label for="flat_number">Nr mieszkania</label>
+                                        <input type="text" id="flat_number" name="flat_number" placeholder="Wpisz nr mieszkania">
                                     </div>
                                     <div class="input-field">
-                                        <label for="city">City <span>*</span></label>
-                                        <input required type="text" id="city" name="city">
+                                        <label for="city">Miasto<span>*</span></label>
+                                        <input required type="text" id="city" name="city" placeholder="Wpisz miasto">
                                     </div>
                                     <div class="input-field">
-                                        <label for="postcode">Postcode <span>*</span></label>
-                                        <input required type="text" id="postcode" name="postcode" placeholder="00-000">
-                                    </div>
-                                    <div class="submit">
-                                        <button class="next-step-btn">Go next<span><i class="fa-solid fa-thumbs-up"></i></span></button>
+                                        <label for="postcode">Kod pocztowy<span>*</span></label>
+                                        <input required type="text" id="postcode" name="postcode" placeholder="Wpisz kod pocztowy w formacie 00-000">
                                     </div>
                                 </div>
                                 <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
                                     <div class="input-field">
-                                        <label for="belgian_nip">Belgian NIP</label>
-                                        <input type="text" id="belgian_nip" name="belgian_nip">
+                                        <label for="belgian_nip">NIP firmy belgijskiej</label>
+                                        <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się wyłącznie z cyfr">
                                     </div>
                                     <div class="input-field">
-                                        <label for="sector">Sector</label>
+                                        <label for="sector">Branża</label>
                                         <select type="text" id="sector" name="sector">
+                                            <option value="">Wybierz branżę</option>
                                             <option value="meat">Mięso</option>
                                             <option value="construction">Budownictwo</option>
                                             <option value="cleaning">Sprzątanie</option>
@@ -132,50 +126,44 @@
                                         <label for="end_date">End Date</label>
                                         <input type="date" id="end_date" name="end_date" required>
                                     </div>
-                                    <!-- step Button -->
-                                    <div class="submit">
-                                        <button class="next-step-btn">Go next<span><i class="fa-solid fa-thumbs-up"></i></span></button>
-                                    </div>
                                 </div>
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
                                     <div class="check-field">
-                                        <label><i class="fa-regular fa-user"></i>Services <span>*</span></label>
+                                        <label><i class="fa-regular fa-user"></i>Wymagane zgody</label>
                                         <div class="row">
                                             <div class="tab-100 col-md-6">
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="service" value="paid media" checked>
-                                                    <label>Paid Media</label>
+                                                    <input type="checkbox" name="all" value="all">
+                                                    <label>Zaznacz wszystkie<span>*</span></label>
                                                 </div>
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="service" value="Digital experience">
-                                                    <label>Digital experience</label>
+                                                    <input type="checkbox" name="dataprocessing" value="data-processing">
+                                                    <label>Zgoda na przetwarzanie danych osobowych do celów wygenerowania limosy<span>*</span></label>
                                                 </div>
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="service" value="Email">
-                                                    <label>Email</label>
-                                                </div>
-                                            </div>
-                                            <div class="tab-100 col-md-6">
-                                                <div class="check-single">
-                                                    <input type="checkbox" name="service" value="Content Creation">
-                                                    <label>Content Creation</label>
+                                                    <input type="checkbox" name="marketingprocessing" value="marketing-processing">
+                                                    <label>Zgoda na przetwarzanie danych do celóœ marketingowych</label>
                                                 </div>
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="service" value="Strategy & Consulting">
-                                                    <label>Strategy & Consulting</label>
-                                                </div>
-                                                <div class="check-single">
-                                                    <input type="checkbox" name="service" value="Other">
-                                                    <label>Other</label>
+                                                    <input type="checkbox" name="newsletterprocessing" value="newsletter-processing">
+                                                    <label>Newsletter</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- step Button -->
-                                    <div class="submit">
-                                        <button type="submit" id="sub">Send Message<span><i class="fa-solid fa-thumbs-up"></i></span></button>
-                                    </div>
+                                    <div><span>*</span> Zgoda wymagana</div>
+                                </div>
+                                <div class="submit">
+                                    <button class="next-step-btn">
+                                        <img class='loader' src='images/loading.gif' style="display: none">
+                                        Dalej
+                                        <span><i class="fa-solid fa-thumbs-up"></i></span>
+                                    </button>
+                                    <button type="submit" id="sub" style="display:none;">
+                                        <img class='loader' src='images/loading.gif' style="display: none">
+                                        Generuj Limosę
+                                        <span><i class="fa-solid fa-thumbs-up"></i></span>
+                                    </button>
                                 </div>
                             </form>
                         </div>

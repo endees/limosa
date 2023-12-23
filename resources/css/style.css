@@ -389,8 +389,8 @@ form {
 
 }
 
-#sub img {
-    width: 60px;
+button img {
+    width: 40px;
 }
 
 .highlight {
