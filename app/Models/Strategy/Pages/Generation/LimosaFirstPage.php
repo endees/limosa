@@ -7,22 +7,54 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class LimosaFirstPage implements PageInterface
 {
     public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
-                '@.*Details.*of.*the.*employer.*@')
+            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h2'),
+                '@.*Self-employed.*person.*@')
         );
         sleep(3);
+
+        $noVatCheck = false;
+        try {
+            $noVatCheck =  preg_match(
+                '@.*No.*company.*was.*found.*with.*this.*VAT.*number.*@',
+                $driver->findElement(WebDriverBy::cssSelector('.ui-messages-error-summary'))->getText()
+            );
+        } catch (\Exception $exception) {
+            // no error element apparently
+        }
+
+
+        if ($noVatCheck) {
+            $driver->wait()->until(
+                WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id('newEnterpriseButton'))
+            );
+
+            $driver->findElement(WebDriverBy::id('newEnterpriseButton'))->click();
+
+            $driver->findElement(WebDriverBy::id('tradingName'))->sendKeys($data['ceidg']['company_name']);
+            $driver->findElement(WebDriverBy::id('street'))->sendKeys($data['street']);
+            $driver->findElement(WebDriverBy::id('streetNumber'))->sendKeys($data['house_number']);
+
+            if (isset($data['flat_number'])) {
+                $driver->findElement(WebDriverBy::id('box'))->sendKeys($data['flat_number']);
+            }
+
+            $driver->findElement(WebDriverBy::id('postalCode'))->sendKeys($data['postcode']);
+            $driver->findElement(WebDriverBy::id('municipality'))->sendKeys($data['city']);
+        }
+
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
-            $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_beforeScroll.png');
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_beforeScroll.png');
             $driver->findElement(WebDriverBy::xpath("//*[contains(text(),'Personal details')]"))->click();
-            $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_afterScroll.png');
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_afterScroll.png');
 
             $driver->findElement($goNextElement)->getLocationOnScreenOnceScrolledIntoView();
 
@@ -58,7 +90,11 @@ class LimosaFirstPage implements PageInterface
 
             $driver->findElement(WebDriverBy::id('phoneticAddressstreet'))->sendKeys($data['street']);
             $driver->findElement(WebDriverBy::name('phoneticAddressstreetNumber'))->sendKeys($data['house_number']);
-            $driver->findElement(WebDriverBy::name('phoneticAddressbox'))->sendKeys($data['flat_number']);
+
+            if (!empty($data['flat_number'])) {
+                $driver->findElement(WebDriverBy::name('phoneticAddressbox'))->sendKeys($data['flat_number']);
+            }
+
             $driver->findElement(WebDriverBy::name('phoneticAddresspostalCode'))->sendKeys($data['postcode']);
             $driver->findElement(WebDriverBy::name('phoneticAddressmunicipality'))->sendKeys($data['city']);
 
@@ -73,7 +109,7 @@ class LimosaFirstPage implements PageInterface
         } else {
             // @todo manual encoding
         }
-        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
         $driver->findElement($goNextElement)->click();
     }
 }

@@ -16,7 +16,7 @@ class StepEmployer implements PageInterface
                 '@.*Self-employed.*person.*selected.*@')
         );
         sleep(5);
-        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepEmployer.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepEmployer.png');
         $driver->findElement(WebDriverBy::id('nextStepFromEmployerButton'))->click();
     }
 }

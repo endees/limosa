@@ -39,11 +39,12 @@ class ProcessLimosaGeneration implements ShouldQueue, ShouldBeUnique
 
         /** @var Filesystem $filesystem */
         $filesystem = App::make(Filesystem::class);
-        $limosas = $filesystem->files('storage/limosas/');
+        $limosas = $filesystem->files('storage/limosas/'. $this->formData['jobUUID']);
         /** @var \SplFileInfo $limosa */
         $limosa = array_pop($limosas);
         $mailable = new LimosaGenerated($limosa->getPathname());
         Mail::to($this->formData['customer_email'])->send($mailable);
+//        rmdir('storage/limosas/'. $this->formData['jobUUID']);
         Log::info('End limosa generation');
     }
 }

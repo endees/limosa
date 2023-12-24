@@ -36,7 +36,11 @@ class RegisterForm implements PageInterface
 //        address
         $driver->findElement(WebDriverBy::name('register.address.street'))->sendKeys($data['street']);
         $driver->findElement(WebDriverBy::name('register.address.streetNumber'))->sendKeys($data['house_number']);
-        $driver->findElement(WebDriverBy::name('register.address.box'))->sendKeys($data['flat_number']);
+
+        if (!empty($data['flat_number'])) {
+            $driver->findElement(WebDriverBy::name('register.address.box'))->sendKeys($data['flat_number']);
+        }
+
         $driver->findElement(WebDriverBy::name('register.address.postalCode'))->sendKeys($data['postcode']);
         $driver->findElement(WebDriverBy::name('register.address.municipality'))->sendKeys($data['city']);
         $driver->findElement(WebDriverBy::cssSelector('#country'))->click();
@@ -52,7 +56,7 @@ class RegisterForm implements PageInterface
 
         $driver->findElement(WebDriverBy::cssSelector('input[name="createId.qualityCodeTypeInt"][value="3"]'))->click();
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_RegisterForm.png');
+        $driver->takeScreenshot( 'storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_RegisterForm.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

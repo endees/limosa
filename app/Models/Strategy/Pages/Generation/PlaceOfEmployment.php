@@ -15,7 +15,7 @@ class PlaceOfEmployment implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*place.*of.*employment.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfEmployment.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfEmployment.png');
         $driver->findElement(WebDriverBy::id('addCompanyLink'))->click();
     }
 }

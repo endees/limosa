@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 
 class CeidgNip implements ValidationRule
@@ -25,5 +27,7 @@ class CeidgNip implements ValidationRule
         if ($response->badRequest()) {
             $fail($response->collect()->get('message'));
         }
+        $request = App::make(Request::class);
+        $request->session()->put('ceidg', $response->collect("firmy")->first());
     }
 }

@@ -54,6 +54,10 @@ class FormController extends BaseController
 
         $formData['username'] = config('limosa.limosa_username');
         $formData['password'] = config('limosa.limosa_password');
+        $formData['ceidg']['company_name'] = transliterator_transliterate(
+            $translitRules,
+            $request->session()->get('ceidg.nazwa')
+        );
 
         $recipients = config('limosa.registration_data_recipients');
         $lead = new Lead($leadModel);

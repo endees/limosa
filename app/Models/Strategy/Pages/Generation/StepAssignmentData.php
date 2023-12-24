@@ -36,7 +36,7 @@ class StepAssignmentData implements PageInterface
                 break;
         }
 
-        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepAssignmentData.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepAssignmentData.png');
         $driver->findElement(WebDriverBy::id('nextStepButton'))->click();
     }
 }

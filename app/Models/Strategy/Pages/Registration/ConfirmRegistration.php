@@ -17,7 +17,7 @@ class ConfirmRegistration implements PageInterface
             )
         );
 
-        $driver->takeScreenshot( 'storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_ConfirmRegistration.png');
+        $driver->takeScreenshot( 'storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_ConfirmRegistration.png');
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

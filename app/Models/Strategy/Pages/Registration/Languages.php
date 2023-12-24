@@ -15,7 +15,7 @@ class Languages implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::id('lang-en'), '@.*Log.*in.*@i')
         );
 
-        $driver->takeScreenshot('storage/screenshots/registration/' . $data['jobUUID'] . '/' . $data['sequence'] . '_Languages.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_Languages.png');
 
         $driver->findElement(WebDriverBy::linkText('Log in'))->click();
     }

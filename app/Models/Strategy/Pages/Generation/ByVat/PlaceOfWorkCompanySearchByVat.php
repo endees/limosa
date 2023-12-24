@@ -17,7 +17,7 @@ class PlaceOfWorkCompanySearchByVat implements PageInterface
         );
 
         $driver->findElement(WebDriverBy::id('kboNumber'))->sendKeys($data['belgian_nip']);
-        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanySearchByVat.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanySearchByVat.png');
         $driver->findElement(WebDriverBy::id('searchByKboNumberButton'))->click();
     }
 }

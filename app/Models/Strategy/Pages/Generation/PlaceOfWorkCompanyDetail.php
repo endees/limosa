@@ -16,7 +16,7 @@ class PlaceOfWorkCompanyDetail implements PageInterface
                 '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
         );
 
-        $driver->takeScreenshot('storage/screenshots/generation/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanyDetail.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanyDetail.png');
         $driver->findElement(WebDriverBy::id('createUpdateCompany'))->click();
     }
 }

@@ -24,15 +24,15 @@ class DriverHandler
         $driver = $this->prepareDriver();
 
         try {
-            $driver->takeScreenshot('storage/screenshots/startRegistration.png');
+            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startRegistration.png');
             $this->registrationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('storage/screenshots/endRegistration.png');
+            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endRegistration.png');
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('storage/screenshots/endRegistration.png');
+        $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endRegistration.png');
         $driver->quit();
     }
 
@@ -40,21 +40,21 @@ class DriverHandler
         $driver = $this->prepareDriver();
 
         try {
-            $driver->takeScreenshot('storage/screenshots/startActivatin.png');
+            $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/startActivatin.png');
             $this->accountActivationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('storage/screenshots/endActivation.png');
+            $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/endActivation.png');
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('storage/screenshots/end.png');
+        $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/end.png');
         $driver->quit();
     }
 
     public function generateLimosa(array $data)
     {
-        $driver = $this->prepareDriver();
+        $driver = $this->prepareDriver($data);
         try {
             $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startLimosaGeneration.png');
             $this->generationStrategy->execute($driver, $data);
@@ -64,11 +64,11 @@ class DriverHandler
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('storage/screenshots/end.png');
+        $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/end.png');
         $driver->quit();
     }
 
-    private function prepareDriver(): RemoteWebDriver
+    private function prepareDriver($data): RemoteWebDriver
     {
         $host = env('SELENIUM_HOST');
         $capabilities = DesiredCapabilities::firefox();
@@ -77,7 +77,7 @@ class DriverHandler
         $firefoxOptions->setPreference("pdfjs.disabled", "True");
         $firefoxOptions->setPreference("browser.download.folderList", 2);
         $firefoxOptions->setPreference("browser.download.manager.useWindow", False);
-        $firefoxOptions->setPreference("browser.download.dir", '/home/seluser/Downloads');
+        $firefoxOptions->setPreference("browser.download.dir", '/home/seluser/Downloads/'. $data['jobUUID']);
         $firefoxOptions->setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf, application/force-download");
 
         $firefoxOptions->addArguments(['-headless']);
