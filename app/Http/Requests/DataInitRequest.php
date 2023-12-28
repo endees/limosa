@@ -13,6 +13,7 @@ class DataInitRequest extends FormRequest
             'lastname' => 'required|string|max:24',
             'customer_email' => 'email|required',
             'customer_telephone' => 'numeric|required',
+            'g-recaptcha-response' => 'required'
         ];
     }
 }

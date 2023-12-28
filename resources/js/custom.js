@@ -122,125 +122,142 @@ $(function () {
         }
 
         $('div.submit button').on('click', function (ev) {
-            $("div.submit button img").show();
-            $("div.submit button").attr('disabled', 'disabled');
-            ev.stopPropagation();
-            ev.preventDefault();
-            const currentStep  = parseInt(window.step);
-            var validator = $("#steps").validate(validationRules[currentStep]);
-            if ($("#steps").valid()) {
-                validator.destroy();
-                var nextStepNumber = (currentStep + 1);
+                    $("div.submit button img").show();
+                    $("div.submit button").attr('disabled', 'disabled');
+                    ev.stopPropagation();
+                    ev.preventDefault();
+                    const currentStep  = parseInt(window.step);
+                    var validator = $("#steps").validate(validationRules[currentStep]);
 
-                var dataString = new FormData();
-                var token = $('input[name="_token"]').attr('value');
-                dataString.append('_token', token);
+                    if ($("#steps").valid()) {
+                        validator.destroy();
+                        var nextStepNumber = (currentStep + 1);
 
-                if (currentStep === 1) {
-                    $('#steps #step1 input').each(
-                        function(key,element) {
-                            dataString.append(element.name, element.value);
+                        if (currentStep === 1) {
+                            grecaptcha.ready(function() {
+                                grecaptcha.execute('6Ld9RT4pAAAAABCGucbYFiGRY-yElzY884aNMJNY').then(function(captchaCode) {
+                                    var dataString = new FormData();
+                                    dataString.append('g-recaptcha-response', captchaCode);
+                                    var input = $("<input>")
+                                        .attr("type", "hidden")
+                                        .attr("name", "g-recaptcha-response").val(captchaCode);
+                                    $("#steps").append(input);
+
+                                    var token = $('input[name="_token"]').attr('value');
+                                    dataString.append('_token', token);
+                                    $('#steps #step1 input').each(
+                                        function(key,element) {
+                                            dataString.append(element.name, element.value);
+                                        }
+                                    );
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/form/init",
+                                        cache:false,
+                                        dataType: false,
+                                        processData: false,
+                                        contentType: false,
+                                        async: false,
+                                        data: dataString,
+                                        error: function (response) {
+                                            var toast = new bootstrap.Toast('#error');
+                                            $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
+                                            toast.show();
+                                        },
+                                        success: function() {
+                                            $("div.submit button img").hide();
+                                            $('.step-container').hide();
+                                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                                            window.step = nextStepNumber;
+                                            $("div.submit button").removeAttr('disabled');
+                                        }
+                                    });
+                                });
+                            });
                         }
-                    );
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/form/init",
-                        cache:false,
-                        dataType: false,
-                        processData: false,
-                        contentType: false,
-                        async: false,
-                        data: dataString,
-                        error: function (response) {
-                            var toast = new bootstrap.Toast('#error');
-                            $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
-                            toast.show();
-                        },
-                        success: function() {
-                            $("div.submit button img").hide();
-                            $('.step-container').hide();
-                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
-                            window.step = nextStepNumber;
-                            $("div.submit button").removeAttr('disabled');
+                        if (currentStep === 2) {
+                            var dataString = new FormData();
+                            var token = $('input[name="_token"]').attr('value');
+                            dataString.append('_token', token);
+                            var firstname = $('#steps #step1 input[name=firstname]').val();
+                            var lastname = $('#steps #step1 input[name=lastname]').val();
+                            var nip = $('#steps #step2 input[name=nip]').val();
+                            var pesel = $('#steps #step2 input[name=pesel]').val();
+
+                            dataString.append('firstname', firstname);
+                            dataString.append('lastname', lastname);
+                            dataString.append('nip', nip);
+                            dataString.append('pesel', pesel);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/form/company",
+                                cache:false,
+                                dataType: false,
+                                processData: false,
+                                contentType: false,
+                                async: false,
+                                data: dataString,
+                                error: function (response) {
+                                    var toast = new bootstrap.Toast('#error');
+                                    $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
+                                    toast.show();
+                                },
+                                success: function() {
+                                    $("div.submit button img").hide();
+                                    $('.step-container').hide();
+                                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                                    window.step = nextStepNumber;
+                                    $("div.submit button").removeAttr('disabled');
+                                }
+                            });
+                            return;
                         }
-                    });
-                }
+                        if (currentStep === 3) {
+                            var dataString = new FormData();
+                            var token = $('input[name="_token"]').attr('value');
+                            dataString.append('_token', token);
+                            var belgianNip = $('#steps #step3 input[name=belgian_nip]').val();
 
-                if (currentStep === 2) {
-                    var firstname = $('#steps #step1 input[name=firstname]').val();
-                    var lastname = $('#steps #step1 input[name=lastname]').val();
-                    var nip = $('#steps #step2 input[name=nip]').val();
-                    var pesel = $('#steps #step2 input[name=pesel]').val();
+                            dataString.append('belgian_nip', belgianNip);
 
-                    dataString.append('firstname', firstname);
-                    dataString.append('lastname', lastname);
-                    dataString.append('nip', nip);
-                    dataString.append('pesel', pesel);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/form/company",
-                        cache:false,
-                        dataType: false,
-                        processData: false,
-                        contentType: false,
-                        async: false,
-                        data: dataString,
-                        error: function (response) {
-                            var toast = new bootstrap.Toast('#error');
-                            $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
-                            toast.show();
-                        },
-                        success: function() {
-                            $("div.submit button img").hide();
-                            $('.step-container').hide();
-                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
-                            window.step = nextStepNumber;
-                            $("div.submit button").removeAttr('disabled');
+                            $.ajax({
+                                type: "POST",
+                                url: "/form/belgianCompany",
+                                cache:false,
+                                dataType: false,
+                                processData: false,
+                                contentType: false,
+                                async: false,
+                                data: dataString,
+                                error: function (response) {
+                                    var toast = new bootstrap.Toast('#error');
+                                    $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
+                                    toast.show();
+                                },
+                                success: function() {
+                                    $('.step-container').hide();
+                                    $("div.submit button").hide();
+                                    $("div.submit button img").hide();
+                                    $("div.submit button").removeAttr('disabled');
+                                    $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                                    window.step = nextStepNumber;
+                                    $('#sub').show();
+                                }
+                            });
+                            return;
                         }
-                    });
-                    return;
-                }
-                if (currentStep === 3) {
-                    var belgianNip = $('#steps #step3 input[name=belgian_nip]').val();
-
-                    dataString.append('belgian_nip', belgianNip);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/form/belgianCompany",
-                        cache:false,
-                        dataType: false,
-                        processData: false,
-                        contentType: false,
-                        async: false,
-                        data: dataString,
-                        error: function (response) {
-                            var toast = new bootstrap.Toast('#error');
-                            $('#error').html('<div class="reveal alert alert-danger">' + response.message + '</div>');
-                            toast.show();
-                        },
-                        success: function() {
-                            $('.step-container').hide();
-                            $("div.submit button").hide();
-                            $("div.submit button img").hide();
-                            $("div.submit button").removeAttr('disabled');
-                            $(".step-container[data-step-number=" + nextStepNumber + "]").show();
-                            window.step = nextStepNumber;
-                            $('#sub').show();
+                        if (currentStep === 4) {
+                            $("#steps").submit();
+                            window.step = 1;
+                            return;
                         }
-                    });
-                    return;
-                }
-                if (currentStep === 4) {
-                    $("#steps").submit();
-                    window.step = 1;
-                    return;
-                }
-            }
-            $("div.submit button img").hide();
-            $("div.submit button").removeAttr('disabled');
+                    }
+                    $("div.submit button img").hide();
+                    $("div.submit button").removeAttr('disabled');
+
         });
     });
 });

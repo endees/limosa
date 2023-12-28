@@ -7,6 +7,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="{{ Vite::asset('resources/css/responsive.css') }}" rel="stylesheet">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ld9RT4pAAAAABCGucbYFiGRY-yElzY884aNMJNY"></script>
 </head>
 <body class="antialiased">
 <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
@@ -172,10 +173,10 @@
             </div>
         </div>
         <div class="left-shape">
-            <img src="assets/images/top-left.png" alt="">
+            <img src="images/top-left.png" alt="">
         </div>
         <div class="right-shape">
-            <img src="assets/images/top-right.png" alt="">
+            <img src="images/top-right.png" alt="">
         </div>
 
     </main>

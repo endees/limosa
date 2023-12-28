@@ -69,7 +69,8 @@ class FormController extends BaseController
         return view('success', []);
     }
 
-    public function init(DataInitRequest $request) {
+    public function init(DataInitRequest $request)
+    {
         return response()->json([
             "message" => "Success"
         ]);

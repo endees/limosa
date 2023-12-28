@@ -24,6 +24,7 @@ class DataFormRequest extends FormRequest
             'start_date' => 'required|date|after:today',
             'end_date' => 'required|date|after:tomorrow',
             'dataprocessing' => 'required',
+            'g-recaptcha-response' => 'required'
         ];
     }
 }

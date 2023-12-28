@@ -13,5 +13,6 @@ return [
     ],
     'admin_recipients' => [
         'daniel.materka@gmail.com'
-    ]
+    ],
+    'captcha_key' => env('CAPTCHA_KEY')
 ];

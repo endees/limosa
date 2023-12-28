@@ -14,7 +14,7 @@ class NipValidateRequest extends FormRequest
             'firstname' => 'required|string',
             'lastname' => 'required|string',
             'nip' => ['numeric', 'required', new CeidgNip()],
-            'pesel' => ['numeric', 'required', new Pesel()]
+            'pesel' => ['numeric', 'required', new Pesel()],
         ];
     }
 }
