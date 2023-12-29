@@ -7,10 +7,11 @@ services:
       args:
           USER: $USER
           UID: $USER_ID
-          DEPLOYMENT_MODE: "prod"
+          DEPLOYMENT_MODE: "dev"
     ports:
         - 80:80
         - 443:443
+        - 9003:9003
     volumes:
       - .:/var/www/html/
       - limosaGenerated:/var/www/html/storage/limosas
@@ -19,6 +20,28 @@ services:
       - selenium-hub
     extra_hosts:
         - "host.docker.internal:host-gateway"
+    networks:
+      hub:
+  chrome:
+    image: selenium/node-chrome:4.13.0
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      hub:
+  edge:
+    image: selenium/node-edge:4.13.0
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     networks:
       hub:
   firefox:
@@ -60,6 +83,13 @@ services:
           - 3306:3306
       depends_on:
           - limosa
+      networks:
+          hub:
+  mailhog:
+      image: mailhog/mailhog
+      ports:
+          - "1025:1025"
+          - "8025:8025"
       networks:
           hub:
 volumes:

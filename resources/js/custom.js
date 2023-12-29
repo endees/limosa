@@ -138,10 +138,7 @@ $(function () {
                                 grecaptcha.execute('6Ld9RT4pAAAAABCGucbYFiGRY-yElzY884aNMJNY').then(function(captchaCode) {
                                     var dataString = new FormData();
                                     dataString.append('g-recaptcha-response', captchaCode);
-                                    var input = $("<input>")
-                                        .attr("type", "hidden")
-                                        .attr("name", "g-recaptcha-response").val(captchaCode);
-                                    $("#steps").append(input);
+                                
 
                                     var token = $('input[name="_token"]').attr('value');
                                     dataString.append('_token', token);

@@ -23,8 +23,7 @@ class DataFormRequest extends FormRequest
             'password' => 'max:36',
             'start_date' => 'required|date|after:today',
             'end_date' => 'required|date|after:tomorrow',
-            'dataprocessing' => 'required',
-            'g-recaptcha-response' => 'required'
+            'dataprocessing' => 'required'
         ];
     }
 }
