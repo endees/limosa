@@ -13,8 +13,8 @@ services:
         - 443:443
         - 9003:9003
     volumes:
-      - .:/var/www/html/
-      - limosaGenerated:/var/www/html/storage/limosas
+        - appData:/var/www/html
+        - limosaGenerated:/var/www/html/storage/limosas
     user: "${UID}"
     depends_on:
       - selenium-hub
@@ -94,6 +94,12 @@ services:
           hub:
 volumes:
   limosaGenerated: {}
+  appData:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/www/html/limosa
 networks:
    hub:
      driver: bridge

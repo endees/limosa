@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev  \
         libxml2-dev  \
-        npm
+        npm \
+        supervisor
+
 RUN docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql soap intl
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 RUN docker-php-ext-configure soap
@@ -41,4 +43,10 @@ RUN a2enmod ssl
 RUN useradd -l -u ${UID:-1000} -m -g 33 $USER
 
 RUN echo 'root:Docker!' | chpasswd
-USER ${USER}:www-data
+
+RUN mkdir -p /var/log/supervisor
+RUN chown ${USER}:www-data /var/log/supervisor
+
+COPY ./dockerfiles/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]

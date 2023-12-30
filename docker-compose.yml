@@ -5,20 +5,20 @@ services:
       context: .
       dockerfile: ./dockerfiles/Dockerfile
       args:
-          USER: $USER
-          UID: $USER_ID
-          DEPLOYMENT_MODE: "prod"
+        USER: $USER
+        UID: $USER_ID
+        DEPLOYMENT_MODE: "prod"
     ports:
-        - 80:80
-        - 443:443
+      - 80:80
+      - 443:443
     volumes:
-      - .:/var/www/html/
+      - appData:/var/www/html
       - limosaGenerated:/var/www/html/storage/limosas
     user: "${UID}"
     depends_on:
       - selenium-hub
     extra_hosts:
-        - "host.docker.internal:host-gateway"
+      - "host.docker.internal:host-gateway"
     networks:
       hub:
   firefox:
@@ -31,7 +31,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     volumes:
-        - limosaGenerated:/home/seluser/Downloads:rw,z
+      - limosaGenerated:/home/seluser/Downloads:rw,z
     networks:
       hub:
   selenium-hub:
@@ -44,26 +44,32 @@ services:
     networks:
       hub:
   redis:
-      image: redis:latest
-      depends_on:
-          - limosa
-      networks:
-          hub:
+    image: redis:latest
+    depends_on:
+      - limosa
+    networks:
+      hub:
   mysql:
-      image: mysql:8
-      environment:
-          MYSQL_USER: homestead
-          MYSQL_PASSWORD: secret
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: limosa
-      ports:
-          - 3306:3306
-      depends_on:
-          - limosa
-      networks:
-          hub:
+    image: mysql:8
+    environment:
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: limosa
+    ports:
+      - 3306:3306
+    depends_on:
+      - limosa
+    networks:
+      hub:
 volumes:
   limosaGenerated: {}
+  appData:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/www/html/limosa
 networks:
-   hub:
-     driver: bridge
+  hub:
+    driver: bridge
