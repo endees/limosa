@@ -8,7 +8,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class BelgianCompany implements ValidationRule
+class DataBECheck implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, \Closure $fail): void
     {
