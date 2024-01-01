@@ -21,11 +21,7 @@ class BelgianCompany extends Model
 
     protected $fillable = [
         'identifier',
-        'payload'
-    ];
-
-    protected $casts = [
-        'payload' => 'array'
+        'business_name'
     ];
 
     public function lead(): HasOne

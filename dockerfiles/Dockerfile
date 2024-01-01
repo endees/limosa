@@ -6,6 +6,8 @@ ARG XDEBUG_VERSION=3.0.1
 ARG DEPLOYMENT_MODE
 
 RUN apt-get update && apt-get install -y \
+        openssl \
+        vim \
         zip \
         libzip-dev \
         unzip \

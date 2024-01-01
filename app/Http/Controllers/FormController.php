@@ -10,6 +10,7 @@ use App\Jobs\ProcessLimosaGeneration;
 use App\Mail\Lead;
 use App\Models\BelgianCompany;
 use App\Models\Form\DataHandler;
+use App\Models\Lead as LeadModel;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
@@ -40,17 +41,8 @@ class FormController extends BaseController
         $formData['end_date'] = Carbon::createFromFormat('Y-m-d', $formData['end_date'])->format('d/m/Y');
 
         /** @var BelgianCompany $existingCompany */
-        $existingCompany = BelgianCompany::firstWhere('identifier' ,'=' , 'BE' . $formData['belgian_nip']);
-        $payload = json_decode($existingCompany->payload, 1);
-        $formData['business_name'] = $payload['company_name'];
-
-        /** @var \App\Models\Lead $leadModel */
-        $leadModel = $existingCompany->lead()->create([
-            'firstname' => $formData['firstname'],
-            'lastname' => $formData['lastname'],
-            'email' => $formData['customer_email'],
-            'telephone' => $formData['customer_telephone'],
-        ]);
+        $existingCompany = BelgianCompany::firstWhere('identifier' ,'=' , $formData['belgian_nip']);
+        $formData['business_name'] = $existingCompany->business_name;
 
         $formData['username'] = config('limosa.limosa_username');
         $formData['password'] = config('limosa.limosa_password');
@@ -60,12 +52,20 @@ class FormController extends BaseController
         );
 
         $recipients = config('limosa.registration_data_recipients');
-        $lead = new Lead($leadModel);
-        Mail::to($recipients)->send($lead);
-        //      no account creation this time
-        //      ProcessAccountCreation::dispatch($formData);
 
         ProcessLimosaGeneration::dispatch($formData);
+
+        /** @var LeadModel $leadModel */
+        $leadModel = $existingCompany->lead()->create([
+            'firstname' => $formData['firstname'],
+            'lastname' => $formData['lastname'],
+            'email' => $formData['customer_email'],
+            'telephone' => $formData['customer_telephone'],
+        ]);
+
+        $lead = new Lead($leadModel);
+        Mail::to($recipients)->send($lead);
+
         return view('success', []);
     }
 

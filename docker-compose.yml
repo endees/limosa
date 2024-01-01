@@ -15,7 +15,7 @@ services:
       - appData:/var/www/html
       - limosaGenerated:/var/www/html/storage/limosas
       - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./data/certbot/www:/var/www/certbot:rw,z
     user: "${UID}"
     depends_on:
       - selenium-hub

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('belgian_companies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('identifier')->index();
-            $table->json('payload');
+            $table->string('business_name');
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
         });

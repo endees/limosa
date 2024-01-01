@@ -34,7 +34,7 @@ class Lead extends Mailable
      */
     public function content(): Content
     {
-        $belgianCompany = json_decode($this->lead->belgianCompany()->first()->payload, 1);
+        $belgianCompany = $this->lead->belgianCompany()->first();
         return new Content(
             view: 'mailLead',
             with: [
@@ -42,10 +42,10 @@ class Lead extends Mailable
                 'lastname' => $this->lead->lastname,
                 'email' => $this->lead->email,
                 'telephone' => $this->lead->telephone,
-                'company_name' => $belgianCompany['company_name'],
-                'company_vat' => $belgianCompany['vat_formatted'],
-                'company_telephone' => $belgianCompany['phone_number'],
-                'company_email' => $belgianCompany['email']
+                'company_name' => $belgianCompany->business_name,
+                'company_vat' => $belgianCompany->identifier,
+                'company_telephone' => 789789789,
+                'company_email' => 'test@test.be'
             ],
         );
     }
