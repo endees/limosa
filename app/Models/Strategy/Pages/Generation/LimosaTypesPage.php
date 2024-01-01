@@ -11,6 +11,7 @@ class LimosaTypesPage implements PageInterface
 {
     public function resolve(RemoteWebDriver $driver, array $data): void
     {
+        sleep(5);
         $driver->wait()->until(
             WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id('actionChoiceForm'))
         );

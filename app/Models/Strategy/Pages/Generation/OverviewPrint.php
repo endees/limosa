@@ -18,6 +18,6 @@ class OverviewPrint implements PageInterface
 
         $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_OverviewPrint.png');
         $driver->findElement(WebDriverBy::id('j_idt33:declarationCertificatesDatatable:0:downloadPdfEnLink'))->click();
-        sleep(10);
+        sleep(30);
     }
 }

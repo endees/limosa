@@ -106,7 +106,7 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /var/www/html/limosa
+      device: .
 networks:
    hub:
      driver: bridge
