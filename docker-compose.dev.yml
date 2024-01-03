@@ -92,6 +92,8 @@ services:
           - limosa
       networks:
           hub:
+      volumes:
+        - dbData:/var/lib/mysql
   mailhog:
       image: mailhog/mailhog
       ports:
@@ -101,6 +103,7 @@ services:
           hub:
 volumes:
   limosaGenerated: {}
+  dbData: {}
   appData:
     driver: local
     driver_opts:

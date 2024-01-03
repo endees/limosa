@@ -67,8 +67,11 @@ services:
       - limosa
     networks:
       hub:
+    volumes:
+        - dbData:/var/lib/mysql
 volumes:
   limosaGenerated: {}
+  dbData: {}
   appData:
     driver: local
     driver_opts:
