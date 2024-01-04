@@ -6,6 +6,7 @@ use App\Models\Strategy\Pages\Interface\PageInterface;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
+use Illuminate\Support\Carbon;
 
 class StepAssignmentData implements PageInterface
 {
@@ -38,5 +39,13 @@ class StepAssignmentData implements PageInterface
 
         $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepAssignmentData.png');
         $driver->findElement(WebDriverBy::id('nextStepButton'))->click();
+
+        if (Carbon::createFromFormat('d/m/Y' , $data['start_date'])->isBefore(Carbon::today())) {
+            $driver->wait()->until(
+                WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('.ui-messages-warn-summary'),
+                    '@.*The.*starting.*date.*of.*the.*period.*of.*employment.*has.*passed.*@')
+            );
+            $driver->findElement(WebDriverBy::id('nextStepButton'))->click();
+        }
     }
 }
