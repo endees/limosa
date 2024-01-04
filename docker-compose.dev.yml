@@ -13,7 +13,7 @@ services:
         - 443:443
         - 9003:9003
     volumes:
-        - appData:/var/www/html
+        - .:/var/www/html
         - limosaGenerated:/var/www/html/storage/limosas
         - ./data/certbot/conf:/etc/letsencrypt
         - ./data/certbot/www:/var/www/certbot
@@ -104,12 +104,6 @@ services:
 volumes:
   limosaGenerated: {}
   dbData: {}
-  appData:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: .
 networks:
    hub:
      driver: bridge
