@@ -25,3 +25,4 @@ Route::middleware([VerifyCaptcha::class])->group(function () {
 Route::post('/form/company/', 'App\Http\Controllers\FormController@company')->name('form.company');
 Route::post('/form/belgianCompany/', 'App\Http\Controllers\FormController@belgianCompany')->name('form.belgian_company');
 Route::post('/form/register/', 'App\Http\Controllers\FormController@register')->name('form.register');
+Route::get('/form/success/', 'App\Http\Controllers\FormController@success')->name('form.success');

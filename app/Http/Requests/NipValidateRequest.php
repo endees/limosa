@@ -11,10 +11,12 @@ class NipValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
             'nip' => ['numeric', 'required', new CeidgNip()],
             'pesel' => ['numeric', 'required', new Pesel()],
+            'street' => 'required|string',
+            'city' => 'required|string',
+            'postcode' => 'required|string',
+            'house_number' => 'required',
         ];
     }
 }

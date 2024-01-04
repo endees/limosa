@@ -12,6 +12,7 @@ use App\Models\BelgianCompany;
 use App\Models\Form\DataHandler;
 use App\Models\Lead as LeadModel;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -65,8 +66,6 @@ class FormController extends BaseController
 
         $lead = new Lead($leadModel);
         Mail::to($recipients)->send($lead);
-
-        return view('success', []);
     }
 
     public function init(DataInitRequest $request)
@@ -88,5 +87,9 @@ class FormController extends BaseController
         return response()->json([
             "message" => "Success"
         ]);
+    }
+
+    public function success(Request $request) {
+        return view('success', []);
     }
 }

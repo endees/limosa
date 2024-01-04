@@ -15,6 +15,7 @@ class DataFormRequest extends FormRequest
             'customer_email' => 'required|email',
             'customer_telephone' => 'numeric|required',
             'city' => 'required|string',
+            'house_number' => 'required',
             'postcode' => 'required|string',
             'belgian_nip' => 'required|numeric',
             'nip' => 'required|numeric',
