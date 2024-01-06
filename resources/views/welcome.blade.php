@@ -130,23 +130,47 @@
                                 </div>
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
                                     <div class="check-field">
+                                        <label><i class="fa-regular fa-user"></i>Język wygenerowanej limosy</label>
+                                        <div class="row">
+                                            <div class="tab-100 col-md-6">
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="limosalanguage[en]" value="true">
+                                                    <label>Angielski</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="limosalanguage[fr]" value="true">
+                                                    <label>Francuski</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="limosalanguage[nl]" value="true">
+                                                    <label>Niderlandzki</label>
+                                                </div>
+                                                <div class="check-single">
+                                                    <input type="checkbox" name="limosalanguage[de]" value="true">
+                                                    <label>Niemiecki</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="check-field">
                                         <label><i class="fa-regular fa-user"></i>Wymagane zgody</label>
                                         <div class="row">
                                             <div class="tab-100 col-md-6">
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="all" value="all">
-                                                    <label>Zaznacz wszystkie<span>*</span></label>
+                                                    <input type="checkbox" name="dataagreement[all]" value="true">
+                                                    <label>Zaznacz wszystkie</label>
                                                 </div>
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="dataprocessing" value="data-processing">
+                                                    <input type="checkbox" name="dataagreement[rodo]" value="true">
                                                     <label>Zgoda na przetwarzanie danych osobowych do celów wygenerowania limosy<span>*</span></label>
                                                 </div>
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="marketingprocessing" value="marketing-processing">
-                                                    <label>Zgoda na przetwarzanie danych do celóœ marketingowych</label>
+                                                    <input type="checkbox" name="dataagreement[marketing]" value="true">
+                                                    <label>Zgoda na przetwarzanie danych do celów marketingowych</label>
                                                 </div>
                                                 <div class="check-single">
-                                                    <input type="checkbox" name="newsletterprocessing" value="newsletter-processing">
+                                                    <input type="checkbox" name="dataagreement[newsletter]" value="true">
                                                     <label>Newsletter</label>
                                                 </div>
                                             </div>

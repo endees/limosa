@@ -8,7 +8,6 @@ use App\Models\DriverHandler;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -37,12 +36,7 @@ class ProcessLimosaGeneration implements ShouldQueue, ShouldBeUnique
         Log::info('Start generating a new limosa for: ' . json_encode($this->formData));
         $this->driverHandler->generateLimosa($this->formData);
 
-        /** @var Filesystem $filesystem */
-        $filesystem = App::make(Filesystem::class);
-        $limosas = $filesystem->files('storage/limosas/'. $this->formData['jobUUID']);
-        /** @var \SplFileInfo $limosa */
-        $limosa = array_pop($limosas);
-        $mailable = new LimosaGenerated($limosa->getPathname());
+        $mailable = new LimosaGenerated('storage/limosas/'. $this->formData['jobUUID']);
         Mail::to($this->formData['customer_email'])->send($mailable);
 //        rmdir('storage/limosas/'. $this->formData['jobUUID']);
         Log::info('End limosa generation');

@@ -24,7 +24,9 @@ class DataFormRequest extends FormRequest
             'password' => 'max:36',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'dataprocessing' => 'required'
+            'limosalanguage' => 'required|min:1',
+            'dataagreement' => 'required',
+            'dataagreement.rodo' => 'required',
         ];
     }
 }

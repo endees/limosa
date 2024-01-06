@@ -3,11 +3,13 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
 
 class LimosaGenerated extends Mailable
 {
@@ -48,8 +50,14 @@ class LimosaGenerated extends Mailable
      */
     public function attachments(): array
     {
-        return [
-            Attachment::fromPath($this->attachmentPath)
-        ];
+        /** @var Filesystem $filesystem */
+        $filesystem = App::make(Filesystem::class);
+        $limosas = $filesystem->files($this->attachmentPath);
+        $attachments = [];
+        /** @var \SplFileInfo $limosa */
+        foreach ($limosas as $limosa) {
+            $attachments[] = Attachment::fromPath($limosa);
+        }
+        return $attachments;
     }
 }
