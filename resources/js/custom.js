@@ -113,7 +113,7 @@ $(function () {
         var token = $('input[name="_token"]').attr('value');
         dataString.append('_token', token);
 
-        $('#steps #step' + stepNumber + ' input').each(
+        $('#steps #step' + stepNumber + ' input,select').each(
             function(key,element) {
                 dataString.append(element.name, element.value);
             }
@@ -122,6 +122,8 @@ $(function () {
     }
 
     $(document).ready(function () {
+        $('#without_declaring_site').prop('checked', true);
+        $('.site-info-group').hide();
         jQuery.validator.addMethod("postcode", function(value) {
             return /^\d{2}-\d{3}$/.test(value);
         }, 'Please enter a valid postcode.');
@@ -136,8 +138,17 @@ $(function () {
         }
     });
 
-    $(document).on('click','div.submit button', function (ev) {
+    $(document).on('click', '#without_declaring_site', function() {
+        if( this.checked === false) {
+            $('.site-info-group').show();
+            this.value = false;
+        } else {
+            $('.site-info-group').hide();
+            this.value = true;
+        }
+    });
 
+    $(document).on('click','div.submit button', function (ev) {
         ev.stopPropagation();
         ev.preventDefault();
         const currentStep  = parseInt(window.step);
