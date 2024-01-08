@@ -70,23 +70,17 @@ class FormController extends BaseController
 
     public function init(DataInitRequest $request)
     {
-        return response()->json([
-            "message" => "Success"
-        ]);
+        return response()->json(["message" => "Success"]);
     }
 
     public function company(NipValidateRequest $request)
     {
-        return response()->json([
-            "message" => "Success"
-        ]);
+        return response()->json(["message" => "Success"]);
     }
 
     public function belgianCompany(BelgianCompanyValidateRequest $request)
     {
-        return response()->json([
-            "message" => "Success"
-        ]);
+        return response()->json(["message" => "Success"]);
     }
 
     public function success(Request $request) {

@@ -13,9 +13,20 @@ class StepBelgianClient implements PageInterface
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
-                '@.*Declare.*a.*Belgian.*client.*@')
+                '@.*Search.*for.*a.*Belgian.*client.*@')
         );
+
+        $driver->findElement(WebDriverBy::id('kboNumber'))->sendKeys($data['belgian_nip']);
         $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepBelgianClient.png');
-        $driver->findElement(WebDriverBy::id('stepBelgianClientForm:nextStepFromBelgianClientButton'))->click();
+        $driver->findElement(WebDriverBy::id('searchByKboNumberButton'))->click();
+
+        $driver->wait()->until(
+            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
+                '@.*Company.*matching.*the.*criterion.*entered.*@')
+        );
+
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepBelgianClient2.png');
+
+        $driver->findElement(WebDriverBy::id('createUpdateBelgianClient'))->click();
     }
 }

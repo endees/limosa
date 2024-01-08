@@ -7,7 +7,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 
-class PlaceOfWorkCompanyDetail implements PageInterface
+class CompanyAsPlaceOfEmploymentFound implements PageInterface
 {
     public function resolve(RemoteWebDriver $driver, array $data): void
     {
@@ -16,7 +16,7 @@ class PlaceOfWorkCompanyDetail implements PageInterface
                 '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfWorkCompanyDetail.png');
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_CompanyAsPlaceOfEmploymentFound.png');
         $driver->findElement(WebDriverBy::id('createUpdateCompany'))->click();
     }
 }

@@ -7,15 +7,16 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 
-class PlaceOfEmployment implements PageInterface
+class AddBelgianClient implements PageInterface
 {
     public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
-                '@.*Declare.*place.*of.*employment.*@')
+                '@.*Declare.*a.*Belgian.*client.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_PlaceOfEmployment.png');
-        $driver->findElement(WebDriverBy::id('addCompanyLink'))->click();
+        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddBelgianClient.png');
+
+        $driver->findElement(WebDriverBy::id('stepBelgianClientForm:newClientLink'))->click();
     }
 }
