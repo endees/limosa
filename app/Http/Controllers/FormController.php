@@ -11,6 +11,7 @@ use App\Mail\Lead;
 use App\Models\BelgianCompany;
 use App\Models\Form\DataHandler;
 use App\Models\Lead as LeadModel;
+use App\Models\Postcodes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -85,5 +86,11 @@ class FormController extends BaseController
 
     public function success(Request $request) {
         return view('success', []);
+    }
+
+    public function welcome(Request $request)
+    {
+        $postcodes = App::make(Postcodes::class)->getPostCodes();
+        return view('welcome', ['postcodes' => $postcodes]);
     }
 }

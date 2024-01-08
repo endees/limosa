@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\FormController@welcome')->name('form.welcome');
 
 Route::middleware([VerifyCaptcha::class])->group(function () {
     Route::post('/form/init/', 'App\Http\Controllers\FormController@init')->name('form.init');
