@@ -14,11 +14,11 @@ class BelgianCompanyValidateRequest extends FormRequest
             'belgian_nip' => ['numeric', 'required'],
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'without_declaring_site' => 'nullable|string',
+            'without_declaring_site' => 'required|string',
             'site_name' => 'required_if:without_declaring_site,false',
             'site_street' => 'required_without:without_declaring_site,false',
             'site_house_number' => 'required_without:without_declaring_site,false',
-            'site_apartment_number' => 'required_without:without_declaring_site,false',
+            'site_apartment_number' => 'nullable',
             'site_post_code' => 'required_without:without_declaring_site,false'
         ];
     }

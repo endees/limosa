@@ -9,6 +9,8 @@ return [
     'limosa_username' => 'danielmaterka',
     'limosa_password' => 'm@tTorp3da',
     'registration_data_recipients' => [
+        'radek@meso.work',
+        'karolina@meso.work',
         'daniel.materka@gmail.com'
     ],
     'admin_recipients' => [
