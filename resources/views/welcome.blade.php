@@ -58,11 +58,11 @@
                                 @csrf
                                 <div id="step1" class="form-inner lightSpeedIn step-container" data-step-number="1">
                                     <div class="input-field">
-                                        <label for="firstname"><i class="fa-regular fa-user"></i>Imię<span>*</span></label>
+                                        <label for="firstname">Imię<span>*</span></label>
                                         <input required type="text" name="firstname" id="firstname" placeholder="Imię" value="{{ old('firstname') }}">
                                     </div>
                                     <div class="input-field">
-                                        <label for="lastname"><i class="fa-regular fa-user"></i>Nazwisko<span>*</span></label>
+                                        <label for="lastname">Nazwisko<span>*</span></label>
                                         <input required type="text" name="lastname" id="lastname" placeholder="Nazwisko" value="{{ old('lastname') }}">
                                     </div>
                                     <div class="input-field">
@@ -74,51 +74,23 @@
                                         <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Podaj telefon komórkowy (bez kierunkowego)" value="{{ old('customer_telephone') }}">
                                     </div>
                                 </div>
+
                                 <div id="step2" class="form-inner lightSpeedIn step-container" data-step-number="2">
                                     <div class="input-field">
-                                        <label for="nip">NIP <span>*</span></label>
-                                        <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr">
-                                    </div>
-                                    <div class="input-field">
-                                        <label for="pesel">PESEL <span>*</span></label>
-                                        <input required type="text" name="pesel" id="pesel" placeholder="Wpisz PESEL składający się z 11 cyfr">
-                                    </div>
-                                    <div class="input-field">
-                                        <label>Street <span>*</span></label>
-                                        <input required type="text" name="street" id="street" placeholder="Wpisz ulicę">
-                                    </div>
-                                    <div class="input-field">
-                                        <label for="house_number">Nr domu <span>*</span></label>
-                                        <input required type="text" id="house_number" name="house_number" placeholder="Wpisz nr domu">
-                                    </div>
-                                    <div class="input-field">
-                                        <label for="flat_number">Nr mieszkania</label>
-                                        <input type="text" id="flat_number" name="flat_number" placeholder="Wpisz nr mieszkania">
-                                    </div>
-                                    <div class="input-field">
-                                        <label for="city">Miasto<span>*</span></label>
-                                        <input required type="text" id="city" name="city" placeholder="Wpisz miasto">
-                                    </div>
-                                    <div class="input-field">
-                                        <label for="postcode">Kod pocztowy<span>*</span></label>
-                                        <input required type="text" id="postcode" name="postcode" placeholder="Wpisz kod pocztowy w formacie 00-000">
-                                    </div>
-                                </div>
-                                <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
-                                    <div class="input-field">
-                                        <label for="belgian_nip">NIP firmy belgijskiej</label>
+                                        <label for="belgian_nip">NIP firmy belgijskiej<span>*</span></label>
                                         <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się wyłącznie z cyfr">
                                     </div>
-                                    <div class="row">
-                                        <div class="tab-100 col-md-6">
-                                            <div class="check-single">
-                                                <input id="without_declaring_site" type="checkbox" name="without_declaring_site" value="true" checked>
-                                                <label>Firma ta jest również miejscem wykonywania pracy</label>
-                                            </div>
-                                        </div>
+                                    <div class="input-field">
+                                        <label for="belgian_company_telephone">Telefon firmy</label>
+                                        <input type="text" id="belgian_company_telephone" name="belgian_company_telephone" placeholder="Podaj tel belgijskiego kontrahenta składający się wyłącznie z cyfr">
                                     </div>
                                     <div class="input-field">
-                                        <label for="sector">Branża</label>
+                                        <label for="belgian_company_email">Email firmy</label>
+                                        <input type="text" id="belgian_company_email" name="belgian_company_email" placeholder="Podaj email belgijskiego kontrahenta">
+                                    </div>
+
+                                    <div class="input-field">
+                                        <label for="sector">Branża<span>*</span></label>
                                         <select type="text" id="sector" name="sector">
                                             <option value="">Wybierz branżę</option>
                                             <option value="meat">Mięso</option>
@@ -126,6 +98,17 @@
                                             <option value="cleaning">Sprzątanie</option>
                                             <option value="other">Inny</option>
                                         </select>
+                                    </div>
+
+                                    <div class="check-field">
+                                        <div class="row">
+                                            <div class="tab-100 col-md-10">
+                                                <div class="check-single">
+                                                    <input id="without_declaring_site" type="checkbox" name="without_declaring_site" value="true" checked>
+                                                    <label>Firma ta jest również miejscem wykonywania pracy</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="input-field">
                                         <label for="start_date">Start Date</label>
@@ -165,9 +148,39 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
+                                    <div class="input-field">
+                                        <label for="nip">NIP <span>*</span></label>
+                                        <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="pesel">PESEL <span>*</span></label>
+                                        <input required type="text" name="pesel" id="pesel" placeholder="Wpisz PESEL składający się z 11 cyfr">
+                                    </div>
+                                    <div class="input-field">
+                                        <label>Ulica <span>*</span></label>
+                                        <input required type="text" name="street" id="street" placeholder="Wpisz ulicę">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="house_number">Nr domu <span>*</span></label>
+                                        <input required type="text" id="house_number" name="house_number" placeholder="Wpisz nr domu">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="flat_number">Nr mieszkania</label>
+                                        <input type="text" id="flat_number" name="flat_number" placeholder="Wpisz nr mieszkania">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="postcode">Kod pocztowy<span>*</span></label>
+                                        <input required type="text" id="postcode" name="postcode" placeholder="Wpisz kod pocztowy w formacie 00-000">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="city">Miasto<span>*</span></label>
+                                        <input required type="text" id="city" name="city" placeholder="Wpisz miasto">
+                                    </div>
+                                </div>
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
                                     <div class="check-field">
-                                        <label><i class="fa-regular fa-user"></i>Język wygenerowanej limosy</label>
+                                        <label>Język wygenerowanej limosy</label>
                                         <div class="row">
                                             <div class="tab-100 col-md-6">
                                                 <div class="check-single">
@@ -191,9 +204,9 @@
                                     </div>
 
                                     <div class="check-field">
-                                        <label><i class="fa-regular fa-user"></i>Wymagane zgody</label>
+                                        <label>Wymagane zgody</label>
                                         <div class="row">
-                                            <div class="tab-100 col-md-6">
+                                            <div class="tab-100 col-md-12">
                                                 <div class="check-single">
                                                     <input type="checkbox" name="dataagreement[all]" value="true">
                                                     <label>Zaznacz wszystkie</label>

@@ -44,8 +44,8 @@ class Lead extends Mailable
                 'telephone' => $this->lead->telephone,
                 'company_name' => $belgianCompany->business_name,
                 'company_vat' => $belgianCompany->identifier,
-                'company_telephone' => 789789789,
-                'company_email' => 'test@test.be'
+                'company_telephone' => $belgianCompany->company_telephone,
+                'company_email' => $belgianCompany->company_email,
             ],
         );
     }

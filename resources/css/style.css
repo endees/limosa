@@ -234,6 +234,7 @@ form {
     font-size: 16px;
     color: var(--field-text-color);
     margin-left: 15px;
+    max-width: 450px;
 }
 
 .submit {

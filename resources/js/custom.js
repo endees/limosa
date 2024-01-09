@@ -198,7 +198,7 @@ $(function () {
 
                 $.ajax({
                     type: "POST",
-                    url: "/form/company",
+                    url: "/form/belgianCompany",
                     cache: false,
                     dataType: false,
                     processData: false,
@@ -230,7 +230,7 @@ $(function () {
 
                 $.ajax({
                     type: "POST",
-                    url: "/form/belgianCompany",
+                    url: "/form/company",
                     cache: false,
                     dataType: false,
                     processData: false,
@@ -251,9 +251,9 @@ $(function () {
                         $('.step-container').hide();
                         $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                         window.step = nextStepNumber;
-                        $("div.submit button").hide();
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
+                        $("div.submit button").hide();
                         $('#sub').show();
                     }
                 });

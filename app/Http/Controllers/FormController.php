@@ -44,6 +44,10 @@ class FormController extends BaseController
 
         /** @var BelgianCompany $existingCompany */
         $existingCompany = BelgianCompany::firstWhere('identifier' ,'=' , $formData['belgian_nip']);
+        $existingCompany->company_email = $formData['belgian_company_email'];
+        $existingCompany->company_telephone = $formData['belgian_company_telephone'];
+        $existingCompany->save();
+
         $formData['business_name'] = $existingCompany->business_name;
 
         $formData['username'] = config('limosa.limosa_username');
