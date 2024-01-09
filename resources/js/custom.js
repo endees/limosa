@@ -269,6 +269,10 @@ $(function () {
                     processData: false,
                     contentType: false,
                     data: dataString,
+                    beforeSend: function() {
+                        $("div.submit button img").show();
+                        $("div.submit button").attr('disabled', 'disabled');
+                    },
                     error: function (response) {
                         var toast = new bootstrap.Toast('#error');
                         $('#error').html('<div class="reveal alert alert-danger">' + JSON.parse(response.responseText).message + '</div>');

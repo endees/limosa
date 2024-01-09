@@ -16,7 +16,7 @@ class BelgianCompanyValidateRequest extends FormRequest
             'belgian_company_email' => 'nullable|email',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'without_declaring_site' => 'required|string',
+            'without_declaring_site' => 'string',
             'site_name' => 'required_if:without_declaring_site,false',
             'site_street' => 'required_if:without_declaring_site,false',
             'site_house_number' => 'required_if:without_declaring_site,false',
