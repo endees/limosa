@@ -97,7 +97,7 @@ $(function () {
             },
             errorClass: "invalid"
         },
-        4: {
+        5: {
             rules: {
                 dataprocessing: {
                     required: true
@@ -225,7 +225,41 @@ $(function () {
                 });
                 return;
             }
+
             if (currentStep === 3) {
+                var dataString = getInputFromStep(currentStep);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/form/belgianCompany2",
+                    cache: false,
+                    dataType: false,
+                    processData: false,
+                    contentType: false,
+                    data: dataString,
+                    beforeSend: function() {
+                        $("div.submit button img").show();
+                        $("div.submit button").attr('disabled', 'disabled');
+                    },
+                    error: function (response) {
+                        var toast = new bootstrap.Toast('#error');
+                        $('#error').html('<div class="reveal alert alert-danger">' + JSON.parse(response.responseText).message + '</div>');
+                        toast.show();
+                        $("div.submit button img").hide();
+                        $("div.submit button").removeAttr('disabled');
+                    },
+                    success: function() {
+                        $('.step-container').hide();
+                        $(".step-container[data-step-number=" + nextStepNumber + "]").show();
+                        window.step = nextStepNumber;
+                        $("div.submit button img").hide();
+                        $("div.submit button").removeAttr('disabled');
+                    }
+                });
+                return;
+            }
+
+            if (currentStep === 4) {
                 var dataString = getInputFromStep(currentStep);
 
                 $.ajax({
@@ -259,7 +293,7 @@ $(function () {
                 });
                 return;
             }
-            if (currentStep === 4) {
+            if (currentStep === 5) {
                 var dataString = new FormData($('#steps')[0]);
                 $.ajax({
                     type: "POST",

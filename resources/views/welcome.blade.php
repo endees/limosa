@@ -88,7 +88,6 @@
                                         <label for="belgian_company_email">Email firmy</label>
                                         <input type="text" id="belgian_company_email" name="belgian_company_email" placeholder="Podaj email belgijskiego kontrahenta">
                                     </div>
-
                                     <div class="input-field">
                                         <label for="sector">Branża<span>*</span></label>
                                         <select type="text" id="sector" name="sector">
@@ -99,17 +98,6 @@
                                             <option value="other">Inny</option>
                                         </select>
                                     </div>
-
-                                    <div class="check-field">
-                                        <div class="row">
-                                            <div class="tab-100 col-md-10">
-                                                <div class="check-single">
-                                                    <input id="without_declaring_site" type="checkbox" name="without_declaring_site" value="true" checked>
-                                                    <label>Firma ta jest również miejscem wykonywania pracy</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="input-field">
                                         <label for="start_date">Start Date</label>
                                         <input type="date" id="start_date" name="start_date" required>
@@ -118,37 +106,58 @@
                                         <label for="end_date">End Date</label>
                                         <input type="date" id="end_date" name="end_date" required>
                                     </div>
-                                    <div class="site-info-group">
-                                    <div class="input-field">
-                                        <label for="site_name">Nazwa</label>
-                                        <input type="text" id="site_name" name="site_name" placeholder="Nazwa">
-                                    </div>
-
-                                    <div class="input-field">
-                                        <label for="site_street">Ulica</label>
-                                        <input type="text" id="site_street" name="site_street" placeholder="Ulica">
-                                    </div>
-
-                                    <div class="input-field">
-                                        <label for="site_house_number">Numer domu</label>
-                                        <input type="text" id="site_house_number" name="site_house_number" placeholder="Numer domu">
-                                    </div>
-
-                                    <div class="input-field">
-                                        <label for="site_number">Nr mieszkania</label>
-                                        <input type="text" id="site_apartment_number" name="site_apartment_number" placeholder="Numer mieszkania">
-                                    </div>
-                                        <div class="input-field">
-                                            <label for="site_post_code">Kod pocztowy i miasto</label>
-                                            <select id="site_post_code" name="site_post_code" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox" aria-activedescendant="belgianPostalCode_0">
-                                                @foreach($postcodes as $key => $postcode)
-                                                    <option class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all ui-noselection-option ui-state-highlight" data-label="{{ $postcode }}" tabindex="-1" role="option" aria-selected="false" id="{{ $key }}">{{ $postcode }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
+                                        <a><button class="add-new-workplace nip" type="button">
+                                            Dodaj nowe miejsce pracy wpisując NIP
+                                            <span><i class="fa-solid fa-thumbs-up"></i></span>
+                                        </button></a>
+                                        <a>
+                                            <button class="add-new-workplace site" type="button">
+                                                Dodaj nowe miejsce pracy wpisując adres
+                                                <span><i class="fa-solid fa-thumbs-up"></i></span>
+                                            </button>
+                                        </a>
+                                    @for($i=1; $i < 5; $i++)
+                                        <div class="nip-info-group-{{$i}}" style="display:none;">
+                                            <div class="input-field">
+                                                <label for="nip_place_of_work_{{$i}}">Nip</label>
+                                                <input type="text" id="nip_place_of_work_{{$i}}" name="nip_place_of_work[{{$i}}]" placeholder="NIP">
+                                            </div>
+                                        </div>
+                                        <div class="site-info-group-{{$i}}" style="display:none;">
+                                            <div class="input-field">
+                                                <label for="site_name">Nazwa</label>
+                                                <input type="text" id="site_name" name="site_name" placeholder="Nazwa">
+                                            </div>
+
+                                            <div class="input-field">
+                                                <label for="site_street">Ulica</label>
+                                                <input type="text" id="site_street" name="site_street" placeholder="Ulica">
+                                            </div>
+
+                                            <div class="input-field">
+                                                <label for="site_house_number">Numer domu</label>
+                                                <input type="text" id="site_house_number" name="site_house_number" placeholder="Numer domu">
+                                            </div>
+
+                                            <div class="input-field">
+                                                <label for="site_number">Nr mieszkania</label>
+                                                <input type="text" id="site_apartment_number" name="site_apartment_number" placeholder="Numer mieszkania">
+                                            </div>
+
+                                            <div class="input-field">
+                                                <label for="site_post_code">Kod pocztowy i miasto</label>
+                                                <select id="site_post_code" name="site_post_code" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox" aria-activedescendant="belgianPostalCode_0">
+                                                    @foreach($postcodes as $key => $postcode)
+                                                        <option class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all ui-noselection-option ui-state-highlight" data-label="{{ $postcode }}" tabindex="-1" role="option" aria-selected="false" id="{{ $key }}">{{ $postcode }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endfor
+                                </div>
+                                <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
                                     <div class="input-field">
                                         <label for="nip">NIP <span>*</span></label>
                                         <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr">
@@ -178,7 +187,7 @@
                                         <input required type="text" id="city" name="city" placeholder="Wpisz miasto">
                                     </div>
                                 </div>
-                                <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
+                                <div id="step5" class="form-inner lightSpeedIn step-container" data-step-number="5">
                                     <div class="check-field">
                                         <label>Język wygenerowanej limosy</label>
                                         <div class="row">
