@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import 'jquery-validation';
 import * as bootstrap from 'bootstrap'
+import * as _ from 'underscore'
+
 window.$ = $;
 window.jQuery = $;
 
@@ -121,9 +123,38 @@ $(function () {
         return dataString;
     }
 
+    function saveFormData() {
+        var formData = new FormData($('#steps')[0]);
+        var result = {};
+        formData.forEach(function(el, key) {
+            result[key] = el;
+        });
+        localStorage.setItem('limosaFormData', JSON.stringify(result));
+        return true;
+    }
+
+    function getFormData() {
+        return JSON.parse(localStorage.getItem('limosaFormData'));
+    }
+
+    function deleteFormData() {
+        localStorage.removeItem('limosaFormData');
+        return true;
+    }
+
+    function restoreFormFromLocalStorage() {
+        var formData = getFormData();
+        if (!_.isEmpty(formData)) {
+            $('#steps input,select').each(function(key, el) {
+                $(el).val(formData[el.name]);
+            });
+        }
+    }
+
     $(document).ready(function () {
         $('#without_declaring_site').prop('checked', true);
         // $('.site-info-group').hide();
+        restoreFormFromLocalStorage()
         jQuery.validator.addMethod("postcode", function(value) {
             return /^\d{2}-\d{3}$/.test(value);
         }, 'Please enter a valid postcode.');
@@ -187,6 +218,7 @@ $(function () {
                                 window.step = nextStepNumber;
                                 $("div.submit button img").hide();
                                 $("div.submit button").removeAttr('disabled');
+                                saveFormData();
                             }
                         });
                     });
@@ -221,6 +253,7 @@ $(function () {
                         window.step = nextStepNumber;
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
+                        saveFormData();
                     }
                 });
                 return;
@@ -254,6 +287,7 @@ $(function () {
                         window.step = nextStepNumber;
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
+                        saveFormData();
                     }
                 });
                 return;
@@ -289,6 +323,7 @@ $(function () {
                         $("div.submit button").removeAttr('disabled');
                         $("div.submit button").hide();
                         $('#sub').show();
+                        saveFormData();
                     }
                 });
                 return;
@@ -318,6 +353,7 @@ $(function () {
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
                         window.location = 'form/success';
+                        deleteFormData();
                     }
                 });
             }
