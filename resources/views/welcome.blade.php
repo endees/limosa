@@ -8,6 +8,7 @@
     <link href="{{ Vite::asset('resources/css/responsive.css') }}" rel="stylesheet">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
     <script src="https://www.google.com/recaptcha/api.js?render=6Ld9RT4pAAAAABCGucbYFiGRY-yElzY884aNMJNY"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
 </head>
 <body class="antialiased">
 <div id="app" class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
@@ -90,7 +91,7 @@
                                     </div>
                                     <div class="input-field">
                                         <label for="sector">Branża<span>*</span></label>
-                                        <select type="text" id="sector" name="sector">
+                                        <select id="sector" name="sector">
                                             <option value="">Wybierz branżę</option>
                                             <option value="meat">Mięso</option>
                                             <option value="construction">Budownictwo</option>
@@ -108,80 +109,114 @@
                                     </div>
                                 </div>
                                 <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
-                                        <a><button class="add-new-workplace nip" type="button">
-                                            Dodaj nowe miejsce pracy wpisując NIP
-                                            <span><i class="fa-solid fa-thumbs-up"></i></span>
-                                        </button></a>
-                                        <a>
-                                            <button class="add-new-workplace site" type="button">
-                                                Dodaj nowe miejsce pracy wpisując adres
-                                                <span><i class="fa-solid fa-thumbs-up"></i></span>
-                                            </button>
-                                        </a>
-                                    <v-sheet
-                                        class="position-relative"
-                                        min-height="450"
-                                    >
-                                        <div class="position-absolute d-flex align-center justify-center w-100 h-100">
+                                        <div class="d-flex align-center justify-center w-100 h-100">
                                             <v-btn
-                                                size="x-large"
+                                                v-if="!dialog"
+                                                size="x-medium"
                                                 color="deep-purple-darken-2"
-                                                @click="dialog = !dialog"
+                                                @click="addForm"
                                             >
-                                                Open Dialog
+                                                Dodaj NIP miejsca pracy
                                             </v-btn>
                                         </div>
 
-                                        <v-fade-transition hide-on-leave>
-                                            <v-card
-                                                v-if="dialog"
-                                                append-icon="$close"
-                                                class="mx-auto"
-                                                elevation="16"
-                                                max-width="500"
-                                                title="Send a receipt"
+                                        <div class="d-flex align-center justify-center w-100 h-100">
+                                            <v-btn
+                                                v-if="!dialog"
+                                                size="x-medium"
+                                                color="deep-purple-darken-2"
+                                                @click="addForm"
+                                            >
+                                                Dodaj adres miejsca pracy
+                                            </v-btn>
+                                        </div>
+
+                                    <v-fade-transition hide-on-leave>
+                                        <v-card
+                                            v-if="dialog"
+                                            title="Wpowadź NIP"
+                                            variant="text"
+                                        >
+                                            <div class="nip-info-group">
+                                                <div class="input-field">
+                                                    <label for="nip_place_of_work">Nip</label>
+                                                    <input type="text" id="nip_place_of_work" name="nip_place_of_work[ @{{count}} ]" placeholder="NIP">
+                                                </div>
+                                            </div>
+                                            <div class="pa-4 text-end">
+                                                <v-btn
+                                                    class="text-none"
+                                                    color="medium-emphasis"
+                                                    min-width="92"
+                                                    rounded
+                                                    variant="outlined"
+                                                    @click="dialog = !dialog"
+                                                >
+                                                    Anuluj
+                                                </v-btn>
+                                                <v-btn
+                                                    class="text-none"
+                                                    color="medium-emphasis"
+                                                    min-width="92"
+                                                    rounded
+                                                    variant="outlined"
+                                                    @click="storeNip"
+                                                >
+                                                    Dodaj
+                                                </v-btn>
+                                            </div>
+                                        </v-card>
+                                    </v-fade-transition>
+                                    <v-card
+                                        class="mx-auto"
+                                        max-width="600"
+                                        variant="text"
+                                    >
+                                        <v-list bg-color="transparent" lines="one" variant="plain">
+                                            <v-list-subheader inset>NIP</v-list-subheader>
+
+                                            <v-list-item
+                                                v-for="nip in nips"
+                                                :key="nip.title"
+                                                :title="nip.title"
                                             >
                                                 <template v-slot:append>
-                                                    <v-btn icon="$close" variant="text" @click="dialog = false"></v-btn>
+                                                    <v-btn
+                                                        color="grey-lighten-1"
+                                                        icon="mdi-close"
+                                                        variant="text"
+                                                    ></v-btn>
+                                                </template>
+                                            </v-list-item>
+
+                                            <v-divider inset></v-divider>
+
+                                            <v-list-subheader inset>Adres</v-list-subheader>
+
+                                            <v-list-item
+                                                v-for="address in addresses"
+                                                :key="address.title"
+                                                :title="address.title"
+                                                :subtitle="address.subtitle"
+                                            >
+                                                <template v-slot:prepend>
+                                                    <v-avatar :color="address.color">
+                                                        <v-icon color="white">@{{ address.icon }}</v-icon>
+                                                    </v-avatar>
                                                 </template>
 
-                                                <v-divider></v-divider>
-
-                                                <div class="py-12 text-center">
-                                                    <v-icon
-                                                        class="mb-6"
-                                                        color="success"
-                                                        icon="mdi-check-circle-outline"
-                                                        size="128"
-                                                    ></v-icon>
-
-                                                    <div class="text-h4 font-weight-bold">This receipt was sent</div>
-                                                </div>
-
-                                                <v-divider></v-divider>
-
-                                                <div class="pa-4 text-end">
+                                                <template v-slot:append>
                                                     <v-btn
-                                                        class="text-none"
-                                                        color="medium-emphasis"
-                                                        min-width="92"
-                                                        rounded
-                                                        variant="outlined"
-                                                        @click="dialog = false"
-                                                    >
-                                                        Close
-                                                    </v-btn>
-                                                </div>
-                                            </v-card>
-                                        </v-fade-transition>
-                                    </v-sheet>
+                                                        color="grey-lighten-1"
+                                                        icon="mdi-close"
+                                                        variant="text"
+                                                    ></v-btn>
+                                                </template>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-card>
+
                                     @for($i=1; $i < 5; $i++)
-                                        <div class="nip-info-group-{{$i}}" style="display:none;">
-                                            <div class="input-field">
-                                                <label for="nip_place_of_work_{{$i}}">Nip</label>
-                                                <input type="text" id="nip_place_of_work_{{$i}}" name="nip_place_of_work[{{$i}}]" placeholder="NIP">
-                                            </div>
-                                        </div>
                                         <div class="site-info-group-{{$i}}" style="display:none;">
                                             <div class="input-field">
                                                 <label for="site_name">Nazwa</label>
@@ -204,12 +239,16 @@
                                             </div>
 
                                             <div class="input-field">
-                                                <label for="site_post_code">Kod pocztowy i miasto</label>
-                                                <select id="site_post_code" name="site_post_code" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox" aria-activedescendant="belgianPostalCode_0">
-                                                    @foreach($postcodes as $key => $postcode)
-                                                        <option class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all ui-noselection-option ui-state-highlight" data-label="{{ $postcode }}" tabindex="-1" role="option" aria-selected="false" id="{{ $key }}">{{ $postcode }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <v-autocomplete
+                                                    label="Kod pocztowy i miasto"
+                                                    :items="{!! $postcodes !!}"
+                                                ></v-autocomplete>
+{{--                                                <label for="site_post_code">Kod pocztowy i miasto</label>--}}
+{{--                                                <select id="site_post_code" name="site_post_code" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox" aria-activedescendant="belgianPostalCode_0">--}}
+{{--                                                    @foreach($postcodes as $key => $postcode)--}}
+{{--                                                        <option class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all ui-noselection-option ui-state-highlight" data-label="{{ $postcode }}" tabindex="-1" role="option" aria-selected="false" id="{{ $key }}">{{ $postcode }}</option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </select>--}}
                                             </div>
                                         </div>
                                     @endfor

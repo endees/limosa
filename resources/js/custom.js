@@ -123,7 +123,7 @@ $(function () {
 
     $(document).ready(function () {
         $('#without_declaring_site').prop('checked', true);
-        $('.site-info-group').hide();
+        // $('.site-info-group').hide();
         jQuery.validator.addMethod("postcode", function(value) {
             return /^\d{2}-\d{3}$/.test(value);
         }, 'Please enter a valid postcode.');
