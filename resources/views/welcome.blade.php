@@ -140,7 +140,7 @@
                                             <div class="nip-info-group">
                                                 <div class="input-field">
                                                     <label for="nip_place_of_work">Nip</label>
-                                                    <input type="text" id="nip_place_of_work" name="nip_place_of_work[ @{{count}} ]" placeholder="NIP">
+                                                    <input type="text" id="nip_place_of_work" :name="'nip_place_of_work[ ' + count + ']'" placeholder="NIP">
                                                 </div>
                                             </div>
                                             <div class="pa-4 text-end">
@@ -187,6 +187,7 @@
                                                         variant="text"
                                                     ></v-btn>
                                                 </template>
+
                                             </v-list-item>
 
                                             <v-divider inset></v-divider>
@@ -215,8 +216,8 @@
                                             </v-list-item>
                                         </v-list>
                                     </v-card>
-
-                                    @for($i=1; $i < 5; $i++)
+                                    @for($i=0; $i < 4; $i++)
+                                        <input name="nip_place_of_work[]" type="hidden">
                                         <div class="site-info-group-{{$i}}" style="display:none;">
                                             <div class="input-field">
                                                 <label for="site_name">Nazwa</label>

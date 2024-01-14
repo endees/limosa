@@ -25,17 +25,23 @@ createApp({
     setup() {
         const dialog = ref(false)
         const count = ref(0)
-        const nips = ref([])
+        const defaultNips = $('input[name="nip_place_of_work[]"]').map(function (key, element) { if (element.value !== " ") { return element.value }}).toArray();
+        const nips = ref(defaultNips)
         function addForm() {
             if (count.value <= 5) {
                 dialog.value = true;
             }
         }
+
         function storeNip() {
+            var nipValue = $('#nip_place_of_work').val();
+
             dialog.value = false
-            nips.value[count.value] =  { title: $('#nip_place_of_work').val() };
+            nips.value[count.value] =  { title: nipValue };
+            $('input[name="nip_place_of_work[]"]')[count.value].value = nipValue;
             count.value++
         }
+
         function storeAddress() {
             dialog.value = false
             count.value++

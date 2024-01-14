@@ -42,6 +42,32 @@ $(function () {
         },
         2: {
             rules: {
+                belgian_nip: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10,
+                    digits: true,
+                },
+                belgian_company_telephone: {
+                    required: false,
+                    digits: true
+                },
+                sector: {
+                    required: true
+                },
+                start_date: {
+                    required: true,
+                    date: true
+                },
+                end_date: {
+                    required: true,
+                    date: true
+                },
+            },
+            errorClass: "invalid"
+        },
+        3: {
+            rules: {
                 nip: {
                     required: true,
                     minlength: 10,
@@ -74,28 +100,6 @@ $(function () {
                     maxlength: 6,
                     postcode: true
                 }
-            },
-            errorClass: "invalid"
-        },
-        3: {
-            rules: {
-                belgian_nip: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 10,
-                    digits: true,
-                },
-                sector: {
-                    required: true
-                },
-                start_date: {
-                    required: true,
-                    date: true
-                },
-                end_date: {
-                    required: true,
-                    date: true
-                },
             },
             errorClass: "invalid"
         },
