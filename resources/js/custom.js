@@ -128,10 +128,21 @@ $(function () {
     }
 
     function saveFormData() {
-        var formData = new FormData($('#steps')[0]);
+        deleteFormData()
+        var formData = $('#steps input,select')
+            .map(function (key, element) { if (element.value !== " ") { return element }}).toArray();
         var result = {};
         formData.forEach(function(el, key) {
-            result[key] = el;
+            if (!_.isEmpty(el.value)) {
+                if (new RegExp(/\[\]/).test(el.name)) {
+                    if (result[el.name] === undefined) {
+                        result[el.name] = [];
+                    }
+                    result[el.name].push(el.value);
+                } else {
+                    result[el.name] = el.value;
+                }
+            }
         });
         localStorage.setItem('limosaFormData', JSON.stringify(result));
         return true;

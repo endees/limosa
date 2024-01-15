@@ -6,6 +6,7 @@ use App\Http\Requests\BelgianCompanyValidateRequest;
 use App\Http\Requests\DataFormRequest;
 use App\Http\Requests\DataInitRequest;
 use App\Http\Requests\NipValidateRequest;
+use App\Http\Requests\WorkSiteValidateRequest;
 use App\Jobs\ProcessLimosaGeneration;
 use App\Mail\Lead;
 use App\Models\BelgianCompany;
@@ -84,6 +85,11 @@ class FormController extends BaseController
     }
 
     public function belgianCompany(BelgianCompanyValidateRequest $request)
+    {
+        return response()->json(["message" => "Success"]);
+    }
+
+    public function workSite(WorkSiteValidateRequest $request)
     {
         return response()->json(["message" => "Success"]);
     }

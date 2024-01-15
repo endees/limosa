@@ -216,8 +216,8 @@
                                             </v-list-item>
                                         </v-list>
                                     </v-card>
-                                    @for($i=0; $i < 4; $i++)
-                                        <input name="nip_place_of_work[]" type="hidden">
+                                    @for($i=0; $i < 5; $i++)
+                                        <input name="nip_place_of_work[]" type="hidden" v-if="nips[{{$i}}]" :value="nips[{{$i}}].title">
                                         <div class="site-info-group-{{$i}}" style="display:none;">
                                             <div class="input-field">
                                                 <label for="site_name">Nazwa</label>

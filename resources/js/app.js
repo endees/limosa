@@ -8,6 +8,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import * as _ from 'underscore'
 
 const vuetify = createVuetify({
     components,
@@ -25,8 +26,20 @@ createApp({
     setup() {
         const dialog = ref(false)
         const count = ref(0)
-        const defaultNips = $('input[name="nip_place_of_work[]"]').map(function (key, element) { if (element.value !== " ") { return element.value }}).toArray();
-        const nips = ref(defaultNips)
+        let defaultNips = [];
+
+        if (!_.isEmpty(localStorage.getItem('limosaFormData'))) {
+            var nipStored = JSON.parse(localStorage.getItem('limosaFormData'))['nip_place_of_work[]'];
+            if(!_.isEmpty(nipStored)) {
+                defaultNips = _.map(
+                    nipStored,
+                    function (element) {
+                        return { title: element };
+                    });
+            }
+        }
+
+        const nips = ref(defaultNips);
         function addForm() {
             if (count.value <= 5) {
                 dialog.value = true;
@@ -38,7 +51,7 @@ createApp({
 
             dialog.value = false
             nips.value[count.value] =  { title: nipValue };
-            $('input[name="nip_place_of_work[]"]')[count.value].value = nipValue;
+            // $($('input[name="nip_place_of_work[]"]')[count.value]).val(nipValue);
             count.value++
         }
 
@@ -46,6 +59,11 @@ createApp({
             dialog.value = false
             count.value++
         }
+
+        function deleteNip() {
+
+        }
+
         return {
             dialog,
             count,
