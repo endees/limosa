@@ -161,7 +161,9 @@ $(function () {
         var formData = getFormData();
         if (!_.isEmpty(formData)) {
             $('#steps input,select').each(function(key, el) {
-                $(el).val(formData[el.name]);
+                if (el.name !== '_token') {
+                    $(el).val(formData[el.name]);
+                }
             });
         }
     }

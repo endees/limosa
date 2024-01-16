@@ -137,10 +137,10 @@
                                             title="Wpowadź NIP"
                                             variant="text"
                                         >
-                                            <div class="nip-info-group">
+                                            <div class="nip-info-group" v-for="(nip, index) in nips">
                                                 <div class="input-field">
-                                                    <label for="nip_place_of_work">Nip</label>
-                                                    <input type="text" id="nip_place_of_work" :name="'nip_place_of_work[ ' + count + ']'" placeholder="NIP">
+                                                    <label for="nip_place_of_work[]">Nip @{{ index }} </label>
+                                                        <input type="text" class="nip_place_of_work" name="nip_place_of_work[]" v-model="nips[index].title" placeholder="NIP">
                                                 </div>
                                             </div>
                                             <div class="pa-4 text-end">
@@ -217,7 +217,7 @@
                                         </v-list>
                                     </v-card>
                                     @for($i=0; $i < 5; $i++)
-                                        <input name="nip_place_of_work[]" type="hidden" v-if="nips[{{$i}}]" :value="nips[{{$i}}].title">
+{{--                                        <input name="nip_place_of_work[]" type="hidden" v-if="nips[{{$i}}]" :value="nips[{{$i}}].title">--}}
                                         <div class="site-info-group-{{$i}}" style="display:none;">
                                             <div class="input-field">
                                                 <label for="site_name">Nazwa</label>

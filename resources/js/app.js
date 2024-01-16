@@ -30,27 +30,30 @@ createApp({
 
         if (!_.isEmpty(localStorage.getItem('limosaFormData'))) {
             var nipStored = JSON.parse(localStorage.getItem('limosaFormData'))['nip_place_of_work[]'];
-            if(!_.isEmpty(nipStored)) {
-                defaultNips = _.map(
-                    nipStored,
-                    function (element) {
-                        return { title: element };
-                    });
-            }
+            // if(!_.isEmpty(nipStored)) {
+            //     defaultNips = _.map(
+            //         nipStored,
+            //         function (element) {
+            //             return { title: element };
+            //         });
+            // }
         }
 
         const nips = ref(defaultNips);
         function addForm() {
-            if (count.value <= 5) {
-                dialog.value = true;
+            if (count.value === 0) {
+                if(nips.value.length === 0) {
+                    nips.value.push({title: ' '});
+                }
             }
+            dialog.value = true;
         }
 
         function storeNip() {
-            var nipValue = $('#nip_place_of_work').val();
-
             dialog.value = false
-            nips.value[count.value] =  { title: nipValue };
+            var storedFormData = JSON.parse(localStorage.getItem('limosaFormData'));
+            storedFormData['nip_place_of_work[]'] = nips.value;
+            localStorage.setItem('limosaFormData', JSON.stringify(storedFormData));
             // $($('input[name="nip_place_of_work[]"]')[count.value]).val(nipValue);
             count.value++
         }
