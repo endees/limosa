@@ -2,7 +2,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 import * as bootstrap from 'bootstrap'
 import * as _ from 'underscore'
-
+import {validationRules} from "./validation/rules.js";
 window.$ = $;
 window.jQuery = $;
 
@@ -16,103 +16,6 @@ $(function () {
         }
     });
 
-    var validationRules = {
-        1: {
-            rules: {
-                firstname: {
-                    required: true,
-                    maxlength: 20,
-                },
-                lastname: {
-                    required: true,
-                    maxlength: 20,
-                },
-                customer_email: {
-                    required: true,
-                    email: true
-                },
-                customer_telephone: {
-                    required: true,
-                    digits: true,
-                    minlength: 9,
-                    maxlength: 9
-                }
-            },
-            errorClass: "invalid"
-        },
-        2: {
-            rules: {
-                belgian_nip: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 10,
-                    digits: true,
-                },
-                belgian_company_telephone: {
-                    required: false,
-                    digits: true
-                },
-                sector: {
-                    required: true
-                },
-                start_date: {
-                    required: true,
-                    date: true
-                },
-                end_date: {
-                    required: true,
-                    date: true
-                },
-            },
-            errorClass: "invalid"
-        },
-        3: {
-            rules: {
-                nip: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 10,
-                    digits: true,
-                },
-                pesel: {
-                    required: true,
-                    minlength: 11,
-                    maxlength: 11,
-                    digits: true,
-                },
-                street: {
-                    required: true
-                },
-                house_number: {
-                    required: true,
-                    maxlength: 5
-                },
-                flat_number: {
-                    required: true,
-                    maxlength: 5
-                },
-                city: {
-                    required: true,
-                    maxlength: 25
-                },
-                postcode: {
-                    required: true,
-                    maxlength: 6,
-                    postcode: true
-                }
-            },
-            errorClass: "invalid"
-        },
-        5: {
-            rules: {
-                dataprocessing: {
-                    required: true
-                }
-            },
-            errorClass: "invalid"
-        }
-    };
-
     function getInputFromStep(stepNumber) {
         var dataString = new FormData();
 
@@ -125,27 +28,6 @@ $(function () {
             }
         );
         return dataString;
-    }
-
-    function saveFormData() {
-        deleteFormData()
-        var formData = $('#steps input,select')
-            .map(function (key, element) { if (element.value !== " ") { return element }}).toArray();
-        var result = {};
-        formData.forEach(function(el, key) {
-            if (!_.isEmpty(el.value)) {
-                if (new RegExp(/\[\]/).test(el.name)) {
-                    if (result[el.name] === undefined) {
-                        result[el.name] = [];
-                    }
-                    result[el.name].push(el.value);
-                } else {
-                    result[el.name] = el.value;
-                }
-            }
-        });
-        localStorage.setItem('limosaFormData', JSON.stringify(result));
-        return true;
     }
 
     function getFormData() {
@@ -162,7 +44,7 @@ $(function () {
         if (!_.isEmpty(formData)) {
             $('#steps input,select').each(function(key, el) {
                 if (el.name !== '_token') {
-                    $(el).val(formData[el.name]);
+                    // $(el).val(formData[el.name]);
                 }
             });
         }
@@ -183,16 +65,6 @@ $(function () {
         } else {
             $('.step-container').hide();
             $(".step-container[data-step-number=" + window.step + "]").show();
-        }
-    });
-
-    $(document).on('click', '#without_declaring_site', function() {
-        if( this.checked === false) {
-            $('.site-info-group').show();
-            this.value = false;
-        } else {
-            $('.site-info-group').hide();
-            this.value = true;
         }
     });
 
@@ -235,7 +107,6 @@ $(function () {
                                 window.step = nextStepNumber;
                                 $("div.submit button img").hide();
                                 $("div.submit button").removeAttr('disabled');
-                                saveFormData();
                             }
                         });
                     });
@@ -270,7 +141,6 @@ $(function () {
                         window.step = nextStepNumber;
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
-                        saveFormData();
                     }
                 });
                 return;
@@ -281,7 +151,7 @@ $(function () {
 
                 $.ajax({
                     type: "POST",
-                    url: "/form/belgianCompany2",
+                    url: "/form/worksites",
                     cache: false,
                     dataType: false,
                     processData: false,
@@ -304,7 +174,6 @@ $(function () {
                         window.step = nextStepNumber;
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
-                        saveFormData();
                     }
                 });
                 return;
@@ -340,7 +209,6 @@ $(function () {
                         $("div.submit button").removeAttr('disabled');
                         $("div.submit button").hide();
                         $('#sub').show();
-                        saveFormData();
                     }
                 });
                 return;

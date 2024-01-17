@@ -60,38 +60,38 @@
                                 <div id="step1" class="form-inner lightSpeedIn step-container" data-step-number="1">
                                     <div class="input-field">
                                         <label for="firstname">Imię<span>*</span></label>
-                                        <input required type="text" name="firstname" id="firstname" placeholder="Imię" value="{{ old('firstname') }}">
+                                        <input required type="text" name="firstname" id="firstname" placeholder="Imię" v-model="formData.firstname">
                                     </div>
                                     <div class="input-field">
                                         <label for="lastname">Nazwisko<span>*</span></label>
-                                        <input required type="text" name="lastname" id="lastname" placeholder="Nazwisko" value="{{ old('lastname') }}">
+                                        <input required type="text" name="lastname" id="lastname" placeholder="Nazwisko" v-model="formData.lastname">
                                     </div>
                                     <div class="input-field">
                                         <label for="customer_email">Email<span>*</span></label>
-                                        <input required type="text" name="customer_email" id="customer_email" placeholder="Podaj adres email" value="{{ old('customer_email') }}">
+                                        <input required type="text" name="customer_email" id="customer_email" placeholder="Podaj adres email" v-model="formData.customer_email">
                                     </div>
                                     <div class="input-field">
                                         <label for="customer_telephone">Telefon <span>*</span></label>
-                                        <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Podaj telefon komórkowy (bez kierunkowego)" value="{{ old('customer_telephone') }}">
+                                        <input required type="text" name="customer_telephone" id="customer_telephone" placeholder="Podaj telefon komórkowy (bez kierunkowego)" v-model="formData.customer_telephone">
                                     </div>
                                 </div>
 
                                 <div id="step2" class="form-inner lightSpeedIn step-container" data-step-number="2">
                                     <div class="input-field">
                                         <label for="belgian_nip">NIP firmy belgijskiej<span>*</span></label>
-                                        <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się wyłącznie z cyfr">
+                                        <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się wyłącznie z cyfr" v-model="formData.belgian_nip">
                                     </div>
                                     <div class="input-field">
                                         <label for="belgian_company_telephone">Telefon firmy</label>
-                                        <input type="text" id="belgian_company_telephone" name="belgian_company_telephone" placeholder="Podaj tel belgijskiego kontrahenta składający się wyłącznie z cyfr">
+                                        <input type="text" id="belgian_company_telephone" name="belgian_company_telephone" placeholder="Podaj tel belgijskiego kontrahenta składający się wyłącznie z cyfr" v-model="formData.belgian_company_telephone">
                                     </div>
                                     <div class="input-field">
                                         <label for="belgian_company_email">Email firmy</label>
-                                        <input type="text" id="belgian_company_email" name="belgian_company_email" placeholder="Podaj email belgijskiego kontrahenta">
+                                        <input type="text" id="belgian_company_email" name="belgian_company_email" placeholder="Podaj email belgijskiego kontrahenta" v-model="formData.belgian_company_email">
                                     </div>
                                     <div class="input-field">
                                         <label for="sector">Branża<span>*</span></label>
-                                        <select id="sector" name="sector">
+                                        <select id="sector" name="sector" v-model="formData.sector">
                                             <option value="">Wybierz branżę</option>
                                             <option value="meat">Mięso</option>
                                             <option value="construction">Budownictwo</option>
@@ -101,11 +101,11 @@
                                     </div>
                                     <div class="input-field">
                                         <label for="start_date">Start Date</label>
-                                        <input type="date" id="start_date" name="start_date" required>
+                                        <input type="date" id="start_date" name="start_date" v-model="formData.start_date">
                                     </div>
                                     <div class="input-field">
                                         <label for="end_date">End Date</label>
-                                        <input type="date" id="end_date" name="end_date" required>
+                                        <input type="date" id="end_date" name="end_date" v-model="formData.end_date">
                                     </div>
                                 </div>
                                 <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
@@ -116,7 +116,7 @@
                                                 color="deep-purple-darken-2"
                                                 @click="addForm"
                                             >
-                                                Dodaj NIP miejsca pracy
+                                                Dodaj miejsce pracy przy użyciu NIP
                                             </v-btn>
                                         </div>
 
@@ -125,7 +125,7 @@
                                                 v-if="!dialog"
                                                 size="x-medium"
                                                 color="deep-purple-darken-2"
-                                                @click="addForm"
+                                                @click="newAddressForm"
                                             >
                                                 Dodaj adres miejsca pracy
                                             </v-btn>
@@ -137,10 +137,10 @@
                                             title="Wpowadź NIP"
                                             variant="text"
                                         >
-                                            <div class="nip-info-group" v-for="(nip, index) in nips">
+                                            <div class="nip-info-group" v-for="nip in formData.nips">
                                                 <div class="input-field">
-                                                    <label for="nip_place_of_work[]">Nip @{{ index }} </label>
-                                                        <input type="text" class="nip_place_of_work" name="nip_place_of_work[]" v-model="nips[index].title" placeholder="NIP">
+                                                    <label for="nip_place_of_work[]">Nip </label>
+                                                    <input type="text" class="nip_place_of_work" name="nip_place_of_work[]" v-model="nip.title" placeholder="NIP">
                                                 </div>
                                             </div>
                                             <div class="pa-4 text-end">
@@ -167,6 +167,44 @@
                                             </div>
                                         </v-card>
                                     </v-fade-transition>
+                                    <v-fade-transition hide-on-leave>
+                                        <v-card
+                                            v-if="addressDialog"
+                                            title="Wpowadź adres"
+                                            variant="text"
+                                        >
+                                            <div class="address-info-group" v-for="address in formData.addresses">
+                                                <div class="input-field">
+                                                    <label for="site_address[].name">Nazwa </label>
+                                                    <input type="text" name="site_address[].name" v-model="address.name" placeholder="Nazwa">
+                                                    <label for="site_address[].subtitle">Ulica </label>
+                                                    <input type="text" name="site_address[].subtitle" v-model="address.subtitle" placeholder="Ulica">
+                                                </div>
+                                            </div>
+                                            <div class="pa-4 text-end">
+                                                <v-btn
+                                                    class="text-none"
+                                                    color="medium-emphasis"
+                                                    min-width="92"
+                                                    rounded
+                                                    variant="outlined"
+                                                    @click="diaaddressDialoglog = !addressDialog"
+                                                >
+                                                    Anuluj
+                                                </v-btn>
+                                                <v-btn
+                                                    class="text-none"
+                                                    color="medium-emphasis"
+                                                    min-width="92"
+                                                    rounded
+                                                    variant="outlined"
+                                                    @click="storeAddress"
+                                                >
+                                                    Dodaj
+                                                </v-btn>
+                                            </div>
+                                        </v-card>
+                                    </v-fade-transition>
                                     <v-card
                                         class="mx-auto"
                                         max-width="600"
@@ -176,7 +214,7 @@
                                             <v-list-subheader inset>NIP</v-list-subheader>
 
                                             <v-list-item
-                                                v-for="nip in nips"
+                                                v-for="(nip, index) in formData.nips"
                                                 :key="nip.title"
                                                 :title="nip.title"
                                             >
@@ -195,15 +233,13 @@
                                             <v-list-subheader inset>Adres</v-list-subheader>
 
                                             <v-list-item
-                                                v-for="address in addresses"
-                                                :key="address.title"
-                                                :title="address.title"
+                                                v-for="address in formData.addresses"
+                                                :key="address.name"
+                                                :title="address.name"
                                                 :subtitle="address.subtitle"
                                             >
                                                 <template v-slot:prepend>
-                                                    <v-avatar :color="address.color">
-                                                        <v-icon color="white">@{{ address.icon }}</v-icon>
-                                                    </v-avatar>
+                                                    <v-avatar :color="'blue'" icon="'mdi-clipboard-text'"></v-avatar>
                                                 </template>
 
                                                 <template v-slot:append>
@@ -257,31 +293,31 @@
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
                                     <div class="input-field">
                                         <label for="nip">NIP <span>*</span></label>
-                                        <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr">
+                                        <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr" v-model="formData.nip">
                                     </div>
                                     <div class="input-field">
                                         <label for="pesel">PESEL <span>*</span></label>
-                                        <input required type="text" name="pesel" id="pesel" placeholder="Wpisz PESEL składający się z 11 cyfr">
+                                        <input required type="text" name="pesel" id="pesel" placeholder="Wpisz PESEL składający się z 11 cyfr" v-model="formData.pesel">
                                     </div>
                                     <div class="input-field">
                                         <label>Ulica <span>*</span></label>
-                                        <input required type="text" name="street" id="street" placeholder="Wpisz ulicę">
+                                        <input required type="text" name="street" id="street" placeholder="Wpisz ulicę" v-model="formData.street">
                                     </div>
                                     <div class="input-field">
                                         <label for="house_number">Nr domu <span>*</span></label>
-                                        <input required type="text" id="house_number" name="house_number" placeholder="Wpisz nr domu">
+                                        <input required type="text" id="house_number" name="house_number" placeholder="Wpisz nr domu" v-model="formData.house_number">
                                     </div>
                                     <div class="input-field">
                                         <label for="flat_number">Nr mieszkania</label>
-                                        <input type="text" id="flat_number" name="flat_number" placeholder="Wpisz nr mieszkania">
+                                        <input type="text" id="flat_number" name="flat_number" placeholder="Wpisz nr mieszkania" v-model="formData.flat_number">
                                     </div>
                                     <div class="input-field">
                                         <label for="postcode">Kod pocztowy<span>*</span></label>
-                                        <input required type="text" id="postcode" name="postcode" placeholder="Wpisz kod pocztowy w formacie 00-000">
+                                        <input required type="text" id="postcode" name="postcode" placeholder="Wpisz kod pocztowy w formacie 00-000" v-model="formData.postcode">
                                     </div>
                                     <div class="input-field">
                                         <label for="city">Miasto<span>*</span></label>
-                                        <input required type="text" id="city" name="city" placeholder="Wpisz miasto">
+                                        <input required type="text" id="city" name="city" placeholder="Wpisz miasto" v-model="formData.city">
                                     </div>
                                 </div>
                                 <div id="step5" class="form-inner lightSpeedIn step-container" data-step-number="5">
@@ -334,10 +370,11 @@
                                     </div>
                                     <div><span>*</span> Zgoda wymagana</div>
                                 </div>
-                                <div class="submit">
-                                    <button class="next-step-btn">
+                                <div class="submit" >
+
+                                    <button class="next-step-btn" @click="paginate">
                                         <img class='loader' src='images/loading.gif' style="display: none">
-                                        Dalej
+                                        Zapisz i przejdź dalej
                                         <span><i class="fa-solid fa-thumbs-up"></i></span>
                                     </button>
                                     <button type="submit" id="sub" style="display:none;">
