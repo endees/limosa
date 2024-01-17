@@ -91,13 +91,8 @@
                                     </div>
                                     <div class="input-field">
                                         <label for="sector">Branża<span>*</span></label>
-                                        <select id="sector" name="sector" v-model="formData.sector">
-                                            <option value="">Wybierz branżę</option>
-                                            <option value="meat">Mięso</option>
-                                            <option value="construction">Budownictwo</option>
-                                            <option value="cleaning">Sprzątanie</option>
-                                            <option value="other">Inny</option>
-                                        </select>
+                                        <v-select :items="items" name="sector" v-model="formData.sector"></v-select>
+
                                     </div>
                                     <div class="input-field">
                                         <label for="start_date">Start Date</label>
@@ -133,16 +128,19 @@
 
                                     <v-fade-transition hide-on-leave>
                                         <v-card
-                                            v-if="dialog"
+                                            v-show="dialog"
                                             title="Wpowadź NIP"
                                             variant="text"
                                         >
-                                            <div class="nip-info-group" v-for="nip in formData.nips">
-                                                <div class="input-field">
-                                                    <label for="nip_place_of_work[]">Nip </label>
-                                                    <input type="text" class="nip_place_of_work" name="nip_place_of_work[]" v-model="nip.title" placeholder="NIP">
+                                            <v-form id="nip_place_of_work_form">
+                                                <div class="nip-info-group" v-for="nip in formData.nips">
+                                                    <div class="input-field">
+                                                        <label for="nip_place_of_work[]">Nip </label>
+                                                        <input type="text" class="nip_place_of_work" name="nip_place_of_work[]" v-model="nip.title" placeholder="NIP">
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </v-form>
+                                            <v-divider inset></v-divider>
                                             <div class="pa-4 text-end">
                                                 <v-btn
                                                     class="text-none"
@@ -150,7 +148,7 @@
                                                     min-width="92"
                                                     rounded
                                                     variant="outlined"
-                                                    @click="dialog = !dialog"
+                                                    @click="cancelNipEdit"
                                                 >
                                                     Anuluj
                                                 </v-btn>
@@ -169,18 +167,41 @@
                                     </v-fade-transition>
                                     <v-fade-transition hide-on-leave>
                                         <v-card
-                                            v-if="addressDialog"
+                                            v-show="addressDialog"
                                             title="Wpowadź adres"
                                             variant="text"
                                         >
-                                            <div class="address-info-group" v-for="address in formData.addresses">
-                                                <div class="input-field">
-                                                    <label for="site_address[].name">Nazwa </label>
-                                                    <input type="text" name="site_address[].name" v-model="address.name" placeholder="Nazwa">
-                                                    <label for="site_address[].subtitle">Ulica </label>
-                                                    <input type="text" name="site_address[].subtitle" v-model="address.subtitle" placeholder="Ulica">
+                                            <v-form id="site_address_form">
+                                                <div class="address-info-group" v-for="address in formData.addresses">
+                                                    <div class="input-field">
+                                                        <label for="site_address[].name">Nazwa </label>
+                                                        <input type="text" name="site_address[].name" v-model="address.name" placeholder="Nazwa">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="site_address[].street">Ulica </label>
+                                                        <input type="text" name="site_address[].street" v-model="address.street" placeholder="Ulica">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="site_address[].house_number">Numer domu</label>
+                                                        <input type="text" id="site_address[].house_number" name="site_address[].house_number" v-model="address.house_number" placeholder="Numer domu">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="site_address[].apartment_number">Nr mieszkania</label>
+                                                        <input type="text" id="site_address[].apartment_number" name="site_address[].apartment_number" v-model="address.apartment_number" placeholder="Numer mieszkania">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <v-autocomplete
+                                                            name="site_address[].postcode"
+                                                            label="Kod pocztowy i miasto"
+                                                            :items="{!! $postcodes !!}"
+                                                            :value="address.postcode"
+                                                            v-model="address.postcode"
+                                                        ></v-autocomplete>
+                                                    </div>
+                                                    <v-divider inset></v-divider>
                                                 </div>
-                                            </div>
+
+                                            </v-form>
                                             <div class="pa-4 text-end">
                                                 <v-btn
                                                     class="text-none"
@@ -188,7 +209,7 @@
                                                     min-width="92"
                                                     rounded
                                                     variant="outlined"
-                                                    @click="diaaddressDialoglog = !addressDialog"
+                                                    @click="cancelAddressEdit"
                                                 >
                                                     Anuluj
                                                 </v-btn>
@@ -223,6 +244,7 @@
                                                         color="grey-lighten-1"
                                                         icon="mdi-close"
                                                         variant="text"
+                                                        @click="deleteNip(index)"
                                                     ></v-btn>
                                                 </template>
 
@@ -233,10 +255,10 @@
                                             <v-list-subheader inset>Adres</v-list-subheader>
 
                                             <v-list-item
-                                                v-for="address in formData.addresses"
+                                                v-for="(address, index) in formData.addresses"
                                                 :key="address.name"
                                                 :title="address.name"
-                                                :subtitle="address.subtitle"
+                                                :subtitle="address.street + ' ' + address.house_number + ' ' + address.postcode"
                                             >
                                                 <template v-slot:prepend>
                                                     <v-avatar :color="'blue'" icon="'mdi-clipboard-text'"></v-avatar>
@@ -247,48 +269,12 @@
                                                         color="grey-lighten-1"
                                                         icon="mdi-close"
                                                         variant="text"
+                                                        @click="deleteAddress(index)"
                                                     ></v-btn>
                                                 </template>
                                             </v-list-item>
                                         </v-list>
                                     </v-card>
-                                    @for($i=0; $i < 5; $i++)
-{{--                                        <input name="nip_place_of_work[]" type="hidden" v-if="nips[{{$i}}]" :value="nips[{{$i}}].title">--}}
-                                        <div class="site-info-group-{{$i}}" style="display:none;">
-                                            <div class="input-field">
-                                                <label for="site_name">Nazwa</label>
-                                                <input type="text" id="site_name" name="site_name" placeholder="Nazwa">
-                                            </div>
-
-                                            <div class="input-field">
-                                                <label for="site_street">Ulica</label>
-                                                <input type="text" id="site_street" name="site_street" placeholder="Ulica">
-                                            </div>
-
-                                            <div class="input-field">
-                                                <label for="site_house_number">Numer domu</label>
-                                                <input type="text" id="site_house_number" name="site_house_number" placeholder="Numer domu">
-                                            </div>
-
-                                            <div class="input-field">
-                                                <label for="site_number">Nr mieszkania</label>
-                                                <input type="text" id="site_apartment_number" name="site_apartment_number" placeholder="Numer mieszkania">
-                                            </div>
-
-                                            <div class="input-field">
-                                                <v-autocomplete
-                                                    label="Kod pocztowy i miasto"
-                                                    :items="{!! $postcodes !!}"
-                                                ></v-autocomplete>
-{{--                                                <label for="site_post_code">Kod pocztowy i miasto</label>--}}
-{{--                                                <select id="site_post_code" name="site_post_code" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox" aria-activedescendant="belgianPostalCode_0">--}}
-{{--                                                    @foreach($postcodes as $key => $postcode)--}}
-{{--                                                        <option class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all ui-noselection-option ui-state-highlight" data-label="{{ $postcode }}" tabindex="-1" role="option" aria-selected="false" id="{{ $key }}">{{ $postcode }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-                                            </div>
-                                        </div>
-                                    @endfor
                                 </div>
                                 <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
                                     <div class="input-field">

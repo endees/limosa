@@ -1,6 +1,6 @@
-import './custom';
-
 import { createApp, ref, toRaw, triggerRef } from 'vue'
+
+import './custom';
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 // Vuetify
@@ -9,6 +9,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import * as _ from 'underscore'
+import {validationRules} from "./validation/rules.js";
 
 const vuetify = createVuetify({
     components,
@@ -45,10 +46,11 @@ createApp({
             pesel: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['pesel']) ? limosaFormData['pesel'] : '',
             street: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['street']) ? limosaFormData['street'] : '',
             house_number: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['house_number']) ? limosaFormData['house_number'] : '',
-            flat_number: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['flat_number']) ? limosaFormData['flat_number'] : '',
+            apartment_number: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['apartment_number']) ? limosaFormData['apartment_number'] : '',
             postcode: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['postcode']) ? limosaFormData['postcode'] : '',
             city: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['city']) ? limosaFormData['city'] : '',
         })
+
         function addForm() {
             if (count.value < 5) {
                 var data = toRaw(formData.value);
@@ -62,15 +64,14 @@ createApp({
                 var data = toRaw(formData.value);
                 data.addresses.push({
                     name: '',
-                    subtitle: ''
+                    street: '',
+                    city: '',
+                    house_number: '',
+                    apartment_number: '',
+                    postcode: ''
                 });
             }
             addressDialog.value = true;
-        }
-
-        function storenewAddress() {
-            count.value++;
-            addressDialog.value = false;
         }
 
         function paginate() {
@@ -78,19 +79,76 @@ createApp({
         }
 
         function storeNip() {
-            dialog.value = false
-            triggerRef(formData);
-            count.value++
+            var nipFormSelector = $('#nip_place_of_work_form');
+            nipFormSelector.validate({
+                rules: {
+                    "nip_place_of_work[]": {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 10,
+                        digits: true,
+                    }
+                }
+            });
+            if (nipFormSelector.valid()) {
+                dialog.value = false
+                triggerRef(formData);
+                count.value++
+            }
+        }
+
+        function cancelNipEdit() {
+            var nips = toRaw(formData.value)['nips'];
+            nips.pop();
+            dialog.value = false;
+        }
+
+        function cancelAddressEdit() {
+            var addresses = toRaw(formData.value)['addresses'];
+            addresses.pop();
+            addressDialog.value = false;
         }
 
         function storeAddress() {
-            addressDialog.value = false
-            triggerRef(formData);
-            count.value++
+            var addressFormSelector = $('#site_address_form');
+            addressFormSelector.validate({
+                rules: {
+                    "site_address[].name": {
+                        required: true,
+                    },
+                    "site_address[].street": {
+                        required: true,
+                    },
+                    "site_address[].house_number": {
+                        required: true,
+                        maxlength: 10,
+                        digits: true,
+                    },
+                    "site_address[].apartment_number": {
+                        required: false,
+                        maxlength: 10,
+                        digits: true,
+                    },
+                    "site_address[].postcode": {
+                        required: true,
+                    }
+                }
+            });
+            if (addressFormSelector.valid()) {
+                triggerRef(formData);
+                count.value++;
+                addressDialog.value = false;
+            }
         }
 
-        function deleteNip() {
+        function deleteNip(index) {
+            formData.value.nips = formData.value.nips.splice(index,index);
+        }
 
+        function deleteAddress(index) {
+            var addresses = toRaw(formData.value)['addresses'];
+            addresses.splice(index,index);
+            triggerRef(formData);
         }
 
         return {
@@ -100,9 +158,37 @@ createApp({
             addForm,
             newAddressForm,
             storeNip,
+            cancelNipEdit,
+            deleteNip,
             storeAddress,
+            cancelAddressEdit,
+            deleteAddress,
             paginate,
-            formData,
+            formData
         }
     },
+    data: () => ({
+        items: [
+            {
+                title: 'Wybierz branżę',
+                value: '',
+            },
+            {
+                title: 'Mięso',
+                value: 'meat',
+            },
+            {
+                title: 'Budownictwo',
+                value: 'construction',
+            },
+            {
+                title: 'Sprzątanie',
+                value: 'cleaning',
+            },
+            {
+                title: 'Inna',
+                value: 'other',
+            }
+        ],
+    }),
 }).use(vuetify).mount('#app');

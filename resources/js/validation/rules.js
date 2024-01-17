@@ -69,8 +69,8 @@ const validationRules = {
                     required: true,
                     maxlength: 5
                 },
-                flat_number: {
-                    required: true,
+                apartment_number: {
+                    required: false,
                     maxlength: 5
                 },
                 city: {

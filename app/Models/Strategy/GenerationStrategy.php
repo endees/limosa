@@ -78,19 +78,26 @@ class GenerationStrategy
             $pageHandler->resolve($driver, $data);
         }
 
-        if ($data['without_declaring_site'] == "true") {
+        foreach ($data['nips'] as $nip) {
             $data['sequence'] = $sequence++;
             $this->addCompanySite->resolve($driver, $data);
             $data['sequence'] = $sequence++;
+            $data['belgian_company_nip'] = $nip['title'];
             $this->placeOfWorkCompanySearchByVat->resolve($driver, $data);
             $data['sequence'] = $sequence++;
-            $this->companyAsPlaceOfEmploymentFound->resolve($driver, $data);
+            $this->companyAsPlaceOfEmploymentFound->resolve($driver, $nip);
         }
-        if ($data['without_declaring_site'] == "false") {
+
+        foreach ($data['addresses'] as $address) {
             $data['sequence'] = $sequence++;
             $this->addSiteBuilding->resolve($driver, $data);
             $data['sequence'] = $sequence++;
-            $this->buildingAsPlaceOfEmploymentFound->resolve($driver, $data);
+            $data['site_name'] = $address['name'];
+            $data['site_street'] = $address['street'];
+            $data['site_house_number'] = $address['house_number'];
+            $data['site_apartment_number'] = $address['apartment_number'];
+            $data['site_post_code'] = $address['site_post_code'];
+            $this->buildingAsPlaceOfEmploymentFound->resolve($driver, $address);
         }
 
         foreach ($this->pageHandlersSecond as $pageHandler3) {
