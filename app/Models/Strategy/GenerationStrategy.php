@@ -78,11 +78,11 @@ class GenerationStrategy
             $pageHandler->resolve($driver, $data);
         }
         if(isset($data['nip_place_of_work'])) {
-            foreach ($data['nip_place_of_work'] as $nip) {
+            foreach ($data['nip_place_of_work'] as $key => $nip) {
                 $data['sequence'] = $sequence++;
                 $this->addCompanySite->resolve($driver, $data);
                 $data['sequence'] = $sequence++;
-                $data['belgian_nip'] = $nip;
+                $data['nio_place_of_work_current'] = $key;
                 $this->placeOfWorkCompanySearchByVat->resolve($driver, $data);
                 $data['sequence'] = $sequence++;
                 $this->companyAsPlaceOfEmploymentFound->resolve($driver, $data);
