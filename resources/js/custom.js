@@ -222,7 +222,7 @@ $(function () {
                     dataString.append(dataString2[i].name, dataString2[i].value);
                 }
                 for (var j=0; j<dataString3.length; j++) {
-                    dataString.append(dataString3[i].name, dataString3[i].value);
+                    dataString.append(dataString3[j].name, dataString3[j].value);
                 }
 
                 $.ajax({

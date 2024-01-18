@@ -40,8 +40,8 @@ createApp({
             sector: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['sector']) ? limosaFormData['sector'] : '',
             start_date: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['start_date']) ? limosaFormData['start_date'] : '',
             end_date: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['end_date']) ? limosaFormData['end_date'] : '',
-            nips: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['nips']) ? limosaFormData['nips'] : {},
-            addresses: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['addresses']) ? limosaFormData['addresses'] : {},
+            nips: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['nips']) ? limosaFormData['nips'] : [],
+            addresses: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['addresses']) ? limosaFormData['addresses'] : [],
             nip: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['nip']) ? limosaFormData['nip'] : '',
             pesel: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['pesel']) ? limosaFormData['pesel'] : '',
             street: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['street']) ? limosaFormData['street'] : '',
@@ -143,11 +143,11 @@ createApp({
 
         function deleteNip(index) {
             formData.value.nips = formData.value.nips.splice(index,index);
+            triggerRef(formData);
         }
 
         function deleteAddress(index) {
-            var addresses = toRaw(formData.value)['addresses'];
-            addresses.splice(index,index);
+            formData.value.addresses = formData.value.addresses.splice(index,index);
             triggerRef(formData);
         }
 

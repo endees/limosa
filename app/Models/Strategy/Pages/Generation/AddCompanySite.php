@@ -12,8 +12,8 @@ class AddCompanySite implements PageInterface
     public function resolve(RemoteWebDriver $driver, array $data): void
     {
         $driver->wait()->until(
-            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
-                '@.*Declare.*place.*of.*employment.*@')
+            WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h1'),
+                '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
         );
         if(config('app.debug') === true) {
             $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddCompanySite.png');

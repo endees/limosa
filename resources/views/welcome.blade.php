@@ -172,26 +172,26 @@
                                             variant="text"
                                         >
                                             <v-form id="site_address_form">
-                                                <div class="address-info-group" v-for="address in formData.addresses">
+                                                <div class="address-info-group" v-for="(address, index) in formData.addresses">
                                                     <div class="input-field">
-                                                        <label for="site_address[].name">Nazwa </label>
-                                                        <input type="text" name="site_address[].name" v-model="address.name" placeholder="Nazwa">
+                                                        <label for="site_address[][]">Nazwa </label>
+                                                        <input type="text" :name="'site_address[' + index + '][name]'" v-model="address.name" placeholder="Nazwa">
                                                     </div>
                                                     <div class="input-field">
-                                                        <label for="site_address[].street">Ulica </label>
-                                                        <input type="text" name="site_address[].street" v-model="address.street" placeholder="Ulica">
+                                                        <label for="site_address[][]">Ulica </label>
+                                                        <input type="text" :name="'site_address[' + index + '][street]'" v-model="address.street" placeholder="Ulica">
                                                     </div>
                                                     <div class="input-field">
-                                                        <label for="site_address[].house_number">Numer domu</label>
-                                                        <input type="text" id="site_address[].house_number" name="site_address[].house_number" v-model="address.house_number" placeholder="Numer domu">
+                                                        <label for="site_address[][]">Numer domu</label>
+                                                        <input type="text" :name="'site_address[' + index + '][house_number]'" v-model="address.house_number" placeholder="Numer domu">
                                                     </div>
                                                     <div class="input-field">
-                                                        <label for="site_address[].apartment_number">Nr mieszkania</label>
-                                                        <input type="text" id="site_address[].apartment_number" name="site_address[].apartment_number" v-model="address.apartment_number" placeholder="Numer mieszkania">
+                                                        <label for="site_address[][]">Nr mieszkania</label>
+                                                        <input type="text" :name="'site_address[' + index + '][apartment_number]'" v-model="address.apartment_number" placeholder="Numer mieszkania">
                                                     </div>
                                                     <div class="input-field">
                                                         <v-autocomplete
-                                                            name="site_address[].postcode"
+                                                            :name="'site_address[' + index + '][postcode]'"
                                                             label="Kod pocztowy i miasto"
                                                             :items="{!! $postcodes !!}"
                                                             :value="address.postcode"

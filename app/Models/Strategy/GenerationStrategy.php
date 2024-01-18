@@ -82,7 +82,7 @@ class GenerationStrategy
                 $data['sequence'] = $sequence++;
                 $this->addCompanySite->resolve($driver, $data);
                 $data['sequence'] = $sequence++;
-                $data['nio_place_of_work_current'] = $key;
+                $data['nip_place_of_work_current'] = $key;
                 $this->placeOfWorkCompanySearchByVat->resolve($driver, $data);
                 $data['sequence'] = $sequence++;
                 $this->companyAsPlaceOfEmploymentFound->resolve($driver, $data);
@@ -96,9 +96,9 @@ class GenerationStrategy
                 $data['site_name'] = $address['name'];
                 $data['site_street'] = $address['street'];
                 $data['site_house_number'] = $address['house_number'];
-                $data['site_apartment_number'] = $address['apartment_number'];
-                $data['site_post_code'] = $address['site_post_code'];
-                $this->buildingAsPlaceOfEmploymentFound->resolve($driver, $address);
+                $data['site_apartment_number'] = $address['apartment_number'] === null ? null :$address['apartment_number'];
+                $data['site_post_code'] = $address['postcode'];
+                $this->buildingAsPlaceOfEmploymentFound->resolve($driver, $data);
             }
         }
 
