@@ -25,7 +25,9 @@ class LastRegistrationPage implements PageInterface
         $driver->findElement(WebDriverBy::name('createId.secretQuestion'))->sendKeys($data['username']);
         $driver->findElement(WebDriverBy::name('createId.answer'))->sendKeys($data['password']);
 
-        $driver->takeScreenshot( 'storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LastRegistrationPage.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot( 'storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LastRegistrationPage.png');
+        }
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

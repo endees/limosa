@@ -19,6 +19,8 @@ class ActivateAccount implements PageInterface
             )
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_ActivateAccount.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_ActivateAccount.png');
+        }
     }
 }

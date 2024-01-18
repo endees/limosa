@@ -15,7 +15,9 @@ class EndStepBelgianClient implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Belgian.*client.*selected.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_EndStepBelgianClient.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_EndStepBelgianClient.png');
+        }
         $driver->findElement(WebDriverBy::id('stepBelgianClientForm:nextStepFromBelgianClientButton'))->click();
     }
 }

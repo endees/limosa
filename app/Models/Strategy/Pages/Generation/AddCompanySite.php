@@ -15,7 +15,9 @@ class AddCompanySite implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*place.*of.*employment.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddCompanySite.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddCompanySite.png');
+        }
         $driver->findElement(WebDriverBy::id('addCompanyLink'))->click();
     }
 }

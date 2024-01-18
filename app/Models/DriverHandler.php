@@ -24,15 +24,21 @@ class DriverHandler
         $driver = $this->prepareDriver();
 
         try {
-            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startRegistration.png');
+            if(config('app.debug') === true) {
+                $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startRegistration.png');
+            }
             $this->registrationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endRegistration.png');
+            if(config('app.debug') === true) {
+                $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endRegistration.png');
+            }
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endRegistration.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endRegistration.png');
+        }
         $driver->quit();
     }
 
@@ -40,15 +46,21 @@ class DriverHandler
         $driver = $this->prepareDriver();
 
         try {
-            $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/startActivatin.png');
+            if(config('app.debug') === true) {
+                $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/startActivatin.png');
+            }
             $this->accountActivationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/endActivation.png');
+            if(config('app.debug') === true) {
+                $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/endActivation.png');
+            }
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/end.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/'. $data['jobUUID'] .'/screenshots/end.png');
+        }
         $driver->quit();
     }
 
@@ -56,15 +68,21 @@ class DriverHandler
     {
         $driver = $this->prepareDriver($data);
         try {
-            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startLimosaGeneration.png');
+            if(config('app.debug') === true) {
+                $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/startLimosaGeneration.png');
+            }
             $this->generationStrategy->execute($driver, $data);
         } catch (\Exception $e) {
-            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endLimosaGeneration.png');
+            if(config('app.debug') === true) {
+                $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/endLimosaGeneration.png');
+            }
             $driver->quit();
             throw $e;
         }
         $driver->wait(10);
-        $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/end.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/'. $data['jobUUID'] .'/end.png');
+        }
         $driver->quit();
     }
 

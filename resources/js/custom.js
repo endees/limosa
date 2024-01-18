@@ -215,6 +215,16 @@ $(function () {
             }
             if (currentStep === 5) {
                 var dataString = new FormData($('#steps')[0]);
+                var dataString2 = $('#nip_place_of_work_form').serializeArray();
+                var dataString3 = $('#site_address_form').serializeArray();
+
+                for (var i=0; i<dataString2.length; i++) {
+                    dataString.append(dataString2[i].name, dataString2[i].value);
+                }
+                for (var j=0; j<dataString3.length; j++) {
+                    dataString.append(dataString3[i].name, dataString3[i].value);
+                }
+
                 $.ajax({
                     type: "POST",
                     url: "/form/register",
@@ -238,7 +248,7 @@ $(function () {
                         $("div.submit button img").hide();
                         $("div.submit button").removeAttr('disabled');
                         window.location = 'form/success';
-                        deleteFormData();
+                        // deleteFormData();
                     }
                 });
             }

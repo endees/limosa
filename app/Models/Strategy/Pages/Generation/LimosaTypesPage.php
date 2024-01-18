@@ -20,8 +20,9 @@ class LimosaTypesPage implements PageInterface
         $driver->findElement(WebDriverBy::cssSelector('#employerCountrySelfEmployed option[value="122"]'))->click();
         $driver->findElement(WebDriverBy::id('vatNumberSelfEmployed'))->sendKeys('PL' . $data['nip']);
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaTypes.png');
-
+        if (config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaTypes.png');
+        }
         $driver->findElement(WebDriverBy::id('createSelfEmployerDeclarationButton'))->click();
     }
 }

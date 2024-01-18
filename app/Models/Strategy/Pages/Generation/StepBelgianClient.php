@@ -17,7 +17,9 @@ class StepBelgianClient implements PageInterface
         );
 
         $driver->findElement(WebDriverBy::id('kboNumber'))->sendKeys($data['belgian_nip']);
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepBelgianClient.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepBelgianClient.png');
+        }
         $driver->findElement(WebDriverBy::id('searchByKboNumberButton'))->click();
 
         $driver->wait()->until(
@@ -25,7 +27,9 @@ class StepBelgianClient implements PageInterface
                 '@.*Company.*matching.*the.*criterion.*entered.*@')
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepBelgianClient2.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepBelgianClient2.png');
+        }
 
         $driver->findElement(WebDriverBy::id('createUpdateBelgianClient'))->click();
     }

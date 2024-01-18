@@ -28,7 +28,9 @@ class BuildingAsPlaceOfEmploymentFound implements PageInterface
         $driver->findElement(WebDriverBy::id('belgianPostalCode_filter'))->sendKeys($data['site_post_code']);
         $driver->findElement(WebDriverBy::className('ui-state-highlight'))->click();
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_BuildingAsPlaceOfEmploymentFound.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_BuildingAsPlaceOfEmploymentFound.png');
+        }
         $driver->findElement(WebDriverBy::id('createUpdateBuildingSiteButton'))->click();
     }
 }

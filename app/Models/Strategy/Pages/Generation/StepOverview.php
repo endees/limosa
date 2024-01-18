@@ -16,7 +16,9 @@ class StepOverview implements PageInterface
                 '@.*Preview.*of.*the.*declaration.*@')
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepOverview.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepOverview.png');
+        }
         $driver->findElement(WebDriverBy::id('nextStepButton'))->click();
     }
 }

@@ -15,7 +15,9 @@ class AddSiteBuilding implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*place.*of.*employment.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddSiteBuilding.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddSiteBuilding.png');
+        }
 
         $driver->findElement(WebDriverBy::id('addBuildingSiteLink'))->click();
 

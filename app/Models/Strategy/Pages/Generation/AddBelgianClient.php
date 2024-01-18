@@ -15,7 +15,9 @@ class AddBelgianClient implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h3'),
                 '@.*Declare.*a.*Belgian.*client.*@')
         );
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddBelgianClient.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_AddBelgianClient.png');
+        }
 
         $driver->findElement(WebDriverBy::id('stepBelgianClientForm:newClientLink'))->click();
     }

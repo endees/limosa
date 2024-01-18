@@ -52,9 +52,13 @@ class LimosaFirstPage implements PageInterface
         $goNextElement = WebDriverBy::id('saveEmployerButton');
 
         if (WebDriverExpectedCondition::visibilityOfElementLocated($goNextElement)) {
+            if(config('app.debug') === true) {
             $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_beforeScroll.png');
+            }
             $driver->findElement(WebDriverBy::xpath("//*[contains(text(),'Personal details')]"))->click();
+            if(config('app.debug') === true) {
             $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_afterScroll.png');
+            }
 
             $driver->findElement($goNextElement)->getLocationOnScreenOnceScrolledIntoView();
 
@@ -109,7 +113,9 @@ class LimosaFirstPage implements PageInterface
         } else {
             // @todo manual encoding
         }
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_LimosaFirstPage.png');
+        }
         $driver->findElement($goNextElement)->click();
     }
 }

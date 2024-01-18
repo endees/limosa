@@ -77,27 +77,29 @@ class GenerationStrategy
             $data['sequence'] = $sequence++;
             $pageHandler->resolve($driver, $data);
         }
-
-        foreach ($data['nips'] as $nip) {
-            $data['sequence'] = $sequence++;
-            $this->addCompanySite->resolve($driver, $data);
-            $data['sequence'] = $sequence++;
-            $data['belgian_company_nip'] = $nip['title'];
-            $this->placeOfWorkCompanySearchByVat->resolve($driver, $data);
-            $data['sequence'] = $sequence++;
-            $this->companyAsPlaceOfEmploymentFound->resolve($driver, $nip);
+        if(isset($data['nip_place_of_work'])) {
+            foreach ($data['nip_place_of_work'] as $nip) {
+                $data['sequence'] = $sequence++;
+                $this->addCompanySite->resolve($driver, $data);
+                $data['sequence'] = $sequence++;
+                $data['belgian_nip'] = $nip;
+                $this->placeOfWorkCompanySearchByVat->resolve($driver, $data);
+                $data['sequence'] = $sequence++;
+                $this->companyAsPlaceOfEmploymentFound->resolve($driver, $data);
+            }
         }
-
-        foreach ($data['addresses'] as $address) {
-            $data['sequence'] = $sequence++;
-            $this->addSiteBuilding->resolve($driver, $data);
-            $data['sequence'] = $sequence++;
-            $data['site_name'] = $address['name'];
-            $data['site_street'] = $address['street'];
-            $data['site_house_number'] = $address['house_number'];
-            $data['site_apartment_number'] = $address['apartment_number'];
-            $data['site_post_code'] = $address['site_post_code'];
-            $this->buildingAsPlaceOfEmploymentFound->resolve($driver, $address);
+        if(isset($data['site_address'])) {
+            foreach ($data['site_address'] as $address) {
+                $data['sequence'] = $sequence++;
+                $this->addSiteBuilding->resolve($driver, $data);
+                $data['sequence'] = $sequence++;
+                $data['site_name'] = $address['name'];
+                $data['site_street'] = $address['street'];
+                $data['site_house_number'] = $address['house_number'];
+                $data['site_apartment_number'] = $address['apartment_number'];
+                $data['site_post_code'] = $address['site_post_code'];
+                $this->buildingAsPlaceOfEmploymentFound->resolve($driver, $address);
+            }
         }
 
         foreach ($this->pageHandlersSecond as $pageHandler3) {

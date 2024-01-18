@@ -56,7 +56,9 @@ class RegisterForm implements PageInterface
 
         $driver->findElement(WebDriverBy::cssSelector('input[name="createId.qualityCodeTypeInt"][value="3"]'))->click();
 
-        $driver->takeScreenshot( 'storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_RegisterForm.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot( 'storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_RegisterForm.png');
+        }
 
         $driver->findElement(WebDriverBy::cssSelector('input[type="submit"]'))->click();
     }

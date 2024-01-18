@@ -16,7 +16,9 @@ class CompanyAsPlaceOfEmploymentFound implements PageInterface
                 '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_CompanyAsPlaceOfEmploymentFound.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_CompanyAsPlaceOfEmploymentFound.png');
+        }
         $driver->findElement(WebDriverBy::id('createUpdateCompany'))->click();
     }
 }

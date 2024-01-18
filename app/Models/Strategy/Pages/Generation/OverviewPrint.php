@@ -16,7 +16,9 @@ class OverviewPrint implements PageInterface
                 '@.*Declaration\(s\).*submitted.*@')
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_OverviewPrint.png');
+        if (config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_OverviewPrint.png');
+        }
 
         foreach(array_keys($data['limosalanguage']) as $code ) {
             switch ($code) {

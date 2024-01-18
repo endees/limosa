@@ -37,7 +37,9 @@ class StepAssignmentData implements PageInterface
                 break;
         }
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepAssignmentData.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_StepAssignmentData.png');
+        }
         $driver->findElement(WebDriverBy::id('nextStepButton'))->click();
 
         if (Carbon::createFromFormat('d/m/Y' , $data['start_date'])->isBefore(Carbon::today())) {

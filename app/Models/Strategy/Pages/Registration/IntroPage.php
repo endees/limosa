@@ -19,7 +19,9 @@ class IntroPage implements PageInterface
             )
         );
 
-        $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_IntroPage.png');
+        if(config('app.debug') === true) {
+            $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_IntroPage.png');
+        }
 
         $driver->findElement(WebDriverBy::linkText('English'))->click();
     }
