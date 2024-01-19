@@ -1,4 +1,4 @@
-import { createApp, ref, toRaw, triggerRef } from 'vue'
+import { createApp, ref, toRaw, triggerRef, computed } from 'vue'
 
 import './custom';
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
@@ -28,7 +28,11 @@ createApp({
         let limosaFormData = !_.isUndefined(localStorage.getItem('limosaFormData')) ? JSON.parse(localStorage.getItem('limosaFormData'))  : null;
         const dialog = ref(false)
         const addressDialog = ref(false)
-        const count = ref(0)
+        const count = computed(function () {
+            var address = toRaw(formData.value.addresses);
+            var nip = toRaw(formData.value.nips);
+            return address.length + nip.length;
+        })
         const formData = ref({
             firstname: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['firstname']) ? limosaFormData['firstname'] : '',
             lastname: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['lastname']) ? limosaFormData['lastname'] : '',
@@ -49,14 +53,14 @@ createApp({
             apartment_number: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['apartment_number']) ? limosaFormData['apartment_number'] : '',
             postcode: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['postcode']) ? limosaFormData['postcode'] : '',
             city: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['city']) ? limosaFormData['city'] : '',
-        })
+        });
 
         function addForm() {
             if (count.value < 5) {
                 var data = toRaw(formData.value);
                 data.nips.push({title: ''});
+                dialog.value = true;
             }
-            dialog.value = true;
         }
 
         function newAddressForm() {
@@ -70,8 +74,8 @@ createApp({
                     apartment_number: '',
                     postcode: ''
                 });
+                addressDialog.value = true;
             }
-            addressDialog.value = true;
         }
 
         function paginate() {
@@ -101,12 +105,14 @@ createApp({
             var nips = toRaw(formData.value)['nips'];
             nips.pop();
             dialog.value = false;
+            triggerRef(formData);
         }
 
         function cancelAddressEdit() {
             var addresses = toRaw(formData.value)['addresses'];
             addresses.pop();
             addressDialog.value = false;
+            triggerRef(formData);
         }
 
         function storeAddress() {
