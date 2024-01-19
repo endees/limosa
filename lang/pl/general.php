@@ -34,5 +34,4 @@ return [
     'terms_of_service' => 'Warunki korzystania z usługi',
     'privacy_policy' => 'Polityka prywatności',
     'insurance_licenses' => 'Licencje ubezpieczeniowe',
-
 ];

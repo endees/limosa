@@ -30,7 +30,7 @@
         <h3>Dane firmy belgijskiej:</h3>
         <div class="input-field">
             <label for="belgian_nip">NIP firmy belgijskiej<span>*</span></label>
-            <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się wyłącznie z cyfr" v-model="formData.belgian_nip">
+            <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się z 10 cyfr" v-model="formData.belgian_nip">
         </div>
         <div class="input-field">
             <label for="belgian_company_telephone">Telefon firmy</label>
@@ -43,7 +43,6 @@
         <div class="input-field">
             <label for="sector">Branża<span>*</span></label>
             <v-select :items="items" name="sector" v-model="formData.sector"></v-select>
-
         </div>
         <div class="input-field">
             <label for="start_date">Data startu pracy<span>*</span></label>
@@ -65,10 +64,10 @@
                 variant="text"
             >
                 <v-form id="nip_place_of_work_form">
-                    <div class="nip-info-group" v-for="nip in formData.nips">
+                    <div class="nip-info-group" v-for="(nip, index) in formData.nips">
                         <div class="input-field">
                             <label for="nip_place_of_work[]">Nip </label>
-                            <input type="text" class="nip_place_of_work" name="nip_place_of_work[]" v-model="nip.title" placeholder="NIP">
+                            <input type="text" class="nip_place_of_work" :name="'nip_place_of_work[' + index + ']'" v-model="nip.title" placeholder="NIP">
                         </div>
                     </div>
                 </v-form>
@@ -122,13 +121,12 @@
                             <input type="text" :name="'site_address[' + index + '][apartment_number]'" v-model="address.apartment_number" placeholder="Numer mieszkania">
                         </div>
                         <div class="input-field">
-                            <v-autocomplete
+                            <v-combobox
                                 :name="'site_address[' + index + '][postcode]'"
                                 label="Kod pocztowy i miasto"
                                 :items="{!! $postcodes !!}"
-                                :value="address.postcode"
                                 v-model="address.postcode"
-                            ></v-autocomplete>
+                            ></v-combobox>
                         </div>
                         <v-divider inset></v-divider>
                     </div>
@@ -200,7 +198,7 @@
                     v-for="(address, index) in formData.addresses"
                     :key="address.name"
                     :title="address.name"
-                    :subtitle="address.street + ' ' + address.house_number + ' ' + address.postcode"
+                    :subtitle="address.street + ' ' + address.house_number + ' ' + address.postcode.title"
                 >
                     <template v-slot:prepend>
                         <v-avatar :color="'blue'" icon="mdi-factory"></v-avatar>

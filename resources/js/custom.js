@@ -2,7 +2,7 @@ import $ from 'jquery';
 import 'jquery-validation';
 import * as bootstrap from 'bootstrap'
 import * as _ from 'underscore'
-import {validationRules} from "./validation/rules.js";
+import {validationRules, messagesPl} from "./validation/rules.js";
 window.$ = $;
 window.jQuery = $;
 
@@ -51,6 +51,7 @@ $(function () {
     }
 
     $(document).ready(function () {
+        messagesPl();
         $('#without_declaring_site').prop('checked', true);
         // $('.site-info-group').hide();
         restoreFormFromLocalStorage()

@@ -9,7 +9,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import * as _ from 'underscore'
-import {validationRules} from "./validation/rules.js";
+import {siteFormRules} from "./validation/rules.js";
 
 const vuetify = createVuetify({
     components,
@@ -84,20 +84,11 @@ createApp({
 
         function storeNip() {
             var nipFormSelector = $('#nip_place_of_work_form');
-            nipFormSelector.validate({
-                rules: {
-                    "nip_place_of_work[]": {
-                        required: true,
-                        minlength: 10,
-                        maxlength: 10,
-                        digits: true,
-                    }
-                }
-            });
+            nipFormSelector.validate(siteFormRules);
             if (nipFormSelector.valid()) {
                 dialog.value = false
-                triggerRef(formData);
                 count.value++
+                triggerRef(formData);
             }
         }
 
@@ -117,43 +108,21 @@ createApp({
 
         function storeAddress() {
             var addressFormSelector = $('#site_address_form');
-            addressFormSelector.validate({
-                rules: {
-                    "site_address[].name": {
-                        required: true,
-                    },
-                    "site_address[].street": {
-                        required: true,
-                    },
-                    "site_address[].house_number": {
-                        required: true,
-                        maxlength: 10,
-                        digits: true,
-                    },
-                    "site_address[].apartment_number": {
-                        required: false,
-                        maxlength: 10,
-                        digits: true,
-                    },
-                    "site_address[].postcode": {
-                        required: true,
-                    }
-                }
-            });
+            addressFormSelector.validate(siteFormRules);
             if (addressFormSelector.valid()) {
-                triggerRef(formData);
-                count.value++;
                 addressDialog.value = false;
+                count.value++;
+                triggerRef(formData);
             }
         }
 
         function deleteNip(index) {
-            formData.value.nips = formData.value.nips.splice(index,index);
+            formData.value.nips.splice(index,1);
             triggerRef(formData);
         }
 
         function deleteAddress(index) {
-            formData.value.addresses = formData.value.addresses.splice(index,index);
+            formData.value.addresses.splice(index,1);
             triggerRef(formData);
         }
 
