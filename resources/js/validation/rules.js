@@ -98,40 +98,42 @@ const validationRules = {
 const siteFormRules = {
     rules: {
         "nip_place_of_work[0]": {
+            digits: true,
             required: true,
             minlength: 10,
-            maxlength: 10,
-            digits: true,
+            maxlength: 10
         },
         "nip_place_of_work[1]": {
+            digits: true,
             required: true,
             minlength: 10,
-            maxlength: 10,
-            digits: true,
+            maxlength: 10
         },
         "nip_place_of_work[2]": {
+            digits: true,
             required: true,
             minlength: 10,
-            maxlength: 10,
-            digits: true,
+            maxlength: 10
         },
         "nip_place_of_work[3]": {
+            digits: true,
             required: true,
             minlength: 10,
-            maxlength: 10,
-            digits: true,
+            maxlength: 10
         },
         "nip_place_of_work[4]": {
+            digits: true,
             required: true,
             minlength: 10,
-            maxlength: 10,
-            digits: true,
+            maxlength: 10
         },
         "site_address[0][name]": {
             required: true,
+            maxlength: 50
         },
         "site_address[0][street]": {
             required: true,
+            maxlength: 50
         },
         "site_address[0][house_number]": {
             required: true,
@@ -146,9 +148,11 @@ const siteFormRules = {
         },
         "site_address[1][name]": {
             required: true,
+            maxlength: 50
         },
         "site_address[1][street]": {
             required: true,
+            maxlength: 50
         },
         "site_address[1][house_number]": {
             required: true,
@@ -163,9 +167,11 @@ const siteFormRules = {
         },
         "site_address[2][name]": {
             required: true,
+            maxlength: 50
         },
         "site_address[2][street]": {
             required: true,
+            maxlength: 50
         },
         "site_address[2][house_number]": {
             required: true,
@@ -180,9 +186,11 @@ const siteFormRules = {
         },
         "site_address[3][name]": {
             required: true,
+            maxlength: 50
         },
         "site_address[3][street]": {
             required: true,
+            maxlength: 50
         },
         "site_address[3][house_number]": {
             required: true,
@@ -197,9 +205,11 @@ const siteFormRules = {
         },
         "site_address[4][name]": {
             required: true,
+            maxlength: 50
         },
         "site_address[4][street]": {
             required: true,
+            maxlength: 50
         },
         "site_address[4][house_number]": {
             required: true,

@@ -45,7 +45,7 @@ RUN a2enmod ssl
 RUN useradd -l -u ${UID:-1000} -m -g 33 $USER
 
 RUN echo 'root:Docker!' | chpasswd
-
+RUN adduser ${USER} www-data
 RUN mkdir -p /var/log/supervisor
 RUN chown ${USER}:www-data /var/log/supervisor
 
