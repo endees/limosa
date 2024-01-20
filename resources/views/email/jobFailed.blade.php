@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('parts.head')="antialiased">
+@include('parts.head')
 <body class="antialiased">
 <main class="main thankyou-page">
     <div class="main-wrapper">

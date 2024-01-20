@@ -8,13 +8,7 @@ return [
     'belgian_ceidg_token' => env('BELGIAN_CEIDG_KEY'),
     'limosa_username' => 'danielmaterka',
     'limosa_password' => 'm@tTorp3da',
-    'registration_data_recipients' => [
-        'radek@meso.work',
-        'karolina@meso.work',
-        'daniel.materka@gmail.com'
-    ],
-    'admin_recipients' => [
-        'daniel.materka@gmail.com'
-    ],
+    'registration_data_recipients' => explode(',', env('REGISTRATION_MAIL_RECIPIENTS')),
+    'admin_recipients' => explode(',', env('SERVICE_MAIL_RECIPIENTS')),
     'captcha_key' => env('CAPTCHA_KEY')
 ];
