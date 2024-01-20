@@ -317,7 +317,6 @@ form {
 }
 
 .thankyou-page .main-inner {
-    background-image: url(../images/thankyou-bg.png) !important;
     background-color: var(--text-color-hover);
 
 }
