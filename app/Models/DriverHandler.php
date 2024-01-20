@@ -88,7 +88,7 @@ class DriverHandler
 
     private function prepareDriver($data): RemoteWebDriver
     {
-        $host = env('SELENIUM_HOST');
+        $host = config('limosa.selenium_host');
         $capabilities = DesiredCapabilities::firefox();
 
         $firefoxOptions = new FirefoxOptions();

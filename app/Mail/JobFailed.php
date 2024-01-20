@@ -36,7 +36,7 @@ class JobFailed extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'jobFailed',
+            view: 'email.jobFailed',
             with: [
                 'jobId' => $this->jobId,
                 'exception' => $this->exception

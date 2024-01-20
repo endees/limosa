@@ -36,7 +36,7 @@ class Lead extends Mailable
     {
         $belgianCompany = $this->lead->belgianCompany()->first();
         return new Content(
-            view: 'mailLead',
+            view: 'email.mailLead',
             with: [
                 'firstname' => $this->lead->firstname,
                 'lastname' => $this->lead->lastname,

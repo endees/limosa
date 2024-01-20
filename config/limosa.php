@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    'selenium_host' => env('SELENIUM_HOST'),
     'mail_api' => \App\Models\FakeMail\GuerillaMailApi::class,
     'ceidg_token' => env('CEIDG_KEY'),
     'belgian_ceidg_id' => env('BELGIAN_CEIDG_ID'),

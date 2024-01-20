@@ -39,7 +39,7 @@ class LimosaGenerated extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mailResult',
+            view: 'email.mailResult',
         );
     }
 

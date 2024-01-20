@@ -26,9 +26,10 @@ const validationRules = {
             rules: {
                 belgian_nip: {
                     required: true,
+                    digits: true,
                     minlength: 10,
                     maxlength: 10,
-                    digits: true,
+
                 },
                 belgian_company_telephone: {
                     required: false,
@@ -52,9 +53,10 @@ const validationRules = {
             rules: {
                 nip: {
                     required: true,
+                    digits: true,
                     minlength: 10,
                     maxlength: 10,
-                    digits: true,
+
                 },
                 pesel: {
                     required: true,
@@ -86,7 +88,6 @@ const validationRules = {
             errorClass: "invalid"
         },
         5: {
-            lang: 'pl',
             rules: {
                 dataprocessing: {
                     required: true

@@ -72,6 +72,8 @@ $(function () {
     $(document).on('click','div.submit button', function (ev) {
         ev.stopPropagation();
         ev.preventDefault();
+        $("div.submit button img").hide();
+        $("div.submit button").removeAttr('disabled');
         const currentStep  = parseInt(window.step);
         var validator = $("#steps").validate(validationRules[currentStep]);
 
@@ -192,23 +194,23 @@ $(function () {
                     contentType: false,
                     data: dataString,
                     beforeSend: function() {
-                        $("div.submit button img").show();
-                        $("div.submit button").attr('disabled', 'disabled');
+                        $("div.submit button#sub img").show();
+                        $("div.submit button#sub").attr('disabled', 'disabled');
                     },
                     error: function (response) {
                         var toast = new bootstrap.Toast('#error');
                         $('#error').html('<div class="reveal alert alert-danger">' + JSON.parse(response.responseText).message + '</div>');
                         toast.show();
-                        $("div.submit button img").hide();
-                        $("div.submit button").removeAttr('disabled');
+                        $("div.submit button#sub img").hide();
+                        $("div.submit button#sub").removeAttr('disabled');
                     },
                     success: function() {
                         $('.step-container').hide();
                         $(".step-container[data-step-number=" + nextStepNumber + "]").show();
                         window.step = nextStepNumber;
-                        $("div.submit button img").hide();
-                        $("div.submit button").removeAttr('disabled');
-                        $("div.submit button").hide();
+                        $("div.submit button#sub img").hide();
+                        $("div.submit button#sub").removeAttr('disabled');
+                        $("div.submit button#sub").hide();
                         $('#sub').show();
                     }
                 });
@@ -254,7 +256,5 @@ $(function () {
                 });
             }
         }
-        $("div.submit button img").hide();
-        $("div.submit button").removeAttr('disabled');
     });
 });
