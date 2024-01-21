@@ -124,7 +124,7 @@
                             <v-combobox
                                 :name="'site_address[' + index + '][postcode]'"
                                 label="Kod pocztowy i miasto"
-                                :items="{!! $postcodes !!}"
+                                :items="{{ $postcodes }}"
                                 v-model="address.postcode"
                             ></v-combobox>
                         </div>

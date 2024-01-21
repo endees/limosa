@@ -21,7 +21,8 @@ class BelgianCompany extends Model
 
     protected $fillable = [
         'identifier',
-        'business_name'
+        'business_name',
+        'valid'
     ];
 
     public function lead(): HasOne

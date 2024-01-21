@@ -11,7 +11,7 @@ class BelgianCompanyValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'belgian_nip' => ['numeric', 'required', new BelgianCompany()],
+            'belgian_nip' => 'numeric|required',
             'belgian_company_telephone' => 'nullable|numeric',
             'belgian_company_email' => 'nullable|email',
             'start_date' => 'required|date',

@@ -69,6 +69,24 @@ $(function () {
         }
     });
 
+    $(document).on('focusout', 'input[name="belgian_nip"], input.nip_place_of_work', function(ev) {
+        const fieldValue = ev.currentTarget.value;
+        if (fieldValue.length === 10) {
+            $.ajax({
+                type: "GET",
+                url: "/form/viesCheck/" + fieldValue,
+                success: function(response) {
+                    var toast = new bootstrap.Toast('#error');
+                    toast.hide();
+                    if (response.message === "Failure") {
+                        $('#error').html('<div class="reveal alert alert-danger">Błąd validacji nr NIP. Dokument może nie zostać wygenerowany poprawnie.</div>');
+                        toast.show();
+                    }
+                }
+            });
+        }
+    });
+
     $(document).on('click','div.submit button', function (ev) {
         ev.stopPropagation();
         ev.preventDefault();
