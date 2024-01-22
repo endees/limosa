@@ -20,8 +20,8 @@ class BuildingAsPlaceOfEmploymentFound implements PageInterface
         $driver->findElement(WebDriverBy::id('street'))->sendKeys($data['site_street']);
         $driver->findElement(WebDriverBy::id('streetNumber'))->sendKeys($data['site_house_number']);
 
-        if (!empty($data['site_aparment_number'])) {
-            $driver->findElement(WebDriverBy::id('box'))->sendKeys($data['site_aparment_number']);
+        if (!empty($data['site_apartment_number'])) {
+            $driver->findElement(WebDriverBy::id('box'))->sendKeys($data['site_apartment_number']);
         }
 
         $driver->findElement(WebDriverBy::id('belgianPostalCode_label'))->click();

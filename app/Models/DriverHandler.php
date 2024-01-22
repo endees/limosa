@@ -98,7 +98,10 @@ class DriverHandler
         $firefoxOptions->setPreference("browser.download.dir", '/home/seluser/Downloads/'. $data['jobUUID']);
         $firefoxOptions->setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf, application/force-download");
 
-        $firefoxOptions->addArguments(['-headless']);
+        if(config('app.debug') === false) {
+            $firefoxOptions->addArguments(['-headless']);
+        }
+
         $firefoxOptions->addArguments(['window-size=2560,1440']);
         $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
         /** @var RemoteWebDriver $driver */

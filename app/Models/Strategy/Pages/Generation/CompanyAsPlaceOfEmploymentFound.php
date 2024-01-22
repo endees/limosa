@@ -15,7 +15,9 @@ class CompanyAsPlaceOfEmploymentFound implements PageInterface
             WebDriverExpectedCondition::elementTextMatches(WebDriverBy::cssSelector('h1'),
                 '@.*Declaration.*of.*a.*self-employed.*person.*without.*employees.*@')
         );
-
+        $driver->findElement(WebDriverBy::id('belgianPostalCode_label'))->click();
+        $driver->findElement(WebDriverBy::id('belgianPostalCode_filter'))->sendKeys($data['nip_place_of_work_current']['postcode']);
+        $driver->findElement(WebDriverBy::className('ui-state-highlight'))->click();
         if(config('app.debug') === true) {
             $driver->takeScreenshot('storage/screenshots/' . $data['jobUUID'] . '/' . $data['sequence'] . '_CompanyAsPlaceOfEmploymentFound.png');
         }

@@ -17,7 +17,8 @@ class WorkSiteValidateRequest extends FormRequest
         $postcodes = App::make(Postcodes::class);
         return [
             'nip_place_of_work' => 'array|max:5|nullable',
-            'nip_place_of_work.*' => 'numeric|digits:10',
+            'nip_place_of_work.*.nip' => 'required_with:nip_place_of_work|required|digits:10',
+            'nip_place_of_work.*.postcode' => ['required_with:nip_place_of_work|between:3,50', Rule::in($postcodes->getRawPostCodes())],
             'site_address' => 'array|max:5|nullable',
             'site_address.*.name' => 'required_with:site_address|string|between:3,50',
             'site_address.*.street' => 'required_with:site_address|string|between:3,50',

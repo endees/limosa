@@ -58,7 +58,7 @@ createApp({
         function addForm() {
             if (count.value < 5) {
                 var data = toRaw(formData.value);
-                data.nips.push({title: ''});
+                data.nips.push({title: '', postcode: ''});
                 dialog.value = true;
             }
         }
