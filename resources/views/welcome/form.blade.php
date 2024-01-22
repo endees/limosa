@@ -68,16 +68,17 @@
                         <div class="input-field">
                             <label for="nip_place_of_work[]">Nip </label>
                             <input type="text" class="nip_place_of_work" :name="'nip_place_of_work[' + index + '][nip]'" v-model="nip.title" placeholder="NIP">
-
-                            <div class="input-field">
-                                <v-combobox
-                                    :name="'nip_place_of_work[' + index + '][postcode]'"
-                                    label="Kod pocztowy i miasto"
-                                    :items="{{ $postcodes }}"
-                                    v-model="nip.postcode"
-                                ></v-combobox>
-                            </div>
                         </div>
+
+                        <div class="input-field">
+                            <v-combobox
+                                :name="'nip_place_of_work[' + index + '][postcode]'"
+                                label="Kod pocztowy i miasto"
+                                :items="{{ $postcodes }}"
+                                v-model="nip.postcode"
+                            ></v-combobox>
+                        </div>
+
                     </div>
                 </v-form>
                 <v-divider inset></v-divider>
