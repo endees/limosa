@@ -98,35 +98,50 @@ const validationRules = {
 };
 const siteFormRules = {
     rules: {
-        "nip_place_of_work[0]": {
+        "nip_place_of_work[0][nip]": {
             digits: true,
             required: true,
             minlength: 10,
             maxlength: 10
         },
-        "nip_place_of_work[1]": {
+        "nip_place_of_work[0][postcode]": {
+            required: true,
+        },
+        "nip_place_of_work[1][nip]": {
             digits: true,
             required: true,
             minlength: 10,
             maxlength: 10
         },
-        "nip_place_of_work[2]": {
+        "nip_place_of_work[1][postcode]": {
+            required: true,
+        },
+        "nip_place_of_work[2][nip]": {
             digits: true,
             required: true,
             minlength: 10,
             maxlength: 10
         },
-        "nip_place_of_work[3]": {
+        "nip_place_of_work[2][postcode]": {
+            required: true,
+        },
+        "nip_place_of_work[3][nip]": {
             digits: true,
             required: true,
             minlength: 10,
             maxlength: 10
         },
-        "nip_place_of_work[4]": {
+        "nip_place_of_work[3][postcode]": {
+            required: true,
+        },
+        "nip_place_of_work[4][nip]": {
             digits: true,
             required: true,
             minlength: 10,
             maxlength: 10
+        },
+        "nip_place_of_work[4][postcode]": {
+            required: true,
         },
         "site_address[0][name]": {
             required: true,
