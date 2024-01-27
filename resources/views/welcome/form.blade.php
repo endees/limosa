@@ -44,6 +44,10 @@
             <label for="sector">Branża<span>*</span></label>
             <v-select :items="items" name="sector" v-model="formData.sector"></v-select>
         </div>
+        <div class="input-field" v-show="formData.sector=='construction'">
+            <label for="sector_construction">Rodzaj budownictwa</label>
+            <v-select :items="construction_items" name="sector_construction" v-model="formData.sector_construction"></v-select>
+        </div>
         <div class="input-field">
             <label for="start_date">Data startu pracy<span>*</span></label>
             <input type="date" id="start_date" name="start_date" v-model="formData.start_date">

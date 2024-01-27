@@ -35,6 +35,10 @@ const validationRules = {
                     required: false,
                     digits: true
                 },
+                belgian_company_email: {
+                    required: false,
+                    email: true
+                },
                 sector: {
                     required: true
                 },
@@ -87,9 +91,9 @@ const validationRules = {
             },
             errorClass: "invalid"
         },
-        5: {
+        4: {
             rules: {
-                dataprocessing: {
+                "dataagreement[rodo]": {
                     required: true
                 }
             },

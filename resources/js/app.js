@@ -42,6 +42,7 @@ createApp({
             belgian_company_telephone: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['belgian_company_telephone']) ? limosaFormData['belgian_company_telephone'] : '',
             belgian_company_email: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['belgian_company_email']) ? limosaFormData['belgian_company_email'] : '',
             sector: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['sector']) ? limosaFormData['sector'] : '',
+            sector_construction: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['sector_construction']) ? limosaFormData['sector_construction'] : '',
             start_date: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['start_date']) ? limosaFormData['start_date'] : '',
             end_date: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['end_date']) ? limosaFormData['end_date'] : '',
             nips: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['nips']) ? limosaFormData['nips'] : [],
@@ -165,5 +166,27 @@ createApp({
                 value: 'other',
             }
         ],
+        construction_items: [
+            {
+                title: 'Oszklenie',
+                value: 'glass',
+            },
+            {
+                title: 'Hydraulika',
+                value: 'plumbing',
+            },
+            {
+                title: 'Brukarstwo',
+                value: 'pavement',
+            },
+            {
+                title: 'Murowanie',
+                value: 'masonry',
+            },
+            {
+                title: 'Inna',
+                value: 'other',
+            }
+        ]
     }),
 }).use(vuetify).mount('#app');

@@ -42,6 +42,8 @@ class Lead extends Mailable
                 'lastname' => $this->lead->lastname,
                 'email' => $this->lead->email,
                 'telephone' => $this->lead->telephone,
+                'sector' => $this->lead->sector,
+                'sector_construction' => $this->lead->sector_construction,
                 'company_name' => $belgianCompany->business_name,
                 'company_vat' => $belgianCompany->identifier,
                 'company_telephone' => $belgianCompany->company_telephone,

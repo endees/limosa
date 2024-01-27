@@ -13,6 +13,11 @@ class DataFormRequest extends FormRequest
         WorkSiteValidateRequest $siteValidateRequest
     ) {
         return array_merge(
+            [
+                'limosalanguage' => 'required|array|min:1',
+                'dataagreement' => 'array',
+                'dataagreement.rodo' => 'required'
+            ],
             $belgianCompanyStepRules->rules(),
             $dataInitRequestRules->rules(),
             $nipValidateRequest->rules(),

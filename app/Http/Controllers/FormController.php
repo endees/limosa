@@ -70,6 +70,8 @@ class FormController extends BaseController
         $leadModel = $existingCompany->lead()->create([
             'firstname' => $formData['firstname'],
             'lastname' => $formData['lastname'],
+            'sector' => $formData['sector'],
+            'sector_construction' => $formData['sector_construction'],
             'email' => $formData['customer_email'],
             'telephone' => $formData['customer_telephone'],
         ]);

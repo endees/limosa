@@ -19,6 +19,11 @@
                 <p>Nazwisko: {{ $lastname }}</p>
                 <p>Email: {{ $email }}</p>
                 <p>Telefon: {{ $telephone }}</p>
+                <p>Branża: {{ __('general.' . $sector) }}
+                    @if($sector_construction)
+                        {{ __( 'general.' . $sector_construction) }}
+                    @endif
+                </p>
             </article>
             <article>
                 <h1><span>Dane firmy</span></h1>

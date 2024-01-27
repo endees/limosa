@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev  \
         libxml2-dev  \
         npm \
-        supervisor
+        supervisor \
+        sudo
 
 RUN docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql soap intl
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
@@ -42,13 +43,12 @@ RUN \ | if [ "$DEPLOYMENT_MODE" = "dev" ] ; then \
 RUN a2enmod rewrite
 RUN a2enmod ssl
 
-RUN useradd -l -u ${UID:-1000} -m -g 33 $USER
-
+RUN useradd -l -u ${UID:-1000} -m -G www-data -s /bin/bash $USER
 RUN echo 'root:Docker!' | chpasswd
-RUN adduser ${USER} www-data
 RUN mkdir -p /var/log/supervisor
 RUN chown ${USER}:www-data /var/log/supervisor
 
 COPY ./dockerfiles/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+USER ${USER}
 CMD ["/usr/bin/supervisord"]

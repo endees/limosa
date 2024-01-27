@@ -34,4 +34,12 @@ return [
     'terms_of_service' => 'Warunki korzystania z usługi',
     'privacy_policy' => 'Polityka prywatności',
     'insurance_licenses' => 'Licencje ubezpieczeniowe',
+    'construction' => 'budownictwo',
+    'meat' => 'mięso',
+    'cleaning' => 'sprzątanie',
+    'masonry' => 'murarstwo',
+    'plumbing' => 'hydraulika',
+    'pavement' => 'brukarstwo',
+    'glass' => 'oszklenie',
+    'other' => 'inna',
 ];
