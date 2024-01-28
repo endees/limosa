@@ -12,7 +12,7 @@ class BelgianCompanyValidateRequest extends FormRequest
     {
         return [
             'belgian_nip' => 'numeric|required',
-            'belgian_company_telephone' => 'nullable|numeric',
+            'belgian_company_telephone' => 'nullable|string',
             'belgian_company_email' => 'nullable|email',
             'sector' => 'required',
             'sector_construction' => 'nullable',

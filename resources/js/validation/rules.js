@@ -14,10 +14,7 @@ const validationRules = {
                     email: true
                 },
                 customer_telephone: {
-                    required: true,
-                    digits: true,
-                    minlength: 9,
-                    maxlength: 9
+                    required: true
                 }
             },
             errorClass: "invalid"

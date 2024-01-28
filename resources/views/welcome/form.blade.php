@@ -27,7 +27,7 @@
 
     <div id="step2" class="form-inner lightSpeedIn step-container" data-step-number="2">
         <h1>Krok 2</h1>
-        <h3>Dane firmy belgijskiej:</h3>
+        <h3>Dane klienta belgijskiego:</h3>
         <div class="input-field">
             <label for="belgian_nip">NIP firmy belgijskiej<span>*</span></label>
             <input type="text" id="belgian_nip" name="belgian_nip" placeholder="Podaj nr belgijskiego pracodawcy składający się z 10 cyfr" v-model="formData.belgian_nip">
@@ -59,7 +59,7 @@
     </div>
     <div id="step3" class="form-inner lightSpeedIn step-container" data-step-number="3">
         <h1>Krok 3</h1>
-        <h3>Miejsca wykonywania działalności</h3>
+        <h3>Adres firmy i wykonywania pracy:</h3>
 
         <v-fade-transition hide-on-leave>
             <v-card
@@ -202,7 +202,7 @@
                         color="purple"
                         @click="addForm"
                     >
-                        Dodaj miejsce pracy po belgijskim NIP
+                        Adres firmy + NIP
                     </v-btn>
                 </v-list-subheader>
 
@@ -235,7 +235,7 @@
                         color="blue"
                         @click="newAddressForm"
                     >
-                        Dodaj adres miejsca pracy
+                        Adres wykonywania pracy
                     </v-btn>
                 </v-list-subheader>
             </v-list>
@@ -246,11 +246,10 @@
             type="warning"
             title="Podałeś maksymalną ilość adresów"
         ></v-alert>
-
     </div>
     <div id="step4" class="form-inner lightSpeedIn step-container" data-step-number="4">
         <h1>Krok 4</h1>
-        <h3>Dane identyfikacyjne firmy:</h3>
+        <h3>Dane identyfikacyjne Twojej firmy:</h3>
         <div class="input-field">
             <label for="nip">NIP <span>*</span></label>
             <input required type="text" name="nip" id="nip" placeholder="Wpisz NIP składający się z 10 cyfr" v-model="formData.nip">
@@ -282,7 +281,7 @@
     </div>
     <div id="step5" class="form-inner lightSpeedIn step-container" data-step-number="5">
         <h1>Krok 5</h1>
-        <h3>Wymagane zgody oraz język otrzymanej limosy</h3>
+        <h3>Wymagane zgody oraz język otrzymanej limosy:</h3>
         <div class="check-field">
             <label>Język wygenerowanej limosy</label>
             <div class="row">
