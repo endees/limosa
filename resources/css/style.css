@@ -139,7 +139,7 @@ form {
     padding-bottom: 40px;
 }
 
-.input-field label, .check-field label {
+.input-field label {
     font-size: 18px;
     color: var(--field-text-color);
     font-weight: bold;
@@ -147,7 +147,13 @@ form {
     margin-bottom: 20px;
 }
 
-.input-field label i, .check-field label i {
+.check-field label {
+    font-size: 18px;
+    color: var(--field-text-color);
+    font-weight: bold;
+}
+
+.input-field label i {
     margin-right: 10px;
 }
 
@@ -196,46 +202,6 @@ form {
     height: 40px;
 }
 
-.check-field input[type=checkbox] {
-    -webkit-appearance: none;
-    border: solid 2px rgb(184, 183, 180);
-    border-radius: 6px;
-    background-color: rgb(255, 255, 255);
-    width: 22px;
-    height: 22px;
-    transition: 0.4s ease;
-    cursor: pointer;
-}
-
-.check-field input[type=checkbox]:checked {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    position: relative;
-}
-
-.check-field input[type=checkbox]:checked::before {
-    content: "\f00c";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 14px;
-    width: 100%;
-    color: rgb(255, 255, 255);
-    position: absolute;
-    display: grid;
-    place-content: center;
-}
-
-.check-single {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.check-single label {
-    font-size: 16px;
-    color: var(--field-text-color);
-    margin-left: 15px;
-    max-width: 450px;
-}
 
 .submit {
     width: 188px;

@@ -10,6 +10,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import * as _ from 'underscore'
 import {siteFormRules} from "./validation/rules.js";
+import {forEach} from "underscore";
 
 const vuetify = createVuetify({
     components,
@@ -33,6 +34,24 @@ createApp({
             var nip = toRaw(formData.value.nips);
             return address.length + nip.length;
         })
+
+        const selectedAgreements = ref([])
+        const allSelected = ref(false);
+        const dataagreement = ref([
+            {
+                title: 'Zgoda na przetwarzanie danych osobowych do celów wygenerowania limosy *',
+                value: 'rodo',
+            },
+            {
+                title: 'Zgoda na przetwarzanie danych do celów marketingowych',
+                value: 'marketing',
+            },
+            {
+                title: 'Newsletter',
+                value: 'newsletter',
+            }
+        ]);
+
         const formData = ref({
             firstname: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['firstname']) ? limosaFormData['firstname'] : '',
             lastname: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['lastname']) ? limosaFormData['lastname'] : '',
@@ -55,6 +74,16 @@ createApp({
             postcode: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['postcode']) ? limosaFormData['postcode'] : '',
             city: !_.isEmpty(limosaFormData) && !_.isEmpty(limosaFormData['city']) ? limosaFormData['city'] : '',
         });
+
+        function toggleAllDataAgreement() {
+            selectedAgreements.value = [];
+
+            if (!allSelected.value) {
+                _.each( toRaw(dataagreement.value), function(agreement) {
+                    selectedAgreements.value.push(agreement.value);
+                });
+            }
+        }
 
         function addForm() {
             if (count.value < 5) {
@@ -140,7 +169,11 @@ createApp({
             cancelAddressEdit,
             deleteAddress,
             paginate,
-            formData
+            formData,
+            toggleAllDataAgreement,
+            selectedAgreements,
+            allSelected,
+            dataagreement
         }
     },
     data: () => ({
@@ -187,6 +220,7 @@ createApp({
                 title: 'Inna',
                 value: 'other',
             }
-        ]
+        ],
+
     }),
 }).use(vuetify).mount('#app');

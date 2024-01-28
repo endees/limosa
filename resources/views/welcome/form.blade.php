@@ -287,22 +287,10 @@
             <label>Język wygenerowanej limosy</label>
             <div class="row">
                 <div class="tab-100 col-md-6">
-                    <div class="check-single">
-                        <input type="checkbox" name="limosalanguage[en]" value="true">
-                        <label>Angielski</label>
-                    </div>
-                    <div class="check-single">
-                        <input type="checkbox" name="limosalanguage[fr]" value="true">
-                        <label>Francuski</label>
-                    </div>
-                    <div class="check-single">
-                        <input type="checkbox" name="limosalanguage[nl]" value="true">
-                        <label>Niderlandzki</label>
-                    </div>
-                    <div class="check-single">
-                        <input type="checkbox" name="limosalanguage[de]" value="true">
-                        <label>Niemiecki</label>
-                    </div>
+                    <v-checkbox name="limosalanguage[en]" value="true" label="Angielski" hide-details></v-checkbox>
+                    <v-checkbox name="limosalanguage[fr]" value="true" label="Francuski" hide-details></v-checkbox>
+                    <v-checkbox name="limosalanguage[nl]" value="true" label="Niderlandzki" hide-details></v-checkbox>
+                    <v-checkbox name="limosalanguage[de]" value="true" label="Niemiecki" hide-details></v-checkbox>
                 </div>
             </div>
         </div>
@@ -310,23 +298,9 @@
         <div class="check-field">
             <label>Wymagane zgody</label>
             <div class="row">
-                <div class="tab-100 col-md-12">
-                    <div class="check-single">
-                        <input type="checkbox" name="dataagreement[all]" value="true">
-                        <label>Zaznacz wszystkie</label>
-                    </div>
-                    <div class="check-single">
-                        <input type="checkbox" name="dataagreement[rodo]" value="true">
-                        <label>Zgoda na przetwarzanie danych osobowych do celów wygenerowania limosy<span>*</span></label>
-                    </div>
-                    <div class="check-single">
-                        <input type="checkbox" name="dataagreement[marketing]" value="true">
-                        <label>Zgoda na przetwarzanie danych do celów marketingowych</label>
-                    </div>
-                    <div class="check-single">
-                        <input type="checkbox" name="dataagreement[newsletter]" value="true">
-                        <label>Newsletter</label>
-                    </div>
+                <v-checkbox name="dataagreement[all]" v-model="allSelected" @click="toggleAllDataAgreement" label="Zaznacz wszystkie" hide-details></v-checkbox>
+                <div class="tab-100 col-md-12" v-for="agreement in dataagreement">
+                    <v-checkbox :name="'dataagreement[' + agreement.value + ']'" :value="agreement.value" v-model="selectedAgreements" :label="agreement.title" hide-details></v-checkbox>
                 </div>
             </div>
         </div>
