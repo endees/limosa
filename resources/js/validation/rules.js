@@ -50,7 +50,7 @@ const validationRules = {
             },
             errorClass: "invalid"
         },
-        3: {
+        4: {
             rules: {
                 nip: {
                     required: true,
@@ -88,7 +88,7 @@ const validationRules = {
             },
             errorClass: "invalid"
         },
-        4: {
+        5: {
             rules: {
                 "dataagreement[rodo]": {
                     required: true
@@ -263,7 +263,8 @@ function messagesPl() {
         range: $.validator.format( "Proszę o podanie wartości z przedziału od {0} do {1}." ),
         max: $.validator.format( "Proszę o podanie wartości mniejszej bądź równej {0}." ),
         min: $.validator.format( "Proszę o podanie wartości większej bądź równej {0}." ),
-        pattern: $.validator.format( "Pole zawiera niedozwolone znaki." )
+        pattern: $.validator.format( "Pole zawiera niedozwolone znaki." ),
+        postcode: "Proszę o podanie prawidłowego kodu pocztowego",
     } );
 }
 
