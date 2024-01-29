@@ -33,7 +33,11 @@ class ProcessLimosaGeneration implements ShouldQueue, ShouldBeUnique
     public function handle(): void
     {
         $this->formData['jobUUID'] = $this->job->getJobId();
-        Log::info('Start generating a new limosa for: ' . json_encode($this->formData));
+
+        if (config('app.debug') === true) {
+            Log::info('Start generating a new limosa for: ' . json_encode($this->formData));
+        }
+
         $this->driverHandler->generateLimosa($this->formData);
 
         $mailable = new LimosaGenerated('storage/limosas/'. $this->formData['jobUUID']);
