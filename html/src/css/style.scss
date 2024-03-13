@@ -1,0 +1,13 @@
+// 1. Configuration
+@import "abstracts/variables";
+@import "abstracts/fonts";
+
+// 2. Base stuff
+@import "base/base";
+@import "base/button";
+@import "base/form";
+
+// 3. Layout-related sections
+@import "layouts/header";
+@import "layouts/sections";
+@import "layouts/footer";

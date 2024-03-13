@@ -1,0 +1,26 @@
+.button-container {
+    display: flex;
+    gap: 32px;
+    @media (max-width: 499.98px) {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+.button {
+    padding: 17px 40px 23px;
+    background: $black;
+    border-radius: 6px;
+    color: $white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    transition: .4s;
+    transform: scale(1);
+    &:hover {
+        padding: 22px 40px 18px;
+        color: $white;
+        transform: scale(1.05);
+    }
+    &--blue{
+        background: $main_color;
+    }
+}

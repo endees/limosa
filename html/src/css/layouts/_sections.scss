@@ -1,0 +1,123 @@
+.hero {
+    padding-top: 120px;
+    position: relative;
+    background-image: url(img/hero-bg.webp);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    @media (min-width: 2200px) {
+        background-size:cover;
+    }
+    &:before{
+        content: url(img/hero-bg-top.webp);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    &__content {
+        padding-bottom: 50px;
+        @media (max-width: 767.98px) {
+            padding-top: 50px;
+            text-align: center;
+        }
+        .button-container{
+            @media (max-width: 767.98px) {
+                justify-content: center;
+            }
+        }
+    }
+    &__image{
+        img{
+            @media (max-width: 767.98px) {
+                max-height:350px;
+            }
+        }
+    }
+}
+.content-column {
+    padding:150px 0;
+    background-image: url(img/section-column-bg.webp);
+    background-position: top center;
+    background-repeat: no-repeat;
+    @media (min-width: 2200px) {
+        background-size:contain;
+    }
+    @media (max-width: 1199.98px) {
+        padding-bottom: 60px;
+    }
+    .image-left {
+        position: relative;
+        left: -60px;
+        @media (max-width: 1199.98px) {
+            left: -10px;
+        }
+    }
+}
+.faq {
+    padding:90px 0 140px;
+    background: $bg;
+    @media (max-width: 1199.98px) {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    .accordion {
+        margin: 50px auto 0;
+        max-width: 950px;
+        &-item {
+            padding: 5px 0;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid $white;
+        }
+        &-button {
+            padding-left: 0;
+            padding-right: 0;
+            background-color: transparent;
+            color: $black;
+            font-size: 2.8rem;
+            font-weight: 600;
+            box-shadow: none!important;
+            @media (max-width: 767.98px) {
+                font-size: 2rem;
+            }
+            &:after{
+                content:'+';
+                background: none;
+                width: auto;
+                height: auto;
+                color: $main_color;
+                font-size: 5.8rem;
+                font-weight: 300;
+                @media (max-width: 767.98px) {
+                    margin-top: -8px;
+                }
+            }
+            &:not(.collapsed):after{
+                content:'--';
+                background: none;
+                position:relative;
+                top:6px;
+                right:3px;
+            }
+        }
+        &-body{
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+.limosa-form {
+    position: relative;
+    padding: 140px 0 70px;
+    @media (max-width: 1199.98px) {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    &:before{
+        content: url(img/contact-bg.webp);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+}
