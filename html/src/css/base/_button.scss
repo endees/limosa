@@ -7,7 +7,7 @@
     }
 }
 .button {
-    padding: 17px 40px 23px;
+    padding: 20px 40px;
     background: $black;
     border-radius: 6px;
     color: $white;
@@ -16,9 +16,9 @@
     transition: .4s;
     transform: scale(1);
     &:hover {
-        padding: 22px 40px 18px;
         color: $white;
         transform: scale(1.05);
+        opacity: .8;
     }
     &--blue{
         background: $main_color;

@@ -6,6 +6,7 @@
         <meta name="theme-color" content="#FAE4CA">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="dist/build-style.css">
+        <link rel="icon" href="dist/img/favicon.png" sizes="128x128" />
         <title>Limosa Site</title>
     </head>
     <body>
@@ -20,12 +21,17 @@
                             </a>
                         </h1>
                     </div>
-                    <div class="col-6 d-none d-md-flex align-items-center justify-content-end">
+                    <div class="col-6 d-flex align-items-center justify-content-end">
                         <ul class="menu__list">
-                            <li class="menu__item"><a class="menu__link" href="#">O Limosa</a></li>
-                            <li class="menu__item"><a class="menu__link" href="#">FAQ</a></li>
-                            <li class="menu__item"><a class="menu__link" href="#">Uzyskaj Limosa</a></li>
+                            <li class="menu__item"><a class="menu__link" href="#about-limosa">O Limosa</a></li>
+                            <li class="menu__item"><a class="menu__link" href="#faq">FAQ</a></li>
+                            <li class="menu__item"><a class="menu__link" href="#form-limosa">Uzyskaj Limosa</a></li>
                         </ul>
+                        <div class="hamburger d-lg-none">
+                            <span class="line line1">&nbsp;</span>
+                            <span class="line line2">&nbsp;</span>
+                            <span class="line line3">&nbsp;</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,8 +44,8 @@
                             <h2 class="section-title">Ułatw sobie pracę w Belgii - bez rejestracji i całkowicie za darmo!</h2>
                             <span class="section-subtitle">Zautomatyzowany proces Limosa dla polskich przedsiębiorców.</span>
                             <div class="button-container">
-                                <a class="button" href="#">Czym jest Limosa?</a>
-                                <a class="button button--blue" href="#">Uzyskaj dokument</a>
+                                <a class="button" href="#about-limosa">Czym jest Limosa?</a>
+                                <a class="button button--blue" href="#form-limosa">Uzyskaj dokument</a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +57,7 @@
                 </div>
             </div>
         </section>
-        <section class="content-column">
+        <section id="about-limosa" class="content-column">
             <div class="container">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -71,7 +77,7 @@
                 </div>
             </div>
         </section>
-        <section class="faq">
+        <section id="faq" class="faq">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-title">FAQ</h2>
@@ -122,7 +128,7 @@
             </div>
         </section>
 
-        <section class="limosa-form">
+        <section id="form-limosa" class="limosa-form">
             <div class="container">
                 <h1 class="text-center">SEKCJA Z FORMULARZEM</h1>
                 <p>Uzupełnij formularz, aby natychmiastowo otrzymać dokument Limosa. Ten krok jest wszystkim, co dzieli Cię od rozpoczęcia pracy w Belgii bez zbędnych formalności. Proces jest prosty, szybki i zaprojektowany z myślą o Twojej wygodzie.</p>
@@ -132,19 +138,19 @@
         <section class="contact-footer">
             <div class="container">
                 <div class="row gy-5">
-                    <div class="col-md-4 d-flex align-items-center gap-4">
+                    <div class="col-md-4 d-flex align-items-center gap-4 justify-content-center">
                         <div class="contact-footer__icon"><img src="dist/img/icon-point.svg" alt="Nasza siedziba"></div>
                         <div class="contact-footer__text">
                             <a class="point-link" href="#">Lorem ipsum dolor sit <br>amet, consectetur <br>adipiscing elit. </a>
                         </div>
                     </div>
-                    <div class="col-md-4 d-flex align-items-center gap-4">
+                    <div class="col-md-4 d-flex align-items-center gap-4 justify-content-center">
                         <div class="contact-footer__icon"><img src="dist/img/icon-phone.svg" alt="Nasz nuper telefonu"></div>
                         <div class="contact-footer__text">
                             <a class="phone-link" href="#">+48 32 4566 32</a>
                         </div>
                     </div>
-                    <div class="col-md-4 d-flex align-items-center gap-4">
+                    <div class="col-md-4 d-flex align-items-center gap-4 justify-content-center">
                         <div class="contact-footer__icon"><img src="dist/img/icon-mail.svg" alt="Nasz adres mailowy"></div>
                         <div class="contact-footer__text">
                             <a class="mail-link" href="#">info@limosasite.pl</a>
@@ -158,6 +164,6 @@
             </div>
         </section>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="dist/script.js"></script>
+        <script src="dist/build-combined.js"></script>
     </body>
 </html>

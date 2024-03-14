@@ -31,6 +31,23 @@ nav {
             display: flex;
             gap: 35px;
             list-style: none;
+            
+            @media (max-width: 767.98px) {
+                position: fixed;
+                top: 54px;
+                right: -400px;
+                max-width: 320px;
+                width: 100%;
+                height: auto;
+                padding: 30px;
+                flex-direction: column;
+                background: $light_bg;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+                transition: .4s;
+            }
+            &.openmenu{
+                right: 0!important;
+            }
         }
         &__link {
             font-size: 1.8rem;
@@ -45,5 +62,53 @@ nav {
     box-shadow: 0 0 10px rgba(0,0,0,0.08);
     @media (max-width: 767.98px) {
         padding: 8px 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hamburger {
+        position: fixed;
+        right: 15px;
+        top: 18px;
+        width: 36px;
+        height: 36px;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+    .hamburger .line {
+        position: absolute;
+        left: 0;
+        height: 5px;
+        width: 100%;
+        background: $main_color;
+        transition: 0.4s;
+    }
+
+    .hamburger .line1 {
+        top: 0;
+        width: 36px;
+    }
+
+    .hamburger:hover .line1 {
+        width: 30px;
+    }
+
+    .hamburger .line2 {
+        top: 11px;
+        width: 30px;
+    }
+
+    .hamburger:hover .line2 {
+        width: 36px;
+    }
+
+    .hamburger .line3 {
+        top: 22px;
+        width: 36px;
+    }
+
+    .hamburger:hover .line3 {
+        width: 30px;
     }
 }
