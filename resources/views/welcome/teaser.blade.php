@@ -7,9 +7,5 @@
     <div class="left-img">
         <img src="{{asset('images/left-bg.gif') }}" alt="Wypełnianie limosa">
     </div>
-    <ul class="links">
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Insurance Licenses</a></li>
-    </ul>
+    
 </div>

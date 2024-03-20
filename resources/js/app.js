@@ -1,6 +1,7 @@
 import { createApp, ref, toRaw, triggerRef, computed } from 'vue'
 
 import './custom';
+import './build-combined';
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 // Vuetify

@@ -58,6 +58,8 @@ services:
       hub:
   mysql:
     image: mysql:8
+    ports:
+      - 3307:3307
     environment:
       MYSQL_USER: homestead
       MYSQL_PASSWORD: secret

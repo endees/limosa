@@ -8,4 +8,5 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6Ld9RT4pAAAAABCGucbYFiGRY-yElzY884aNMJNY"></script>
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@3.4.11/dist/vuetify.min.css" rel="stylesheet">
+    <link href="{{ Vite::asset('resources/css/build-style.css') }}" rel="stylesheet">
 </head>

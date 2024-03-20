@@ -29,6 +29,15 @@ main {
 
 }
 
+.step-container h1 {
+    font-size: 64px;
+    margin-bottom: 1rem;
+}
+.step-container h3 {
+    font-size: 28px;
+    margin-bottom: 1rem;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -53,7 +62,7 @@ main {
 }
 
 .left {
-    margin-top: 100px;
+    /* margin-top: 100px; */
 }
 
 .left, .right {
@@ -80,7 +89,7 @@ main {
 }
 
 .side-text h2 {
-    font-size: 65px;
+    font-size: 42px;
     color: var(--field-text-color);
     font-weight: bold;
     line-height: 1.2;
@@ -148,7 +157,7 @@ form {
 }
 
 .check-field label {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--field-text-color);
     font-weight: bold;
 }
